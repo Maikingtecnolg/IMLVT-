@@ -29,11 +29,10 @@ public class PanelHistorial extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        btnh_buscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
-        btnh_actualizar = new javax.swing.JButton();
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 36)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 153));
@@ -42,10 +41,10 @@ public class PanelHistorial extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 12)); // NOI18N
         jLabel16.setText("Busque por nombre o ID al paciente");
 
-        btnh_buscar.setBackground(new java.awt.Color(153, 153, 255));
-        btnh_buscar.setFont(new java.awt.Font("MV Boli", 2, 14)); // NOI18N
-        btnh_buscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnh_buscar.setText("Buscar");
+        jButton1.setBackground(new java.awt.Color(153, 153, 255));
+        jButton1.setFont(new java.awt.Font("MV Boli", 2, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Buscar");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,11 +62,6 @@ public class PanelHistorial extends javax.swing.JPanel {
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 12)); // NOI18N
         jLabel17.setText("Todos los pacientes-5 registros");
 
-        btnh_actualizar.setBackground(new java.awt.Color(153, 153, 255));
-        btnh_actualizar.setFont(new java.awt.Font("MV Boli", 2, 14)); // NOI18N
-        btnh_actualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnh_actualizar.setText("Actualizar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,18 +69,15 @@ public class PanelHistorial extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(jLabel16)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
-                        .addComponent(btnh_buscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnh_actualizar)))
-                .addContainerGap(180, Short.MAX_VALUE))
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,25 +89,18 @@ public class PanelHistorial extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnh_buscar))
+                    .addComponent(jButton1))
                 .addGap(46, 46, 46)
                 .addComponent(jLabel17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                        .addComponent(btnh_actualizar)
-                        .addGap(163, 163, 163))))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnh_actualizar;
-    private javax.swing.JButton btnh_buscar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;

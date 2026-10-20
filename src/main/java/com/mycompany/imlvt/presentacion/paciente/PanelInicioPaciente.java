@@ -10,6 +10,18 @@ package com.mycompany.imlvt.presentacion.paciente;
  */
 public class PanelInicioPaciente extends javax.swing.JPanel {
 
+    private String cedulaPaciente;
+
+    public PanelInicioPaciente(String cedula, String nombre) {
+        initComponents();
+        
+        
+this.cedulaPaciente = cedula;
+        
+      
+      lblNombreUsuario.setText(nombre);
+      cargarMisCitas();
+    }
     /**
      * Creates new form PanelInicioPaciente
      */
@@ -29,11 +41,12 @@ public class PanelInicioPaciente extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblNombreUsuario = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        btnAgendarWhatsapp = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -51,8 +64,8 @@ public class PanelInicioPaciente extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel15.setText("Mis Citas Agendadas");
 
-        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Nombre de Usuario");
+        lblNombreUsuario.setForeground(new java.awt.Color(51, 51, 51));
+        lblNombreUsuario.setText("Nombre de Usuario");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel16.setText("Proxima Cita");
@@ -88,6 +101,12 @@ public class PanelInicioPaciente extends javax.swing.JPanel {
             .addGap(0, 106, Short.MAX_VALUE)
         );
 
+        btnAgendarWhatsapp.setBackground(new java.awt.Color(0, 153, 0));
+        btnAgendarWhatsapp.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        btnAgendarWhatsapp.setForeground(new java.awt.Color(231, 252, 232));
+        btnAgendarWhatsapp.setText("Agendar Mediante Whatsapp");
+        btnAgendarWhatsapp.addActionListener(this::btnAgendarWhatsappActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,12 +122,14 @@ public class PanelInicioPaciente extends javax.swing.JPanel {
                                     .addComponent(jLabel16)
                                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(108, 108, 108)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAgendarWhatsapp, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
+                        .addComponent(lblNombreUsuario))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -120,9 +141,11 @@ public class PanelInicioPaciente extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel6))
-                .addGap(33, 33, 33)
-                .addComponent(jLabel16)
+                    .addComponent(lblNombreUsuario))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(btnAgendarWhatsapp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,19 +154,57 @@ public class PanelInicioPaciente extends javax.swing.JPanel {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+private void cargarMisCitas() {
+     
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0); 
+        // 2. Pedimos las citas a la capa de Servicios, enviándole tu cédula guardada
+        com.mycompany.imlvt.servicios.ServiciosPaciente servicio = new com.mycompany.imlvt.servicios.ServiciosPaciente();
+        java.util.List<Object[]> misCitas = servicio.listarMisCitas(this.cedulaPaciente);
+
+        if (misCitas != null) {
+            for (Object[] fila : misCitas) {
+                modelo.addRow(fila);
+            }
+        }
+    }
+    private void btnAgendarWhatsappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarWhatsappActionPerformed
+       try {
+     
+            String numeroTelefono = "593984517090"; 
+         
+            String nombrePaciente = lblNombreUsuario.getText();
+         
+            String mensaje = "Hola clínica IMLVT, soy " + nombrePaciente + " y necesito agendar una cita médica.";
+            
+            mensaje = mensaje.replace(" ", "%20");
+            
+            String url = "https://wa.me/" + numeroTelefono + "?text=" + mensaje;
+            
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Tu sistema no soporta abrir enlaces automáticamente.");
+            }
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo abrir WhatsApp: " + e.getMessage());
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgendarWhatsappActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgendarWhatsapp;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -38,7 +38,7 @@ public class LoginIMLVT extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txt_contraseña = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(javax.swing.UIManager.getDefaults().getColor("Component.focusedBorderColor"));
@@ -80,11 +80,10 @@ public class LoginIMLVT extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 255, 153));
         jButton2.setText("Registrarme");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 204));
-        jButton1.setText("Iniciar Sesion");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnIniciarSesion.setBackground(new java.awt.Color(153, 255, 204));
+        btnIniciarSesion.setText("Iniciar Sesion");
+        btnIniciarSesion.addActionListener(this::btnIniciarSesionActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -101,7 +100,7 @@ public class LoginIMLVT extends javax.swing.JFrame {
                             .addComponent(jLabel2)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -125,7 +124,7 @@ public class LoginIMLVT extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -160,13 +159,67 @@ public class LoginIMLVT extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String correo = txt_correoelctronico.getText();
+        
+        String password = new String(txt_contraseña.getPassword()); 
+     
+        if (correo.isEmpty() || password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese su correo y contraseña.");
+            return;
+        }
+
+        // 2. Nos conectamos a la base de datos
+        java.sql.Connection conexion = com.mycompany.imlvt.datos.ConexionDB.obtenerConexion();
+
+        if (conexion != null) {
+            try {
+                // 3. Buscamos si existe alguien con ese correo Y esa contraseña
+                String sql = "SELECT cedula, nombres, rol FROM usuarios WHERE correo = ? AND password = ?";
+                java.sql.PreparedStatement ps = conexion.prepareStatement(sql);
+                ps.setString(1, correo);
+                ps.setString(2, password);
+                java.sql.ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+           
+                    String cedula = rs.getString("cedula");
+                    String nombre = rs.getString("nombres");
+                    String rol = rs.getString("rol");
+
+                    switch (rol) {
+                       case "Paciente" -> {
+                            // Abrimos el Menú Principal (JFrame), pasándole tu cédula y nombre
+                            com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal menuPrincipal = new com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal(cedula, nombre);
+                            menuPrincipal.setVisible(true);
+                            this.dispose(); // Cierra el Login
+                        }
+                        
+                            
+                        case "Secretaria" -> // Aquí irá la pantalla de la secretaria cuando la unas
+                            javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida, Secretaria. Pantalla en construcción...");
+                            
+                        case "Medico" -> // Aquí irá la pantalla del médico
+                            javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido, Doctor. Pantalla en construcción...");
+                            
+                        case "Enfermera" -> // Aquí irá la pantalla de la enfermera
+                            javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida, Enfermera. Pantalla en construcción...");
+                            
+                        default -> javax.swing.JOptionPane.showMessageDialog(this, "Rol no reconocido por el sistema.");
+                    }
+
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
+                }
+
+            } catch (java.sql.SQLException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al conectar: " + e.getMessage());
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.");
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,8 +247,8 @@ public class LoginIMLVT extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIniciarSesion;
     private java.awt.Canvas canvas1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

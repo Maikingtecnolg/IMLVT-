@@ -13,12 +13,30 @@ import com.mycompany.imlvt.presentacion.comunes.PaneldeUsuario;
 public class MenuIMLVTFinal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuIMLVTFinal.class.getName());
-
+private String miCedula;
+    private String miNombre;
+    
     /**
      * Creates new form MenuIMLVTFinal
      */
-    public MenuIMLVTFinal() {
+    public MenuIMLVTFinal(String cedula, String nombre) {
+       this.miCedula = cedula;
+        this.miNombre = nombre;
+        this.setLocationRelativeTo(null); // Centra la ventana
+        
+        // 3. Hacemos que apenas se abra, cargue el panel de inicio automáticamente
+   
         initComponents();
+          cargarPanelInicio();
+    }
+    private void cargarPanelInicio() {
+        // Le pasamos tus datos al panel
+        PanelInicioPaciente panelInicio = new PanelInicioPaciente(miCedula, miNombre);
+        panelContenedor.removeAll();
+        panelContenedor.setLayout(new java.awt.BorderLayout()); 
+        panelContenedor.add(panelInicio, java.awt.BorderLayout.CENTER);
+        panelContenedor.revalidate();
+        panelContenedor.repaint();
     }
 
     /**
@@ -174,13 +192,8 @@ public class MenuIMLVTFinal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMenupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenupacActionPerformed
-      PanelInicioPaciente panelInicio = new PanelInicioPaciente();
-panelContenedor.removeAll();
-// Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-panelContenedor.setLayout(new java.awt.BorderLayout()); 
-panelContenedor.add(panelInicio, java.awt.BorderLayout.CENTER);
-panelContenedor.revalidate();
-panelContenedor.repaint();    // TODO add your handling code here:
+    cargarPanelInicio();
+   // TODO add your handling code here:
     }//GEN-LAST:event_btnMenupacActionPerformed
 
     private void btnPerfilUpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilUpacActionPerformed
@@ -242,7 +255,7 @@ panelContenedor.repaint();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuIMLVTFinal().setVisible(true));
+      java.awt.EventQueue.invokeLater(() -> new MenuIMLVTFinal("0000000000", "Usuario Prueba").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

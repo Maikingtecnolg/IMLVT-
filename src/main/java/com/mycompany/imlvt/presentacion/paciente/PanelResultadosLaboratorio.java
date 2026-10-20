@@ -44,7 +44,6 @@ public class PanelResultadosLaboratorio extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 1000));
-        setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(204, 255, 255));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(850, 1200));
@@ -186,7 +185,7 @@ public class PanelResultadosLaboratorio extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +216,16 @@ public class PanelResultadosLaboratorio extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jPanel1);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 971, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
