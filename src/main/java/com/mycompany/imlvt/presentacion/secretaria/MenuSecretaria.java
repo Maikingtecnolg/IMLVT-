@@ -21,15 +21,15 @@ public class MenuSecretaria extends javax.swing.JFrame {
         cargarTablaCitas();
     }
     private void cargarTablaCitas() {
-        // Limpiamos la tabla visual primero
+        
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0); 
 
-        // Pedimos los datos a Servicios
+        
         com.mycompany.imlvt.servicios.ServiciosSecretaria servicio = new com.mycompany.imlvt.servicios.ServiciosSecretaria();
         java.util.List<Object[]> citas = servicio.listarCitas();
 
-        // Llenamos la tabla fila por fila
+        
         if (citas != null) {
             for (Object[] fila : citas) {
                 modelo.addRow(fila);
@@ -40,19 +40,19 @@ private void cargarDoctores() {
       cbxDoctor.removeAllItems();
         cbxDoctor.addItem("Seleccione un doctor...");
 
-        // Llamamos a la capa de Servicios
+        
         com.mycompany.imlvt.servicios.ServiciosSecretaria servicio = new com.mycompany.imlvt.servicios.ServiciosSecretaria();
         java.util.List<String> lista = servicio.listarDoctores();
 
-        // 1er Escenario: Falló la conexión (Servicio devolvió null)
+        
         if (lista == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error: No se pudo conectar a la base de datos.");
         } 
-        // 2do Escenario: Conectó perfecto, pero la lista está vacía
+     
         else if (lista.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Conectó a MySQL, pero no encontró doctores.");
         } 
-        // 3er Escenario: ¡Todo perfecto!
+       
         else {
             for (String doctor : lista) {
                 cbxDoctor.addItem(doctor);
@@ -285,6 +285,7 @@ private void cargarDoctores() {
         jLabel22.setText("Fecha");
 
         cbxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00", " ", " ", " " }));
+        cbxHora.addActionListener(this::cbxHoraActionPerformed);
 
         jLabel23.setText("Hora");
 
@@ -301,30 +302,32 @@ private void cargarDoctores() {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel16)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbxDoctor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbxEspecialidad, javax.swing.GroupLayout.Alignment.LEADING, 0, 381, Short.MAX_VALUE)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel18))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btnAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel21)
-                        .addComponent(jLabel20)
-                        .addComponent(jLabel19)
-                        .addComponent(jLabel18)
-                        .addComponent(jLabel17)
-                        .addComponent(jLabel16)
-                        .addComponent(txtCedula)
-                        .addComponent(txtNombre)
-                        .addComponent(cbxEspecialidad, 0, 436, Short.MAX_VALUE)
-                        .addComponent(cbxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel22)
-                                .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel23)
-                                .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(132, Short.MAX_VALUE))
+                        .addGap(75, 75, 75)
+                        .addComponent(btnAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,9 +337,19 @@ private void cargarDoctores() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addGap(31, 31, 31)
-                .addComponent(jLabel18)
-                .addGap(11, 11, 11)
-                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(11, 11, 11)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,19 +362,11 @@ private void cargarDoctores() {
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel23))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(btnAgendarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -408,7 +413,7 @@ private void cargarDoctores() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap(317, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnReprogramarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelarCita))
@@ -419,6 +424,7 @@ private void cargarDoctores() {
                         .addComponent(txtBuscarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45))
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane2)
                 .addContainerGap())
         );
@@ -429,9 +435,9 @@ private void cargarDoctores() {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(txtBuscarCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReprogramarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -447,16 +453,19 @@ private void cargarDoctores() {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(141, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,23 +477,20 @@ private void cargarDoctores() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.LINE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -494,21 +500,21 @@ private void cargarDoctores() {
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
-// 1. Recolectamos los datos de la pantalla
+
 String cedPaciente = txtCedula.getText();
 String especialidad = cbxEspecialidad.getSelectedItem().toString();
 String docSeleccionado = cbxDoctor.getSelectedItem().toString();
-java.util.Date fecha = dateFecha.getDate(); // Así se obtiene la fecha del JDateChooser
+java.util.Date fecha = dateFecha.getDate(); 
 String hora = cbxHora.getSelectedItem().toString();
 
-// 2. Llamamos a nuestra capa de Servicios
+
 com.mycompany.imlvt.servicios.ServiciosSecretaria servicio = new com.mycompany.imlvt.servicios.ServiciosSecretaria();
 String respuesta = servicio.registrarCita(cedPaciente, docSeleccionado, especialidad, fecha, hora);
 
-// 3. Mostramos el resultado
+
 if (respuesta.equals("OK")) {
     javax.swing.JOptionPane.showMessageDialog(this, "¡Cita agendada con éxito!");
-    // Aquí puedes llamar al botón Limpiar para vaciar las cajas
+    
 } else {
     javax.swing.JOptionPane.showMessageDialog(this, respuesta);
 }        // TODO add your handling code here:
@@ -532,33 +538,33 @@ jTable1.setRowSorter(filtro);
 if (textoBusqueda.trim().length() == 0) {
     filtro.setRowFilter(null);
 } else {
-    // Filtra sin importar mayúsculas o minúsculas en cualquier columna (nombre, cédula, etc.)
+    
     filtro.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + textoBusqueda));
 }        // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarCitaKeyReleased
 
     private void btnCancelarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCitaActionPerformed
-// 1. Validamos que haya seleccionado una fila
+
 int fila = jTable1.getSelectedRow();
 if (fila == -1) {
     javax.swing.JOptionPane.showMessageDialog(this, "Seleccione una cita de la tabla primero.");
     return;
 }
 
-// 2. Pedimos confirmación para no cancelar por accidente
+
 int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, "¿Está seguro de cancelar esta cita?", "Confirmar", javax.swing.JOptionPane.YES_NO_OPTION);
 
 if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
-    // Extraemos el ID de la cita (que está oculto o visible en la columna 0)
+   
     int idCita = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
     
-    // Llamamos al servicio
+    
     com.mycompany.imlvt.servicios.ServiciosSecretaria servicio = new com.mycompany.imlvt.servicios.ServiciosSecretaria();
     String respuesta = servicio.anularCita(idCita);
     
     if (respuesta.equals("OK")) {
         javax.swing.JOptionPane.showMessageDialog(this, "Cita cancelada exitosamente.");
-        cargarTablaCitas(); // Refresca la tabla automáticamente
+        cargarTablaCitas(); 
     } else {
         javax.swing.JOptionPane.showMessageDialog(this, respuesta);
     }
@@ -566,40 +572,44 @@ if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
     }//GEN-LAST:event_btnCancelarCitaActionPerformed
 
     private void btnReprogramarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReprogramarCitaActionPerformed
-// 1. Validar que la secretaria seleccionó una cita en la tabla
+
 int fila = jTable1.getSelectedRow();
 if (fila == -1) {
     javax.swing.JOptionPane.showMessageDialog(this, "Seleccione en la tabla la cita que desea reprogramar.");
     return;
 }
 
-// 2. Extraer el ID de la cita seleccionada (está en la columna 0)
+
 int idCita = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
 
-// 3. Tomar la NUEVA fecha y hora que la secretaria puso en el formulario izquierdo
+
 java.util.Date nuevaFecha = dateFecha.getDate();
 String nuevaHora = cbxHora.getSelectedItem().toString();
 
-// 4. Ventana de confirmación (para evitar errores humanos)
+
 int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, 
     "¿Desea mover esta cita a las " + nuevaHora + "?", 
     "Confirmar Reprogramación", 
     javax.swing.JOptionPane.YES_NO_OPTION);
 
 if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
-    // 5. Llamamos a nuestra capa de Servicios
+    
     com.mycompany.imlvt.servicios.ServiciosSecretaria servicio = new com.mycompany.imlvt.servicios.ServiciosSecretaria();
     String respuesta = servicio.reprogramarCita(idCita, nuevaFecha, nuevaHora);
     
-    // 6. Mostramos el resultado y actualizamos la tabla
+    
     if (respuesta.equals("OK")) {
         javax.swing.JOptionPane.showMessageDialog(this, "¡Cita reprogramada exitosamente!");
-        cargarTablaCitas(); // Refresca la tabla automáticamente para mostrar la nueva fecha
+        cargarTablaCitas(); 
     } else {
         javax.swing.JOptionPane.showMessageDialog(this, respuesta);
     }
 }        // TODO add your handling code here:
     }//GEN-LAST:event_btnReprogramarCitaActionPerformed
+
+    private void cbxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxHoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxHoraActionPerformed
 
     /**
      * @param args the command line arguments
