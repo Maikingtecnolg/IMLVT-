@@ -10,12 +10,18 @@ import javax.swing.JOptionPane;
  * @author Lenovo
  */
 public class PanelAgendadosNuevos extends javax.swing.JPanel {
+     private String miCedulaDoctor;
+    private String miEspecialidad;
 
     /**
      * Creates new form PanelAgendadosNuevos
      */
-    public PanelAgendadosNuevos() {
+    
+    public PanelAgendadosNuevos(String cedulaDoc, String especialidadDoc) {
         initComponents();
+         this.miCedulaDoctor = cedulaDoc;
+        this.miEspecialidad = especialidadDoc;
+        
     }
 
     /**
@@ -31,16 +37,16 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txt_cedula = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_hora = new javax.swing.JTextField();
-        txt_fecha = new javax.swing.JTextField();
-        btn_cancelar = new javax.swing.JButton();
-        btn_confirmar = new javax.swing.JButton();
+        txtHora = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCitas = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -63,28 +69,29 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
         jLabel4.setText("Hora:");
 
-        btn_cancelar.setBackground(new java.awt.Color(153, 153, 255));
-        btn_cancelar.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
-        btn_cancelar.setText("Cancelar");
-        btn_cancelar.addActionListener(this::btn_cancelarActionPerformed);
+        btnCancelar.setBackground(new java.awt.Color(153, 153, 255));
+        btnCancelar.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
-        btn_confirmar.setBackground(new java.awt.Color(153, 153, 255));
-        btn_confirmar.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
-        btn_confirmar.setText("Confirmar Cita");
-        btn_confirmar.addActionListener(this::btn_confirmarActionPerformed);
+        btnConfirmar.setBackground(new java.awt.Color(153, 153, 255));
+        btnConfirmar.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        btnConfirmar.setText("Confirmar Cita");
+        btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCitas.setBackground(new java.awt.Color(255, 204, 204));
+        tblCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cedula", "Hora"
+                "Nombre", "Cedula", "Hora", "Fecha"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCitas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,16 +112,16 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
                                     .addComponent(jLabel1)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txt_cedula, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txt_hora, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_fecha, javax.swing.GroupLayout.Alignment.LEADING))
+                                            .addComponent(txtHora, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING))
                                         .addGap(44, 44, 44)
-                                        .addComponent(btn_cancelar)
+                                        .addComponent(btnCancelar)
                                         .addGap(38, 38, 38)
-                                        .addComponent(btn_confirmar))))))
+                                        .addComponent(btnConfirmar))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -135,18 +142,18 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cancelar)
-                    .addComponent(btn_confirmar))
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnConfirmar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -164,20 +171,66 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        
-     
-    
-    
-    
-    }//GEN-LAST:event_btn_confirmarActionPerformed
+        String cedPaciente = txtCedula.getText().trim();
+    String fechaTexto = txtFecha.getText().trim();
+    String hora = txtHora.getText().trim();
 
-    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+    if (cedPaciente.isEmpty() || fechaTexto.isEmpty() || hora.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Completa todos los campos."
+        );
+        return;
+    }
+
+    try {
+        java.util.Date fechaCita =
+            java.sql.Date.valueOf(fechaTexto);
+
+        com.mycompany.imlvt.servicios.ServiciosMedico servicio =
+            new com.mycompany.imlvt.servicios.ServiciosMedico();
+
+        // Aquí debemos confirmar los parámetros exactos
+        // que necesita el método registrarCita().
+
+        String respuesta = servicio.registrarCita(
+            cedPaciente,
+            this.miCedulaDoctor,
+            this.miEspecialidad,
+            fechaCita,
+            hora
+        );
+
+        if (respuesta.equals("OK")) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "¡Cita agendada exitosamente en tu consultorio!"
+            );
+
+            txtCedula.setText("");
+            txtFecha.setText("");
+            txtHora.setText("");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, respuesta);
+        }
+
+    } catch (IllegalArgumentException e) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Escribe la fecha con el formato AAAA-MM-DD. Ejemplo: 2026-10-22."
+        );
+    } 
+
+
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        txt_cedula.setText("");
-    txt_fecha.setText("");
-    txt_hora.setText("");
+        txtCedula.setText("");
+        txtFecha.setText("");
+        txtHora.setText("");
     
     // Mostrar mensaje
     JOptionPane.showMessageDialog(
@@ -189,12 +242,12 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
         
         
         
-    }//GEN-LAST:event_btn_cancelarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cancelar;
-    private javax.swing.JButton btn_confirmar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -203,9 +256,9 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txt_cedula;
-    private javax.swing.JTextField txt_fecha;
-    private javax.swing.JTextField txt_hora;
+    private javax.swing.JTable tblCitas;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtHora;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,7 @@ public class PanelAgendarCita extends javax.swing.JPanel {
     /**
      * Creates new form PanelAgendarCita
      */
+    
     public PanelAgendarCita() {
         initComponents();
     }

@@ -5,21 +5,28 @@
 package com.mycompany.imlvt.presentacion.medico;
 
 import com.mycompany.imlvt.presentacion.paciente.PanelInicioPaciente;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Lenovo
  */
 public class MenuMedicos extends javax.swing.JFrame {
-    
+    private String cedulaDoc;
+private String especialidadDoc;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuMedicos.class.getName());
 
     /**
      * Creates new form MenuMedicos
      */
-    public MenuMedicos() {
+    public MenuMedicos(String cedula, String especialidadDoc) {
         initComponents();
+       
+    this.cedulaDoc = cedula;
+    this.especialidadDoc = especialidadDoc;
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,7 +55,6 @@ public class MenuMedicos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel5.setBackground(new java.awt.Color(204, 102, 255));
-        jPanel5.setPreferredSize(null);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -92,6 +98,7 @@ public class MenuMedicos extends javax.swing.JFrame {
         btn_agenda.setBackground(new java.awt.Color(204, 102, 255));
         btn_agenda.setForeground(new java.awt.Color(255, 255, 255));
         btn_agenda.setText("Agenda");
+        btn_agenda.addActionListener(this::btn_agendaActionPerformed);
 
         btn_inicio.setBackground(new java.awt.Color(204, 102, 255));
         btn_inicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -101,6 +108,7 @@ public class MenuMedicos extends javax.swing.JFrame {
         btn_mensajeria.setBackground(new java.awt.Color(204, 102, 255));
         btn_mensajeria.setForeground(new java.awt.Color(255, 255, 255));
         btn_mensajeria.setText("Mensajeria");
+        btn_mensajeria.addActionListener(this::btn_mensajeriaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,6 +226,25 @@ PanelMedico.repaint();
     PanelMedico.repaint();
         
     }//GEN-LAST:event_btn_reporteActionPerformed
+
+    private void btn_agendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agendaActionPerformed
+        // TODO add your handling code here:
+         PanelAgendadosNuevos panelAgendadosNuevos =
+        new PanelAgendadosNuevos(cedulaDoc, especialidadDoc);
+
+PanelMedico.removeAll();
+PanelMedico.setLayout(new java.awt.BorderLayout());
+PanelMedico.add(panelAgendadosNuevos, java.awt.BorderLayout.CENTER);
+PanelMedico.revalidate();
+PanelMedico.repaint();
+        
+    }//GEN-LAST:event_btn_agendaActionPerformed
+
+    private void btn_mensajeriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mensajeriaActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "¡No hay mensajes por ahora!");
+        
+    }//GEN-LAST:event_btn_mensajeriaActionPerformed
 
     /**
      * @param args the command line arguments
