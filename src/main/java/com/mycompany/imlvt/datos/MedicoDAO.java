@@ -6,9 +6,17 @@ package com.mycompany.imlvt.datos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+<<<<<<< HEAD
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+=======
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
+>>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
 
 /**
  *
@@ -95,10 +103,81 @@ public class MedicoDAO {
             return false;
         }
     }
+<<<<<<< HEAD
      
      
      
      
+=======
+    
+    
+    public boolean guardarMedicamento(
+            String medicamento, String dosis, String duracion) {
+
+        String sql = "INSERT INTO medicamentos_recetados "
+                   + "(medicamento, dosis, duracion) "
+                   + "VALUES (?, ?, ?)";
+
+        try (Connection conexion = ConexionDB.obtenerConexionDoctor();
+             PreparedStatement consulta = conexion.prepareStatement(sql)) {
+
+            consulta.setString(1, medicamento);
+            consulta.setString(2, dosis);
+            consulta.setString(3, duracion);
+
+            consulta.executeUpdate();
+            return true;
+
+        } catch (SQLException | NullPointerException e) {
+            System.out.println("Error al guardar medicamento: "
+                    + e.getMessage());
+            return false;
+        }
+    }
+    
+    public DefaultTableModel listarMedicamentos() {
+    DefaultTableModel modelo = new DefaultTableModel(
+        new Object[]{"ID", "Medicamento", "Dosis", "Duracion"}, 0
+    );
+
+    String sql = "SELECT * FROM medicamentos_recetados";
+
+    try (Connection conexion = ConexionDB.obtenerConexionDoctor();
+         PreparedStatement consulta = conexion.prepareStatement(sql);
+         ResultSet resultado = consulta.executeQuery()) {
+
+        while (resultado.next()) {
+            modelo.addRow(new Object[]{
+                resultado.getInt("id_medicamento"),
+                resultado.getString("medicamento"),
+                resultado.getString("dosis"),
+                resultado.getString("duracion")
+            });
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error al listar medicamentos: " + e.getMessage());
+    }
+
+    return modelo;
+}
+    public boolean eliminarMedicamento(int id) {
+    String sql = "DELETE FROM medicamentos_recetados WHERE id_medicamento = ?";
+
+    try (Connection conexion = ConexionDB.obtenerConexionDoctor();
+         PreparedStatement consulta = conexion.prepareStatement(sql)) {
+
+        consulta.setInt(1, id);
+
+        return consulta.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        System.out.println("Error al eliminar medicamento: " + e.getMessage());
+        return false;
+    }
+}
+    
+>>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
 }
     
     

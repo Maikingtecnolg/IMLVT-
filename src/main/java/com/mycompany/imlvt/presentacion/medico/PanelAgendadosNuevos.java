@@ -73,7 +73,11 @@ public class PanelAgendadosNuevos extends javax.swing.JPanel {
         btn_confirmar.setText("Confirmar Cita");
         btn_confirmar.addActionListener(this::btn_confirmarActionPerformed);
 
+<<<<<<< HEAD
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
+=======
+        tblCitas.setModel(new javax.swing.table.DefaultTableModel(
+>>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
             new Object [][] {
                 {null, null, null},
                 {null, null, null},

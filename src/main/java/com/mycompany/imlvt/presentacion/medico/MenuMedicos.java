@@ -5,7 +5,12 @@
 package com.mycompany.imlvt.presentacion.medico;
 import javax.swing.JOptionPane;
 
+<<<<<<< HEAD
 import com.mycompany.imlvt.presentacion.paciente.PanelInicioPaciente1;
+=======
+import com.mycompany.imlvt.presentacion.paciente.PanelInicioPaciente;
+import static java.awt.SystemColor.menu;
+>>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +28,15 @@ public class MenuMedicos extends javax.swing.JFrame {
         initComponents();
     }
 
+<<<<<<< HEAD
+=======
+    private MenuMedicos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
+
+>>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +65,7 @@ public class MenuMedicos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel5.setBackground(new java.awt.Color(204, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(153, 153, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -66,7 +80,7 @@ public class MenuMedicos extends javax.swing.JFrame {
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
-        jPanel1.setBackground(new java.awt.Color(204, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 416));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/LogoIMLVT BLANCO.png"))); // NOI18N
@@ -82,27 +96,27 @@ public class MenuMedicos extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/mail.png"))); // NOI18N
 
-        btn_reporte.setBackground(new java.awt.Color(204, 102, 255));
+        btn_reporte.setBackground(new java.awt.Color(153, 153, 255));
         btn_reporte.setForeground(new java.awt.Color(255, 255, 255));
         btn_reporte.setText("Historial");
         btn_reporte.addActionListener(this::btn_reporteActionPerformed);
 
-        btn_pacientes.setBackground(new java.awt.Color(204, 102, 255));
+        btn_pacientes.setBackground(new java.awt.Color(153, 153, 255));
         btn_pacientes.setForeground(new java.awt.Color(255, 255, 255));
         btn_pacientes.setText("Pacientes");
         btn_pacientes.addActionListener(this::btn_pacientesActionPerformed);
 
-        btn_agenda.setBackground(new java.awt.Color(204, 102, 255));
+        btn_agenda.setBackground(new java.awt.Color(153, 153, 255));
         btn_agenda.setForeground(new java.awt.Color(255, 255, 255));
         btn_agenda.setText("Agenda");
         btn_agenda.addActionListener(this::btn_agendaActionPerformed);
 
-        btn_inicio.setBackground(new java.awt.Color(204, 102, 255));
+        btn_inicio.setBackground(new java.awt.Color(153, 153, 255));
         btn_inicio.setForeground(new java.awt.Color(255, 255, 255));
         btn_inicio.setText("Inicio");
         btn_inicio.addActionListener(this::btn_inicioActionPerformed);
 
-        btn_mensajeria.setBackground(new java.awt.Color(204, 102, 255));
+        btn_mensajeria.setBackground(new java.awt.Color(153, 153, 255));
         btn_mensajeria.setForeground(new java.awt.Color(255, 255, 255));
         btn_mensajeria.setText("Mensajeria");
         btn_mensajeria.addActionListener(this::btn_mensajeriaActionPerformed);
@@ -283,9 +297,11 @@ PanelMedico.repaint();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuMedicos().setVisible(true));
+      java.awt.EventQueue.invokeLater(() -> {
+            MenuMedicos menu = new MenuMedicos("1234567890", "Medicina General");
+            menu.setVisible(true);
+        });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMedico;
     private javax.swing.JButton btn_agenda;
