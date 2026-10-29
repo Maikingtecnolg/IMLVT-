@@ -8,13 +8,37 @@ package com.mycompany.imlvt.presentacion.paciente;
  *
  * @author User
  */
-public class PanelAgendarCita extends javax.swing.JPanel {
 
+public class PanelAgendarCita extends javax.swing.JPanel {
+public String cedulaPaciente;
     /**
      * Creates new form PanelAgendarCita
      */
     public PanelAgendarCita() {
         initComponents();
+        dateFecha.setMinSelectableDate(new java.util.Date());
+      
+        cbxEspecialidad.removeAllItems();
+        cbxEspecialidad.addItem("--Seleccione una especialidad--");
+        
+                 com.mycompany.imlvt.servicios.ServiciosPaciente servicio = new com.mycompany.imlvt.servicios.ServiciosPaciente();
+        java.util.List<String> listaEspecialidades = servicio.listarEspecialidades();
+        
+        for (String esp : listaEspecialidades) {
+            cbxEspecialidad.addItem(esp);
+        }
+        // Limpiamos y preparamos el selector de horas
+        cbxHora.removeAllItems();
+        cbxHora.addItem("--Elija un horario--");
+        
+        // Llenamos las horas desde las 08:00 hasta las 17:00 en intervalos de 30 minutos
+        for (int i = 8; i <= 17; i++) {
+            String horaEnPunto = String.format("%02d:00", i);
+            String horaYMedia = String.format("%02d:30", i);
+            
+            cbxHora.addItem(horaEnPunto);
+            cbxHora.addItem(horaYMedia);
+        }
     }
 
     /**
@@ -29,22 +53,23 @@ public class PanelAgendarCita extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnConfirmarCita = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cbxEspecialidad = new javax.swing.JComboBox<>();
+        cbxMedico = new javax.swing.JComboBox<>();
+        cbxHora = new javax.swing.JComboBox<>();
+        dateFecha = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtSintomas = new javax.swing.JTextArea();
 
-        jLabel1.setBackground(new java.awt.Color(51, 153, 255));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 153));
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 153, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setText("AGENDAR NUEVA CITA");
 
         jButton1.setBackground(new java.awt.Color(0, 153, 0));
@@ -56,123 +81,131 @@ public class PanelAgendarCita extends javax.swing.JPanel {
         jLabel7.setBackground(new java.awt.Color(51, 255, 0));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Logo Whatsapp.png"))); // NOI18N
 
-        jButton2.setBackground(new java.awt.Color(51, 196, 25));
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(194, 245, 202));
-        jButton2.setText("Confirmar");
+        btnConfirmarCita.setBackground(new java.awt.Color(51, 196, 25));
+        btnConfirmarCita.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 14)); // NOI18N
+        btnConfirmarCita.setForeground(new java.awt.Color(194, 245, 202));
+        btnConfirmarCita.setText("Confirmar");
+        btnConfirmarCita.addActionListener(this::btnConfirmarCitaActionPerformed);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Especialidad");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Medico");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Hora");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Fecha:");
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Sintomas del paciente");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Seleccione una especialidad---" }));
+        cbxEspecialidad.addItemListener(this::cbxEspecialidadItemStateChanged);
+        cbxEspecialidad.addActionListener(this::cbxEspecialidadActionPerformed);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxMedico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Seleccione un medico---" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Elija un horario---" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtSintomas.setColumns(20);
+        txtSintomas.setRows(5);
+        jScrollPane1.setViewportView(txtSintomas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(103, 103, 103))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox3, 0, 256, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(287, Short.MAX_VALUE))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addGap(113, 113, 113)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(31, 31, 31)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(72, 72, 72)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(64, 64, 64)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(310, 310, 310)
+                        .addComponent(jLabel6)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(43, 43, 43)
+                        .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(245, 245, 245)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnConfirmarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(7, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnConfirmarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -181,14 +214,59 @@ public class PanelAgendarCita extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cbxEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEspecialidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxEspecialidadActionPerformed
+
+    private void cbxEspecialidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxEspecialidadItemStateChanged
+       if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            String especialidadSeleccionada = cbxEspecialidad.getSelectedItem().toString();
+            
+            // Limpiamos el combo de médicos
+            cbxMedico.removeAllItems();
+            cbxMedico.addItem("--- Seleccione Médico ---");
+            
+            // Usamos tu nueva capa de SERVICIOS en lugar del DAO
+            com.mycompany.imlvt.servicios.ServiciosPaciente servicio = new com.mycompany.imlvt.servicios.ServiciosPaciente();
+            java.util.List<String> medicos = servicio.listarMedicosPorEspecialidad(especialidadSeleccionada);
+            
+            // Llenamos el segundo combo
+            for (String doctor : medicos) {
+                cbxMedico.addItem(doctor);
+            }
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_cbxEspecialidadItemStateChanged
+
+    private void btnConfirmarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCitaActionPerformed
+String especialidad = cbxEspecialidad.getSelectedItem().toString();
+        String medico = cbxMedico.getSelectedItem().toString();
+        String hora = cbxHora.getSelectedItem().toString();
+        java.util.Date fecha = dateFecha.getDate();
+        String sintomas = txtSintomas.getText();
+        
+        com.mycompany.imlvt.servicios.ServiciosPaciente servicio = new com.mycompany.imlvt.servicios.ServiciosPaciente();
+        // this.cedulaPaciente debe ser la variable donde guardaste la cédula al iniciar sesión
+        String respuesta = servicio.registrarNuevaCita(this.cedulaPaciente, especialidad, medico, fecha, hora, sintomas);
+        
+        if (respuesta.equals("OK")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Cita agendada con éxito!");
+            cbxEspecialidad.setSelectedIndex(0);
+            cbxHora.setSelectedIndex(0);
+            txtSintomas.setText("");
+            dateFecha.setDate(null);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, respuesta);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfirmarCitaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmarCita;
+    private javax.swing.JComboBox<String> cbxEspecialidad;
+    private javax.swing.JComboBox<String> cbxHora;
+    private javax.swing.JComboBox<String> cbxMedico;
+    private com.toedter.calendar.JDateChooser dateFecha;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -197,6 +275,7 @@ public class PanelAgendarCita extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtSintomas;
     // End of variables declaration//GEN-END:variables
 }

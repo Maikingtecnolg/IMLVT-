@@ -34,7 +34,7 @@ public class LoginIMLVT extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_correoelctronico = new javax.swing.JTextField();
+        txt_correoelectronico = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txt_contraseña = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
@@ -97,7 +97,7 @@ public class LoginIMLVT extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(txt_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_correoelctronico, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_correoelectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -117,7 +117,7 @@ public class LoginIMLVT extends javax.swing.JFrame {
                 .addGap(67, 67, 67)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(txt_correoelctronico, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_correoelectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,7 +161,66 @@ public class LoginIMLVT extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+String correo = txt_correoelectronico.getText();
+        String contrasena = new String(txt_contraseña.getPassword());
+
+        // 1. Validamos que no estén vacíos
+        if (correo.isEmpty() || contrasena.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.");
+            return;
+        }
+
+        // 2. Llamamos a nuestra capa de datos
+        com.mycompany.imlvt.datos.UsuarioDAO dao = new com.mycompany.imlvt.datos.UsuarioDAO();
+        String[] datosUsuario = dao.validarLogin(correo, contrasena);
+
+        // 3. Evaluamos si el usuario existe
+        if (datosUsuario != null) {
+            String cedula = datosUsuario[0];
+            String nombre = datosUsuario[1];
+            String rol = datosUsuario[2];
+
+            // 4. Redirigimos según el rol
+            switch (rol) {
+                case "Paciente":
+            com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal1 menuPac = 
+              new com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal1(cedula, nombre);
+            menuPac.setVisible(true);
+            this.dispose(); // Cierra el login
+            break;
+                case "Medico":
+                   
+                    com.mycompany.imlvt.presentacion.medico.MenuMedicos menuMed = 
+                        new com.mycompany.imlvt.presentacion.medico.MenuMedicos(cedula, nombre);
+                    menuMed.setVisible(true);
+                    this.dispose();
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido Doctor: " + nombre);
+                    break;
+                    
+                case "Secretaria":
+                           com.mycompany.imlvt.presentacion.secretaria.MenuSecretaria menuSec = 
+                        new com.mycompany.imlvt.presentacion.secretaria.MenuSecretaria(cedula, nombre);
+                    menuSec.setVisible(true);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida Secretaria: " + nombre);
+                    break;
+                    
+                case "Enfermera":
+              
+            com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermera menuEnf = 
+                new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermera(cedula, nombre);
+            menuEnf.setVisible(true);
+            this.dispose();
+            break;
+                  
+                    
+                default:
+                    javax.swing.JOptionPane.showMessageDialog(this, "Rol no reconocido en el sistema.");
+                    break;
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -204,6 +263,6 @@ public class LoginIMLVT extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField txt_contraseña;
-    private javax.swing.JTextField txt_correoelctronico;
+    private javax.swing.JTextField txt_correoelectronico;
     // End of variables declaration//GEN-END:variables
 }

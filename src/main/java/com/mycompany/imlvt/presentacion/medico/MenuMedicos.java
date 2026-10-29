@@ -13,7 +13,16 @@ import javax.swing.JOptionPane;
  * @author Lenovo
  */
 public class MenuMedicos extends javax.swing.JFrame {
-    
+    // Variables globales para guardar la sesión
+    public String cedulaLogueada;
+    public String nombreLogueado;
+
+    // Constructor que recibe los datos desde el Login
+    public MenuMedicos(String cedula, String nombre) {
+        initComponents();
+        this.cedulaLogueada = cedula;
+        this.nombreLogueado = nombre;
+    }
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuMedicos.class.getName());
 
     /**

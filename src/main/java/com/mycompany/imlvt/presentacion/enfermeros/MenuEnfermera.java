@@ -8,6 +8,9 @@ package com.mycompany.imlvt.presentacion.enfermeros;
  *
  * @author User
  */
+
+  
+    
 public class MenuEnfermera extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuEnfermera.class.getName());
@@ -15,9 +18,13 @@ public class MenuEnfermera extends javax.swing.JFrame {
     /**
      * Creates new form MenuEnfermera
      */
-    public MenuEnfermera() {
+    public String cedulaLogueada;
+    public String nombreLogueado;
+    public MenuEnfermera(String cedula, String nombre) {
         initComponents();
         cargarTablaPacientes();
+         this.cedulaLogueada = cedula;
+        this.nombreLogueado = nombre;
     }
     private void cargarTablaPacientes() {
         // 1. Preparamos el diseño de las columnas
@@ -543,7 +550,7 @@ txtBuscarPaciente.setText("");
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuEnfermera().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MenuEnfermera("", "").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

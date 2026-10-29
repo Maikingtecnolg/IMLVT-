@@ -4,10 +4,6 @@
  */
 package com.mycompany.imlvt.datos;
 
-/**
- *
- * @author User
- */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteDAO {
+    
     public List<Object[]> obtenerMisCitas(String miCedula) {
         List<Object[]> misCitas = new ArrayList<>();
         
@@ -49,5 +46,64 @@ public class PacienteDAO {
         }
         return misCitas;
     }
+    
+    public List <String> obtenerMedicosPorEspecialidad(String especialidad){
+        List<String>listaMedicos = new ArrayList<>();
+        String sql = "SELECT nombres FROM usuarios WHERE rol= 'Medico' AND especialidad=?";
+        try (Connection con = ConexionDB.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+             
+            ps.setString(1, especialidad);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                listaMedicos.add(rs.getString("nombres"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al filtrar médicos: " + e.getMessage());
+        }
+        return listaMedicos;
+    }
+    
+    // Método para obtener las especialidades disponibles
+    public java.util.List<String> obtenerEspecialidades() {
+        java.util.List<String> especialidades = new java.util.ArrayList<>();
+        // Busca las especialidades sin repetirlas (DISTINCT) solo de los médicos
+        String sql = "SELECT DISTINCT especialidad FROM usuarios WHERE rol = 'Medico' AND especialidad IS NOT NULL";
+        
+        try (java.sql.Connection con = ConexionDB.obtenerConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+             
+            while (rs.next()) {
+                especialidades.add(rs.getString("especialidad"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar especialidades: " + e.getMessage());
+        }
+        return especialidades;
+    }
 
+    // NUEVO: Método para guardar la cita en la base de datos
+    public boolean agendarCita(String cedulaPaciente, String especialidad, String nombreMedico, java.util.Date fecha, String hora, String sintomas) {
+        String sql = "INSERT INTO citas_medicas (cedula_paciente, cedula_doctor, especialidad, fecha, hora, sintomas, estado) " +
+                     "VALUES (?, (SELECT cedula FROM usuarios WHERE nombres = ? LIMIT 1), ?, ?, ?, ?, 'Pendiente')";
+                     
+        try (java.sql.Connection con = ConexionDB.obtenerConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+             
+            ps.setString(1, cedulaPaciente);
+            ps.setString(2, nombreMedico);
+            ps.setString(3, especialidad);
+            ps.setDate(4, new java.sql.Date(fecha.getTime()));
+            ps.setString(5, hora);
+            ps.setString(6, sintomas);
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (Exception e) {
+            System.out.println("Error al guardar cita: " + e.getMessage());
+            return false;
+        }
+    }
 }

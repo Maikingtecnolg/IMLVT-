@@ -1,5 +1,6 @@
 com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT$1.class
 com\mycompany\imlvt\presentacion\medico\MenuMedicos.class
+com\mycompany\imlvt\datos\UsuarioDAO.class
 com\mycompany\imlvt\IMLVT.class
 com\mycompany\imlvt\datos\EnfermeriaDAO.class
 com\mycompany\imlvt\presentacion\enfermeros\MenuEnfermera.class
@@ -11,15 +12,17 @@ com\mycompany\imlvt\datos\MedicoDAO.class
 com\mycompany\imlvt\servicios\ServiciosSecretaria.class
 com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria.class
 com\mycompany\imlvt\servicios\ServiciosEnfermeria.class
+com\mycompany\imlvt\datos\PacienteDAO.class
 com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT$1$1.class
 com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria$1.class
-com\mycompany\imlvt\presentacion\paciente\PanelInicioPaciente.class
+com\mycompany\imlvt\presentacion\paciente\MenuIMLVTFinal1.class
 com\mycompany\imlvt\presentacion\paciente\PanelResultadosLaboratorio.class
 com\mycompany\imlvt\IMLVT$1.class
 com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria$2.class
+com\mycompany\imlvt\servicios\ServiciosPaciente.class
+com\mycompany\imlvt\presentacion\paciente\PanelInicioPaciente1.class
 com\mycompany\imlvt\datos\ServiciosMedico.class
 com\mycompany\imlvt\presentacion\comunes\LoginIMLVT.class
-com\mycompany\imlvt\presentacion\paciente\MenuIMLVTFinal.class
 com\mycompany\imlvt\datos\SecretariaDAO.class
 com\mycompany\imlvt\presentacion\enfermeros\MenuEnfermera$1.class
 com\mycompany\imlvt\presentacion\medico\PanelHistorial.class

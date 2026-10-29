@@ -1,8 +1,12 @@
+package com.mycompany.imlvt.presentacion.paciente;
+
+
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.imlvt.presentacion.paciente;
 
 import com.mycompany.imlvt.presentacion.comunes.PaneldeUsuario;
 
@@ -24,7 +28,7 @@ private String miCedula;
         this.miNombre = nombre;
         this.setLocationRelativeTo(null); // Centra la ventana
         
-        // 3. Hacemos que apenas se abra, cargue el panel de inicio automáticamente
+        
    
         initComponents();
           cargarPanelInicio();
@@ -225,12 +229,18 @@ panelContenedor.repaint();      // TODO add your handling code here:
     }//GEN-LAST:event_btnRecetapacActionPerformed
 
     private void btnCitaMpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitaMpacActionPerformed
-PanelAgendarCita panelCitas = new PanelAgendarCita();
-panelContenedor.removeAll();
-panelContenedor.setLayout(new java.awt.BorderLayout());
-panelContenedor.add(panelCitas, java.awt.BorderLayout.CENTER);
-panelContenedor.revalidate();
-panelContenedor.repaint();
+                                          
+        PanelAgendarCita panelCitas = new PanelAgendarCita();
+        
+        // ¡LA LÍNEA MÁGICA! Le pasamos tu variable 'miCedula' al panel
+        panelCitas.cedulaPaciente = this.miCedula;
+        
+        panelContenedor.removeAll();
+        panelContenedor.setLayout(new java.awt.BorderLayout());
+        panelContenedor.add(panelCitas, java.awt.BorderLayout.CENTER);
+        panelContenedor.revalidate();
+        panelContenedor.repaint();
+    
     }//GEN-LAST:event_btnCitaMpacActionPerformed
 
     /**
@@ -255,7 +265,7 @@ panelContenedor.repaint();
         //</editor-fold>
 
         /* Create and display the form */
-      java.awt.EventQueue.invokeLater(() -> new MenuIMLVTFinal1("0000000000", "Usuario Prueba").setVisible(true));
+      java.awt.EventQueue.invokeLater(() -> new MenuIMLVTFinal1("", "").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,4 +284,5 @@ panelContenedor.repaint();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
+
 }
