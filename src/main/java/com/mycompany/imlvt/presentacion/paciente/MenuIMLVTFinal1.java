@@ -1,8 +1,12 @@
+package com.mycompany.imlvt.presentacion.paciente;
+
+
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.imlvt.presentacion.paciente;
 
 import com.mycompany.imlvt.presentacion.comunes.PaneldeUsuario;
 
@@ -24,7 +28,7 @@ private String miCedula;
         this.miNombre = nombre;
         this.setLocationRelativeTo(null); // Centra la ventana
         
-        // 3. Hacemos que apenas se abra, cargue el panel de inicio automáticamente
+        
    
         initComponents();
           cargarPanelInicio();
@@ -74,9 +78,9 @@ private String miCedula;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addContainerGap(1072, Short.MAX_VALUE))
+                .addContainerGap(1078, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,12 +141,12 @@ private String miCedula;
                             .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(9, 9, 9)))
                 .addGap(35, 35, 35)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCitaMpac)
-                    .addComponent(btnPerfilUpac)
-                    .addComponent(btnRecetapac)
-                    .addComponent(btnResulatadosLabpac)
-                    .addComponent(btnMenupac, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnResulatadosLabpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRecetapac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCitaMpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPerfilUpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMenupac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -160,15 +164,15 @@ private String miCedula;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCitaMpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRecetapac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnResulatadosLabpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(btnRecetapac, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel23)
+                    .addComponent(btnResulatadosLabpac, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.LINE_START);
@@ -225,12 +229,17 @@ panelContenedor.repaint();      // TODO add your handling code here:
     }//GEN-LAST:event_btnRecetapacActionPerformed
 
     private void btnCitaMpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitaMpacActionPerformed
-PanelAgendarCita panelCitas = new PanelAgendarCita();
-panelContenedor.removeAll();
-panelContenedor.setLayout(new java.awt.BorderLayout());
-panelContenedor.add(panelCitas, java.awt.BorderLayout.CENTER);
-panelContenedor.revalidate();
-panelContenedor.repaint();
+                                          
+        PanelAgendarCita panelCitas = new PanelAgendarCita();
+       
+        panelCitas.cedulaPaciente = this.miCedula;
+        
+        panelContenedor.removeAll();
+        panelContenedor.setLayout(new java.awt.BorderLayout());
+        panelContenedor.add(panelCitas, java.awt.BorderLayout.CENTER);
+        panelContenedor.revalidate();
+        panelContenedor.repaint();
+    
     }//GEN-LAST:event_btnCitaMpacActionPerformed
 
     /**
@@ -255,7 +264,7 @@ panelContenedor.repaint();
         //</editor-fold>
 
         /* Create and display the form */
-      java.awt.EventQueue.invokeLater(() -> new MenuIMLVTFinal1("0000000000", "Usuario Prueba").setVisible(true));
+      java.awt.EventQueue.invokeLater(() -> new MenuIMLVTFinal1("", "").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,4 +283,5 @@ panelContenedor.repaint();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -12,6 +12,7 @@ import java.sql.SQLException;
  */
 public class ConexionDB {
 
+<<<<<<< HEAD
     // Conexion de la base de datos original del proyecto
     private static final String URL =
         "jdbc:mysql://localhost:3306/imlvt_bd?useSSL=false&serverTimezone=UTC";
@@ -24,6 +25,11 @@ public class ConexionDB {
     private static final String USUARIO = "root";
 <<<<<<< HEAD
     private static final String PASSWORD = "1234"; 
+=======
+    private static final String URL = "jdbc:mysql://localhost:3306/imlvt_bd?useSSL=false&serverTimezone=UTC";
+    private static final String USUARIO = "root";
+    private static final String PASSWORD = ""; 
+>>>>>>> ab734b60b83efff2407bfa9f7cc6faae6448446a
     
 =======
     private static final String PASSWORD = "";

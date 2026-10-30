@@ -4,10 +4,6 @@
  */
 package com.mycompany.imlvt.datos;
 
-/**
- *
- * @author User
- */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteDAO {
+    
     public List<Object[]> obtenerMisCitas(String miCedula) {
         List<Object[]> misCitas = new ArrayList<>();
         
@@ -49,5 +46,107 @@ public class PacienteDAO {
         }
         return misCitas;
     }
+    
+    public List <String> obtenerMedicosPorEspecialidad(String especialidad){
+        List<String>listaMedicos = new ArrayList<>();
+        String sql = "SELECT nombres FROM usuarios WHERE rol= 'Medico' AND especialidad=?";
+        try (Connection con = ConexionDB.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+             
+            ps.setString(1, especialidad);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                listaMedicos.add(rs.getString("nombres"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al filtrar médicos: " + e.getMessage());
+        }
+        return listaMedicos;
+    }
+    
+    // Método para obtener las especialidades disponibles
+    public java.util.List<String> obtenerEspecialidades() {
+        java.util.List<String> especialidades = new java.util.ArrayList<>();
+        // Busca las especialidades sin repetirlas (DISTINCT) solo de los médicos
+        String sql = "SELECT DISTINCT especialidad FROM usuarios WHERE rol = 'Medico' AND especialidad IS NOT NULL";
+        
+        try (java.sql.Connection con = ConexionDB.obtenerConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+             
+            while (rs.next()) {
+                especialidades.add(rs.getString("especialidad"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar especialidades: " + e.getMessage());
+        }
+        return especialidades;
+    }
 
+    // NUEVO: Método para guardar la cita en la base de datos
+    public boolean agendarCita(String cedulaPaciente, String especialidad, String nombreMedico, java.util.Date fecha, String hora, String sintomas) {
+        String sql = "INSERT INTO citas_medicas (cedula_paciente, cedula_doctor, especialidad, fecha, hora, sintomas, estado) " +
+                     "VALUES (?, (SELECT cedula FROM usuarios WHERE nombres = ? LIMIT 1), ?, ?, ?, ?, 'Pendiente')";
+                     
+        try (java.sql.Connection con = ConexionDB.obtenerConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+             
+            ps.setString(1, cedulaPaciente);
+            ps.setString(2, nombreMedico);
+            ps.setString(3, especialidad);
+            ps.setDate(4, new java.sql.Date(fecha.getTime()));
+            ps.setString(5, hora);
+            ps.setString(6, sintomas);
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (Exception e) {
+            System.out.println("Error al guardar cita: " + e.getMessage());
+            return false;
+        }
+    }
+    public String obtenerFechaProximaCita(String cedulaPaciente) {
+        String resultado = "Sin citas próximas";
+        String sql = "SELECT fecha, hora FROM citas_medicas " +
+                     "WHERE cedula_paciente = ? AND estado = 'Pendiente' AND fecha >= CURDATE() " +
+                     "ORDER BY fecha ASC, hora ASC LIMIT 1";
+                     
+        try (java.sql.Connection con = ConexionDB.obtenerConexion(); 
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, cedulaPaciente);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    resultado = rs.getString("fecha") + " a las " + rs.getString("hora");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error Cita: " + e.getMessage());
+        }
+        return resultado;
+    }
+
+   public String obtenerUltimoChequeo(String cedulaPaciente) {
+        String resultado = "No hay registros de chequeos anteriores.";
+        
+       
+        String sql = "SELECT peso, presion_arterial, temperatura FROM signos_vitales " +
+                     "WHERE cedula_paciente = ? ORDER BY id_triaje DESC LIMIT 1";
+                     
+        try (java.sql.Connection con = ConexionDB.obtenerConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+             
+            ps.setString(1, cedulaPaciente);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    resultado = "Últimos Signos - Peso: " + rs.getString("peso") + " kg" +
+                                " | Presión: " + rs.getString("presion_arterial") + 
+                                " | Temp: " + rs.getString("temperatura") + "°C";
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error Chequeo: " + e.getMessage());
+        }
+        return resultado;
+    }
 }

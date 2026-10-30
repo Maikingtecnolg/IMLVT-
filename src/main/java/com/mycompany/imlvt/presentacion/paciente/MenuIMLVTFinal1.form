@@ -39,9 +39,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="1072" max="32767" attributes="0"/>
+                  <EmptySpace pref="1078" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -98,12 +98,12 @@
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnCitaMpac" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnPerfilUpac" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnRecetapac" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnResulatadosLabpac" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMenupac" min="-2" pref="105" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btnResulatadosLabpac" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnRecetapac" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnCitaMpac" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnPerfilUpac" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnMenupac" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
@@ -127,17 +127,17 @@
                       <Component id="jLabel21" max="32767" attributes="0"/>
                       <Component id="btnCitaMpac" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel22" max="32767" attributes="0"/>
-                      <Component id="btnRecetapac" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRecetapac" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel23" max="32767" attributes="0"/>
-                      <Component id="btnResulatadosLabpac" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnResulatadosLabpac" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="96" max="32767" attributes="0"/>
+                  <EmptySpace pref="65" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

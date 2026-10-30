@@ -9,7 +9,16 @@ package com.mycompany.imlvt.presentacion.secretaria;
  * @author User
  */
 public class MenuSecretaria extends javax.swing.JFrame {
-    
+ 
+    public String cedulaLogueada;
+    public String nombreLogueado;
+
+    // Constructor que recibe los datos desde el Login
+    public MenuSecretaria(String cedula, String nombre) {
+        initComponents();
+        this.cedulaLogueada = cedula;
+        this.nombreLogueado = nombre;
+    }
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuSecretaria.class.getName());
     public MenuSecretaria() {
         initComponents();
