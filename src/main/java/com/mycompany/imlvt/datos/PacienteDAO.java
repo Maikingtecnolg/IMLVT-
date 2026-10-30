@@ -106,4 +106,47 @@ public class PacienteDAO {
             return false;
         }
     }
+    public String obtenerFechaProximaCita(String cedulaPaciente) {
+        String resultado = "Sin citas próximas";
+        String sql = "SELECT fecha, hora FROM citas_medicas " +
+                     "WHERE cedula_paciente = ? AND estado = 'Pendiente' AND fecha >= CURDATE() " +
+                     "ORDER BY fecha ASC, hora ASC LIMIT 1";
+                     
+        try (java.sql.Connection con = ConexionDB.obtenerConexion(); 
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, cedulaPaciente);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    resultado = rs.getString("fecha") + " a las " + rs.getString("hora");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error Cita: " + e.getMessage());
+        }
+        return resultado;
+    }
+
+   public String obtenerUltimoChequeo(String cedulaPaciente) {
+        String resultado = "No hay registros de chequeos anteriores.";
+        
+       
+        String sql = "SELECT peso, presion_arterial, temperatura FROM signos_vitales " +
+                     "WHERE cedula_paciente = ? ORDER BY id_triaje DESC LIMIT 1";
+                     
+        try (java.sql.Connection con = ConexionDB.obtenerConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+             
+            ps.setString(1, cedulaPaciente);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    resultado = "Últimos Signos - Peso: " + rs.getString("peso") + " kg" +
+                                " | Presión: " + rs.getString("presion_arterial") + 
+                                " | Temp: " + rs.getString("temperatura") + "°C";
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error Chequeo: " + e.getMessage());
+        }
+        return resultado;
+    }
 }

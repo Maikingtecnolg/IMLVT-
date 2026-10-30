@@ -27,11 +27,10 @@ public String cedulaPaciente;
         for (String esp : listaEspecialidades) {
             cbxEspecialidad.addItem(esp);
         }
-        // Limpiamos y preparamos el selector de horas
+      
         cbxHora.removeAllItems();
         cbxHora.addItem("--Elija un horario--");
-        
-        // Llenamos las horas desde las 08:00 hasta las 17:00 en intervalos de 30 minutos
+     
         for (int i = 8; i <= 17; i++) {
             String horaEnPunto = String.format("%02d:00", i);
             String horaYMedia = String.format("%02d:30", i);
@@ -221,16 +220,13 @@ public String cedulaPaciente;
     private void cbxEspecialidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxEspecialidadItemStateChanged
        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             String especialidadSeleccionada = cbxEspecialidad.getSelectedItem().toString();
-            
-            // Limpiamos el combo de médicos
+       
             cbxMedico.removeAllItems();
             cbxMedico.addItem("--- Seleccione Médico ---");
-            
-            // Usamos tu nueva capa de SERVICIOS en lugar del DAO
+         
             com.mycompany.imlvt.servicios.ServiciosPaciente servicio = new com.mycompany.imlvt.servicios.ServiciosPaciente();
             java.util.List<String> medicos = servicio.listarMedicosPorEspecialidad(especialidadSeleccionada);
-            
-            // Llenamos el segundo combo
+      
             for (String doctor : medicos) {
                 cbxMedico.addItem(doctor);
             }
@@ -245,7 +241,6 @@ String especialidad = cbxEspecialidad.getSelectedItem().toString();
         String sintomas = txtSintomas.getText();
         
         com.mycompany.imlvt.servicios.ServiciosPaciente servicio = new com.mycompany.imlvt.servicios.ServiciosPaciente();
-        // this.cedulaPaciente debe ser la variable donde guardaste la cédula al iniciar sesión
         String respuesta = servicio.registrarNuevaCita(this.cedulaPaciente, especialidad, medico, fecha, hora, sintomas);
         
         if (respuesta.equals("OK")) {
