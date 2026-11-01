@@ -4,13 +4,9 @@
  */
 package com.mycompany.imlvt.presentacion.medico;
 import javax.swing.JOptionPane;
-
-<<<<<<< HEAD
 import com.mycompany.imlvt.presentacion.paciente.PanelInicioPaciente1;
-=======
-import com.mycompany.imlvt.presentacion.paciente.PanelInicioPaciente;
 import static java.awt.SystemColor.menu;
->>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
+
 import javax.swing.JOptionPane;
 
 /**
@@ -37,15 +33,9 @@ public class MenuMedicos extends javax.swing.JFrame {
         initComponents();
     }
 
-<<<<<<< HEAD
-=======
-    private MenuMedicos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    
+  
 
->>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -242,15 +232,25 @@ PanelMedico.repaint();
     }//GEN-LAST:event_btn_inicioActionPerformed
 
     private void btn_pacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pacientesActionPerformed
-        // TODO add your handling code here:
-        
-         PanelReceta panelReceta = new PanelReceta();
-    PanelMedico.removeAll();
-// Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-    PanelMedico.setLayout(new java.awt.BorderLayout()); 
-    PanelMedico.add(panelReceta, java.awt.BorderLayout.CENTER);
-    PanelMedico.revalidate();
-    PanelMedico.repaint();
+    // 1. Prueba para ver si el clic realmente llega aquí
+        System.out.println("¡El botón de pacientes sí funciona!"); 
+
+        try {
+            // 2. Intentamos cargar la pantalla
+            PanelReceta panelReceta = new PanelReceta();
+            panelReceta.setSize(PanelMedico.getWidth(), PanelMedico.getHeight());
+            
+            PanelMedico.removeAll();
+            PanelMedico.setLayout(new java.awt.BorderLayout()); 
+            PanelMedico.add(panelReceta, java.awt.BorderLayout.CENTER);
+            PanelMedico.revalidate();
+            PanelMedico.repaint();
+            
+        } catch (Exception e) {
+            // 3. Si explota por la base de datos o por otra cosa, lo imprimimos
+            System.out.println("El panel explotó al intentar crearse: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_pacientesActionPerformed
 
     private void btn_reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteActionPerformed

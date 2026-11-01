@@ -8,15 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
-<<<<<<< HEAD
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
-import java.sql.SQLException;
-=======
-import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
 
->>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
+
+
+
 
 /**
  *
@@ -103,12 +99,7 @@ public class MedicoDAO {
             return false;
         }
     }
-<<<<<<< HEAD
-     
-     
-     
-     
-=======
+
     
     
     public boolean guardarMedicamento(
@@ -176,8 +167,6 @@ public class MedicoDAO {
         return false;
     }
 }
-    
->>>>>>> 5abf8f4 (Actualizar modulo medico y recetas)
 }
     
     
