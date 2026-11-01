@@ -10,7 +10,7 @@ package com.mycompany.imlvt;
  */
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.UIManager;
-import com.mycompany.imlvt.presentacion.comunes.LoginIMLVT;
+import com.mycompany.imlvt.presentacion.comunes.LoginIMLVT1;
 
 public class IMLVT {
 
@@ -27,7 +27,7 @@ public class IMLVT {
         // 2. Aquí ya llamas a tu ventana inicial (Ejemplo: Login o Menú)
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginIMLVT().setVisible(true); // Cambia "MenuPrincipal" por el nombre de tu JFrame
+                new LoginIMLVT1().setVisible(true); // Cambia "MenuPrincipal" por el nombre de tu JFrame
             }
         });
     }

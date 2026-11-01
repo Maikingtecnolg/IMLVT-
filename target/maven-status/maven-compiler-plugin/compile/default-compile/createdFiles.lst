@@ -1,4 +1,3 @@
-com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT$1.class
 com\mycompany\imlvt\presentacion\medico\MenuMedicos.class
 com\mycompany\imlvt\datos\UsuarioDAO.class
 com\mycompany\imlvt\IMLVT.class
@@ -13,14 +12,16 @@ com\mycompany\imlvt\presentacion\comunes\PaneldeUsuario.class
 com\mycompany\imlvt\presentacion\medico\PanelMenuMedico.class
 com\mycompany\imlvt\presentacion\medico\PanelAgendadosNuevos$1.class
 com\mycompany\imlvt\datos\MedicoDAO.class
+com\mycompany\imlvt\presentacion\comunes\LoginIMLVT1.class
 com\mycompany\imlvt\servicios\ServiciosSecretaria.class
 com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria.class
 com\mycompany\imlvt\presentacion\medico\PanelReceta$1.class
+com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT1.class
 com\mycompany\imlvt\presentacion\medico\PanelReceta$7.class
 com\mycompany\imlvt\servicios\ServiciosEnfermeria.class
 com\mycompany\imlvt\datos\PacienteDAO.class
 com\mycompany\imlvt\presentacion\medico\PanelReceta$4.class
-com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT$1$1.class
+com\mycompany\imlvt\presentacion\comunes\InicioIMLVT.class
 com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria$1.class
 com\mycompany\imlvt\presentacion\medico\PanelReceta$8.class
 com\mycompany\imlvt\presentacion\paciente\MenuIMLVTFinal1.class
@@ -31,7 +32,6 @@ com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria$2.class
 com\mycompany\imlvt\servicios\ServiciosPaciente.class
 com\mycompany\imlvt\presentacion\paciente\PanelInicioPaciente1.class
 com\mycompany\imlvt\datos\ServiciosMedico.class
-com\mycompany\imlvt\presentacion\comunes\LoginIMLVT.class
 com\mycompany\imlvt\datos\SecretariaDAO.class
 com\mycompany\imlvt\presentacion\enfermeros\MenuEnfermera$1.class
 com\mycompany\imlvt\presentacion\medico\PanelHistorial.class
@@ -41,4 +41,3 @@ com\mycompany\imlvt\presentacion\paciente\PanelRecetas.class
 com\mycompany\imlvt\presentacion\medico\PanelAgendadosNuevos.class
 com\mycompany\imlvt\presentacion\paciente\PanelAgendarCita.class
 com\mycompany\imlvt\presentacion\medico\PanelReceta$9.class
-com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT.class
