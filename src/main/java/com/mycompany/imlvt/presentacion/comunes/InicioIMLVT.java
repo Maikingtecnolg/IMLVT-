@@ -246,6 +246,7 @@ public class InicioIMLVT extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(102, 255, 102));
         jButton4.setText("Agendar Cita");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/mail.png"))); // NOI18N
 
@@ -385,6 +386,29 @@ public class InicioIMLVT extends javax.swing.JFrame {
     jPanel4.revalidate();
     jPanel4.repaint();             // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+ try {
+     
+            String numeroTelefono = "593984517090"; 
+         
+         
+            String mensaje = "Hola clínica IMLVT, soy " + " y necesito agendar una cita médica.";
+            
+            mensaje = mensaje.replace(" ", "%20");
+            
+            String url = "https://wa.me/" + numeroTelefono + "?text=" + mensaje;
+            
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Tu sistema no soporta abrir enlaces automáticamente.");
+            }
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo abrir WhatsApp: " + e.getMessage());
+        } // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

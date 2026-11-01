@@ -210,7 +210,26 @@ public String cedulaPaciente;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+ try {
+     
+            String numeroTelefono = "593984517090"; 
+         
+         
+            String mensaje = "Hola clínica IMLVT, soy " +  " y necesito agendar una cita médica.";
+            
+            mensaje = mensaje.replace(" ", "%20");
+            
+            String url = "https://wa.me/" + numeroTelefono + "?text=" + mensaje;
+            
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Tu sistema no soporta abrir enlaces automáticamente.");
+            }
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo abrir WhatsApp: " + e.getMessage());
+        } // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEspecialidadActionPerformed

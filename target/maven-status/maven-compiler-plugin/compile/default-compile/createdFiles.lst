@@ -36,6 +36,7 @@ com\mycompany\imlvt\datos\SecretariaDAO.class
 com\mycompany\imlvt\presentacion\enfermeros\MenuEnfermera$1.class
 com\mycompany\imlvt\presentacion\medico\PanelHistorial.class
 com\mycompany\imlvt\presentacion\medico\PanelReceta$2.class
+com\mycompany\imlvt\presentacion\comunes\lblNombreUsuario.class
 com\mycompany\imlvt\datos\MedicamentoDAO.class
 com\mycompany\imlvt\presentacion\paciente\PanelRecetas.class
 com\mycompany\imlvt\presentacion\medico\PanelAgendadosNuevos.class
