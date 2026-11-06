@@ -22,10 +22,33 @@ public class MenuEnfermera extends javax.swing.JFrame {
     public String nombreLogueado;
     public MenuEnfermera(String cedula, String nombre) {
         initComponents();
+        jLabel2.setText(nombre);           // Nombre de la enfermera
+    configurarSeleccionPaciente();
         cargarTablaPacientes();
+        
+        
          this.cedulaLogueada = cedula;
         this.nombreLogueado = nombre;
     }
+    
+    private void configurarSeleccionPaciente() {
+    tblPacientes.getSelectionModel().addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            int fila = tblPacientes.getSelectedRow();
+            if (fila != -1) {
+                // Convertimos la fila visual a la fila del modelo (por si hay filtro)
+                int filaModelo = tblPacientes.convertRowIndexToModel(fila);
+                
+                String nombrePaciente = tblPacientes.getModel().getValueAt(filaModelo, 1).toString();
+                
+                // Actualizamos los labels del panel derecho
+                jLabel12.setText(nombrePaciente);   // nombre del paciente
+                jLabel13.setText("");               // edad (por ahora vacío)
+                jLabel15.setText("—");              // motivo (por ahora vacío)
+            }
+        }
+    });
+}
     private void cargarTablaPacientes() {
         // 1. Preparamos el diseño de las columnas
         javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
