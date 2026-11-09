@@ -4,6 +4,11 @@
  */
 package com.mycompany.imlvt.presentacion.enfermeros;
 
+import com.mycompany.imlvt.presentacion.medico.PanelReceta;
+import com.mycompany.imlvt.presentacion.medico.PanelAgendadosNuevos;
+import com.mycompany.imlvt.presentacion.medico.MenuMedicos;
+import com.mycompany.imlvt.presentacion.enfermeros.PanelReportesTurno; 
+// (o la ruta exacta en la que guardaste tu archivo PanelReportesTurno.java)
 /**
  *
  * @author DELL
@@ -40,12 +45,13 @@ public class PanelMenudeEnfermera extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         PanelMedico = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        PanelHistorial = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanelAlertas = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanelEstado = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(200, 416));
@@ -85,7 +91,7 @@ public class PanelMenudeEnfermera extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Dr. Israel Caicedo");
+        jLabel2.setText("Dr. Bagui Alex");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -153,78 +159,98 @@ public class PanelMenudeEnfermera extends javax.swing.JPanel {
 
         PanelMedico.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        PanelHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Paciente", "Hora de Cita", "Estado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(PanelHistorial);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable3);
-
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Mis Pacientes ");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel4.setText("Dashboard");
+
+        javax.swing.GroupLayout jPanelAlertasLayout = new javax.swing.GroupLayout(jPanelAlertas);
+        jPanelAlertas.setLayout(jPanelAlertasLayout);
+        jPanelAlertasLayout.setHorizontalGroup(
+            jPanelAlertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 307, Short.MAX_VALUE)
+        );
+        jPanelAlertasLayout.setVerticalGroup(
+            jPanelAlertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 197, Short.MAX_VALUE)
+        );
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Estado del Turno");
+
+        javax.swing.GroupLayout jPanelEstadoLayout = new javax.swing.GroupLayout(jPanelEstado);
+        jPanelEstado.setLayout(jPanelEstadoLayout);
+        jPanelEstadoLayout.setHorizontalGroup(
+            jPanelEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelEstadoLayout.setVerticalGroup(
+            jPanelEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 183, Short.MAX_VALUE)
+        );
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Alertas y Recordatorios  ");
 
         javax.swing.GroupLayout PanelMedicoLayout = new javax.swing.GroupLayout(PanelMedico);
         PanelMedico.setLayout(PanelMedicoLayout);
         PanelMedicoLayout.setHorizontalGroup(
             PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMedicoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(PanelMedicoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelMedicoLayout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelMedicoLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel3)))
-                .addContainerGap(409, Short.MAX_VALUE))
+                        .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(73, 73, 73)
+                        .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5)
+                            .addComponent(jPanelAlertas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(262, Short.MAX_VALUE))
+            .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMedicoLayout.createSequentialGroup()
+                    .addContainerGap(467, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(365, 365, 365)))
         );
         PanelMedicoLayout.setVerticalGroup(
             PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMedicoLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel4)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(245, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(66, 66, 66)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelMedicoLayout.createSequentialGroup()
+                    .addGap(110, 110, 110)
+                    .addComponent(jLabel6)
+                    .addContainerGap(530, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -233,31 +259,33 @@ public class PanelMenudeEnfermera extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(164, 164, 164))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_reporte9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporte9ActionPerformed
         // TODO add your handling code here:
-        PanelHistorial panelHistorial = new PanelHistorial();
-        PanelMedico.removeAll();
-        // Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-        PanelMedico.setLayout(new java.awt.BorderLayout());
-        PanelMedico.add(panelHistorial, java.awt.BorderLayout.CENTER);
-        PanelMedico.revalidate();
-        PanelMedico.repaint();
+        PanelReportesTurno panelReportes = new PanelReportesTurno();
+    PanelMedico.removeAll();
+    PanelMedico.setLayout(new java.awt.BorderLayout());
+    PanelMedico.add(panelReportes, java.awt.BorderLayout.CENTER);
+    PanelMedico.revalidate();
+    PanelMedico.repaint();
 
     }//GEN-LAST:event_btn_reporte9ActionPerformed
 
@@ -285,104 +313,66 @@ public class PanelMenudeEnfermera extends javax.swing.JPanel {
 
     private void btn_kardex_digitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_kardex_digitalActionPerformed
         // TODO add your handling code here:
-        PanelAgendadosNuevos panelAgendadosNuevos = new PanelAgendadosNuevos();
-        PanelMedico.removeAll();
-        // Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-        PanelMedico.setLayout(new java.awt.BorderLayout());
-        PanelMedico.add(panelAgendadosNuevos, java.awt.BorderLayout.CENTER);
-        PanelMedico.revalidate();
-        PanelMedico.repaint();
+            PanelKardex panelKardex = new PanelKardex();
+    PanelMedico.removeAll();
+    PanelMedico.setLayout(new java.awt.BorderLayout());
+    PanelMedico.add(panelKardex, java.awt.BorderLayout.CENTER);
+    PanelMedico.revalidate();
+    PanelMedico.repaint();
 
     }//GEN-LAST:event_btn_kardex_digitalActionPerformed
 
     private void btn_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inicioActionPerformed
         // TODO add your handling code here:
-        PanelMenuMedico panelMenu = new PanelMenuMedico();
-        PanelMedico.removeAll();
-        // Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-        PanelMedico.setLayout(new java.awt.BorderLayout());
-        PanelMedico.add(panelMenu, java.awt.BorderLayout.CENTER);
-        PanelMedico.revalidate();
-        PanelMedico.repaint();
+        PanelMenudeEnfermera panelInicio = new PanelMenudeEnfermera(); // O el panel principal de tu dashboard
+    PanelMedico.removeAll();
+    PanelMedico.setLayout(new java.awt.BorderLayout());
+    PanelMedico.add(panelInicio, java.awt.BorderLayout.CENTER);
+    PanelMedico.revalidate();
+    PanelMedico.repaint();
     }//GEN-LAST:event_btn_inicioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable PanelHistorial;
     private javax.swing.JPanel PanelMedico;
     private javax.swing.JButton btn_inicio;
     private javax.swing.JButton btn_kardex_digital;
     private javax.swing.JButton btn_pacientes;
-    private javax.swing.JButton btn_reporte;
-    private javax.swing.JButton btn_reporte1;
-    private javax.swing.JButton btn_reporte2;
-    private javax.swing.JButton btn_reporte3;
-    private javax.swing.JButton btn_reporte4;
-    private javax.swing.JButton btn_reporte5;
-    private javax.swing.JButton btn_reporte6;
-    private javax.swing.JButton btn_reporte7;
     private javax.swing.JButton btn_reporte9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelAlertas;
+    private javax.swing.JPanel jPanelEstado;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
+
+    private static class PanelHistorial {
+
+        public PanelHistorial() {
+        }
+        
+    }
+
+    private static class PanelAgendadosNuevos {
+
+        public PanelAgendadosNuevos() {
+        }
+    }
+
+    private static class PanelMenuMedico {
+
+        public PanelMenuMedico() {
+        }
+    }
 }
