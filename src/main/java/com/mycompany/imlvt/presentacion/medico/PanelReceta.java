@@ -13,7 +13,7 @@ public class PanelReceta extends javax.swing.JPanel {
 
     public PanelReceta() {
         initComponents();
-        cargarMedicamentos();        
+        //cargarMedicamentos();        
     }
 
     @SuppressWarnings("unchecked")
@@ -33,7 +33,7 @@ public class PanelReceta extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        combo_boxfeme = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
@@ -64,29 +64,21 @@ public class PanelReceta extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField5.setForeground(new java.awt.Color(102, 204, 255));
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
+        jTextField5.addActionListener(this::jTextField5ActionPerformed);
         add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 32, 290, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/magnifying-glass-search-button-microphone-260nw-2120105102.png"))); 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/magnifying-glass-search-button-microphone-260nw-2120105102.png"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 74));
 
-        btn_Buscar.setFont(new java.awt.Font("Serif", 2, 12)); 
+        btn_Buscar.setFont(new java.awt.Font("Serif", 2, 12)); // NOI18N
         btn_Buscar.setText("Buscar");
-        btn_Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_BuscarActionPerformed(evt);
-            }
-        });
+        btn_Buscar.addActionListener(this::btn_BuscarActionPerformed);
         add(btn_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 80, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/images (4).png"))); 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/images (4).png"))); // NOI18N
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Serif", 2, 24)); 
+        jLabel14.setFont(new java.awt.Font("Serif", 2, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(51, 153, 255));
         jLabel14.setText("Paciente en Consulta");
         add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
@@ -102,28 +94,15 @@ public class PanelReceta extends javax.swing.JPanel {
 
         jLabel8.setText("Edad:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+        jTextField2.addActionListener(this::jTextField2ActionPerformed);
 
         jLabel9.setText("Sexo:");
 
-        combo_boxfeme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", " ", " " }));
-        combo_boxfeme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combo_boxfemeActionPerformed(evt);
-            }
-        });
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", " ", " " }));
 
         jLabel10.setText("Peso:");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        jTextField3.addActionListener(this::jTextField3ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,30 +117,29 @@ public class PanelReceta extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(52, 52, 52)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(combo_boxfeme, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(68, 68, 68))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(70, 70, 70))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(102, 102, 102)))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(70, 70, 70))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(102, 102, 102))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +153,7 @@ public class PanelReceta extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combo_boxfeme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,10 +179,10 @@ public class PanelReceta extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 420, 230));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono-del-logotipo-hospital-135146804.png"))); 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono-del-logotipo-hospital-135146804.png"))); // NOI18N
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, -1));
 
-        jLabel16.setFont(new java.awt.Font("Serif", 2, 24)); 
+        jLabel16.setFont(new java.awt.Font("Serif", 2, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(51, 153, 255));
         jLabel16.setText("Evaluacion Clinica");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
@@ -215,6 +193,8 @@ public class PanelReceta extends javax.swing.JPanel {
         jLabel12.setText("Sintomas referidos por el paciente:");
 
         jLabel15.setText("Diagnostico:");
+
+        jTextField11.addActionListener(this::jTextField11ActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -250,10 +230,10 @@ public class PanelReceta extends javax.swing.JPanel {
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 410, -1));
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/images (5).png"))); 
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/images (5).png"))); // NOI18N
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Serif", 2, 24)); 
+        jLabel13.setFont(new java.awt.Font("Serif", 2, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 153, 255));
         jLabel13.setText("Receta Medica");
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, -1, -1));
@@ -296,19 +276,15 @@ public class PanelReceta extends javax.swing.JPanel {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 420, -1));
 
         btn_AgregaReceta.setBackground(new java.awt.Color(102, 153, 255));
-        btn_AgregaReceta.setFont(new java.awt.Font("Serif", 2, 12)); 
+        btn_AgregaReceta.setFont(new java.awt.Font("Serif", 2, 12)); // NOI18N
         btn_AgregaReceta.setText("Agregar a la Receta");
-        btn_AgregaReceta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_AgregaRecetaActionPerformed(evt);
-            }
-        });
+        btn_AgregaReceta.addActionListener(this::btn_AgregaRecetaActionPerformed);
         add(btn_AgregaReceta, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, 130, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -326,33 +302,25 @@ public class PanelReceta extends javax.swing.JPanel {
 
         add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 510, 380, 110));
 
-        btn_eliminarReceta.setFont(new java.awt.Font("Serif", 2, 14)); 
+        btn_eliminarReceta.setFont(new java.awt.Font("Serif", 2, 14)); // NOI18N
         btn_eliminarReceta.setText("Eliminar");
-        btn_eliminarReceta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminarRecetaActionPerformed(evt);
-            }
-        });
+        btn_eliminarReceta.addActionListener(this::btn_eliminarRecetaActionPerformed);
         add(btn_eliminarReceta, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 650, -1, -1));
 
-        btn_finalizaConsulta.setFont(new java.awt.Font("Serif", 2, 14)); 
+        btn_finalizaConsulta.setFont(new java.awt.Font("Serif", 2, 14)); // NOI18N
         btn_finalizaConsulta.setText("Finalizar consulta");
-        btn_finalizaConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_finalizaConsultaActionPerformed(evt);
-            }
-        });
+        btn_finalizaConsulta.addActionListener(this::btn_finalizaConsultaActionPerformed);
         add(btn_finalizaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 650, -1, -1));
 
-        btn_borrador.setFont(new java.awt.Font("Serif", 2, 14)); 
+        btn_borrador.setFont(new java.awt.Font("Serif", 2, 14)); // NOI18N
         btn_borrador.setText("Guardar ");
-        btn_borrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_borradorActionPerformed(evt);
-            }
-        });
+        btn_borrador.addActionListener(this::btn_borradorActionPerformed);
         add(btn_borrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 650, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
@@ -474,7 +442,7 @@ public class PanelReceta extends javax.swing.JPanel {
     private javax.swing.JButton btn_borrador;
     private javax.swing.JButton btn_eliminarReceta;
     private javax.swing.JButton btn_finalizaConsulta;
-    private javax.swing.JComboBox<String> combo_boxfeme;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

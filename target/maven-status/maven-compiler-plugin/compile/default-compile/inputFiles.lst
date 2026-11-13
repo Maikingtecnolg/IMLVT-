@@ -4,7 +4,6 @@ C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompa
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\datos\MedicoDAO.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\datos\PacienteDAO.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\datos\SecretariaDAO.java
-C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\datos\ServiciosMedico.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\datos\UsuarioDAO.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\IMLVT.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\comunes\InicioIMLVT.java
@@ -14,11 +13,16 @@ C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompa
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\comunes\PanelServicios.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\comunes\RegistroIMLVT1.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\enfermeros\MenuEnfermera.java
+C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\enfermeros\PanelKardex.java
+C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\enfermeros\PanelMenudeEnfermera.java
+C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\enfermeros\PanelReportesTurno.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\MenuMedicos.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\PanelAgendadosNuevos.java
+C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\PanelAtenderPaciente.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\PanelHistorial.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\PanelMenuMedico.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\PanelReceta.java
+C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\medico\PanelRecetaNuevo.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\paciente\MenuIMLVTFinal1.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\paciente\PanelAgendarCita.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\paciente\PanelInicioPaciente1.java
@@ -26,5 +30,6 @@ C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompa
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\paciente\PanelResultadosLaboratorio.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\presentacion\secretaria\MenuSecretaria.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\servicios\ServiciosEnfermeria.java
+C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\servicios\ServiciosMedico.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\servicios\ServiciosPaciente.java
 C:\JAVA CURSO\PROYECTO SERIO\JORMAN PROGRAMACION\IMLVT\src\main\java\com\mycompany\imlvt\servicios\ServiciosSecretaria.java

@@ -13,16 +13,26 @@ import javax.swing.JOptionPane;
  *
  * @author Lenovo
  */
+
 public class MenuMedicos extends javax.swing.JFrame {
     // Variables globales para guardar la sesión
     public String cedulaLogueada;
     public String nombreLogueado;
 
     // Constructor que recibe los datos desde el Login
-    public MenuMedicos(String cedula, String nombre) {
+   public MenuMedicos(String cedula, String nombre) {
         initComponents();
         this.cedulaLogueada = cedula;
         this.nombreLogueado = nombre;
+        jLabel2.setText("Dr. " + nombre); // Muestra el nombre real del doctor logueado
+
+        // Carga el panel de inicio con las citas apenas abre la ventana
+        PanelMenuMedico panelMenu = new PanelMenuMedico(this.cedulaLogueada);
+        PanelMedico.removeAll();
+        PanelMedico.setLayout(new java.awt.BorderLayout());
+        PanelMedico.add(panelMenu, java.awt.BorderLayout.CENTER);
+        PanelMedico.revalidate();
+        PanelMedico.repaint();
     }
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuMedicos.class.getName());
 
@@ -60,6 +70,7 @@ public class MenuMedicos extends javax.swing.JFrame {
         btn_mensajeria = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         PanelMedico = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,6 +137,11 @@ public class MenuMedicos extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Dr. Israel Caicedo");
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Cerrar Sesion");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,24 +151,28 @@ public class MenuMedicos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addComponent(btn_inicio))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_pacientes)
-                                    .addComponent(btn_agenda)
-                                    .addComponent(btn_reporte))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(26, 26, 26)
+                                    .addComponent(btn_inicio))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel2))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addGap(26, 26, 26)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btn_pacientes)
+                                        .addComponent(btn_agenda))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btn_mensajeria)
+                                .addComponent(jButton1)
+                                .addComponent(btn_reporte)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,8 +180,6 @@ public class MenuMedicos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel10))
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addComponent(btn_mensajeria)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -187,7 +205,7 @@ public class MenuMedicos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(31, 31, 31)
                         .addComponent(btn_agenda)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -197,7 +215,9 @@ public class MenuMedicos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(btn_mensajeria))
-                .addGap(82, 82, 82))
+                .addGap(17, 17, 17)
+                .addComponent(jButton1)
+                .addGap(42, 42, 42))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -221,31 +241,30 @@ public class MenuMedicos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inicioActionPerformed
-        // TODO add your handling code here:
- PanelMenuMedico panelMenu = new PanelMenuMedico();
- PanelMedico.removeAll();
-// Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-PanelMedico.setLayout(new java.awt.BorderLayout()); 
-PanelMedico.add(panelMenu, java.awt.BorderLayout.CENTER);
-PanelMedico.revalidate();
-PanelMedico.repaint();
+      PanelMenuMedico panelMenu = new PanelMenuMedico(this.cedulaLogueada); // <-- Ahora sí lleva la cédula
+        PanelMedico.removeAll();
+        PanelMedico.setLayout(new java.awt.BorderLayout()); 
+        PanelMedico.add(panelMenu, java.awt.BorderLayout.CENTER);
+        PanelMedico.revalidate();
+        PanelMedico.repaint();
     }//GEN-LAST:event_btn_inicioActionPerformed
 
     private void btn_pacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pacientesActionPerformed
     // 1. Prueba para ver si el clic realmente llega aquí
-        System.out.println("¡El botón de pacientes sí funciona!"); 
+    
+       System.out.println("¡El botón de pacientes sí funciona!");
 
         try {
             // 2. Intentamos cargar la pantalla
-            PanelReceta panelReceta = new PanelReceta();
-            panelReceta.setSize(PanelMedico.getWidth(), PanelMedico.getHeight());
-            
+            PanelAtenderPaciente PanelAtenderPaciente = new PanelAtenderPaciente();
+            PanelAtenderPaciente.setSize(PanelMedico.getWidth(), PanelMedico.getHeight());
+
             PanelMedico.removeAll();
-            PanelMedico.setLayout(new java.awt.BorderLayout()); 
-            PanelMedico.add(panelReceta, java.awt.BorderLayout.CENTER);
+            PanelMedico.setLayout(new java.awt.BorderLayout());
+            PanelMedico.add(PanelAtenderPaciente, java.awt.BorderLayout.CENTER);
             PanelMedico.revalidate();
             PanelMedico.repaint();
-            
+
         } catch (Exception e) {
             // 3. Si explota por la base de datos o por otra cosa, lo imprimimos
             System.out.println("El panel explotó al intentar crearse: " + e.getMessage());
@@ -284,6 +303,14 @@ PanelMedico.repaint();
          
     }//GEN-LAST:event_btn_mensajeriaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+this.dispose();
+com.mycompany.imlvt.presentacion.comunes.InicioIMLVT login = new com.mycompany.imlvt.presentacion.comunes.InicioIMLVT();
+login.setVisible(true);
+login.setLocationRelativeTo(null);      // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -318,6 +345,7 @@ PanelMedico.repaint();
     private javax.swing.JButton btn_mensajeria;
     private javax.swing.JButton btn_pacientes;
     private javax.swing.JButton btn_reporte;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -19,51 +19,36 @@ import javax.swing.JOptionPane;
  * @author Lenovo
  */
 public class MedicoDAO {
-     public DefaultTableModel listarProximasCitas(String cedulaDoctor) {
-
+public DefaultTableModel listarProximasCitas(String cedulaDoctor) {
         DefaultTableModel modelo = new DefaultTableModel(
-            new String[]{"Paciente", "Hora", "Motivo", "Estado"}, 0
+            new String[]{"Cédula", "Paciente", "Hora", "Motivo", "Estado"}, 0
         );
 
-        String sql = "SELECT u.nombres AS paciente, c.hora, "
+        String sql = "SELECT c.cedula_paciente, u.nombres AS paciente, c.hora, "
                 + "c.especialidad AS motivo, c.estado "
                 + "FROM citas_medicas c "
-                + "INNER JOIN usuarios u "
-                + "ON c.cedula_paciente = u.cedula "
-                + "WHERE c.cedula_doctor = ? "
-                + "AND c.fecha = CURDATE() "
+                + "INNER JOIN usuarios u ON c.cedula_paciente = u.cedula "
+                + "WHERE c.cedula_doctor = ? AND c.estado = 'Pendiente' "
                 + "ORDER BY c.hora ASC";
 
-        try {
-            Connection con = ConexionDB.obtenerConexion();
-
-            if (con == null) {
-                return modelo;
-            }
-
+        try (Connection con = ConexionDB.obtenerConexion()) {
+            if (con == null) return modelo;
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cedulaDoctor);
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
+                    rs.getString("cedula_paciente"),
                     rs.getString("paciente"),
                     rs.getString("hora"),
                     rs.getString("motivo"),
                     rs.getString("estado")
                 });
             }
-
-            rs.close();
-            ps.close();
-            con.close();
-
         } catch (SQLException e) {
-            System.out.println("Error al consultar citas: "
-                    + e.getMessage());
+            System.out.println("Error al consultar citas: " + e.getMessage());
         }
-
         return modelo;
     }
     
@@ -167,6 +152,41 @@ public class MedicoDAO {
         return false;
     }
 }
+    //DESDE AQUI IMPLEMENTE LO NUEVO LILI
+    // Método para obtener los datos del paciente y su consulta actual
+   
+    public java.util.Map<String, String> obtenerDatosParaAtencion(String cedulaPaciente) {
+        java.util.Map<String, String> datosPaciente = new java.util.HashMap<>();
+        
+        String sql = "SELECT u.nombres, u.edad, u.sexo, u.peso, c.sintomas, c.motivo " 
+                   + "FROM usuarios u "
+                   + "LEFT JOIN citas_medicas c ON u.cedula = c.cedula_paciente "
+                   + "WHERE u.cedula = ? AND c.estado = 'Pendiente' LIMIT 1";
+                   
+        try (Connection con = ConexionDB.obtenerConexion(); // O usa obtenerConexionDoctor() según tu configuración general
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            if (con == null) {
+                return datosPaciente;
+            }
+            
+            ps.setString(1, cedulaPaciente);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    datosPaciente.put("nombres", rs.getString("nombres") != null ? rs.getString("nombres") : "");
+                    datosPaciente.put("edad", rs.getString("edad") != null ? rs.getString("edad") : "");
+                    datosPaciente.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
+                    datosPaciente.put("peso", rs.getString("peso") != null ? rs.getString("peso") : "");
+                    datosPaciente.put("motivo", rs.getString("motivo") != null ? rs.getString("motivo") : "");
+                    datosPaciente.put("sintomas", rs.getString("sintomas") != null ? rs.getString("sintomas") : "");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en DAO al obtener datos de atención: " + e.getMessage());
+        }
+        
+        return datosPaciente;
+    }
 }
     
     

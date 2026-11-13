@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.imlvt.presentacion.medico;
-
+import com.mycompany.imlvt.servicios.ServiciosMedico;
 import javax.swing.JFrame;
 
 /**
@@ -12,9 +12,17 @@ import javax.swing.JFrame;
  */
 public class PanelMenuMedico extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelMenuMedico
-     */
+    private ServiciosMedico serviciosMedico = new ServiciosMedico();
+    private String cedulaDoctorLogueado; // 1. Declaramos la variable primero
+
+    // 2. El constructor que recibe la cédula desde el login
+    public PanelMenuMedico(String cedulaDoctor) {
+        initComponents();
+        this.cedulaDoctorLogueado = cedulaDoctor; // Aquí dentro sí va la asignación
+        cargarCitasPendientes();
+    }
+
+    // (Opcional por si en algún lado se instancia sin parámetros)
     public PanelMenuMedico() {
         initComponents();
     }
@@ -39,7 +47,8 @@ public class PanelMenuMedico extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla_citas = new javax.swing.JTable();
+        jTableProximasCitas = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,7 +135,7 @@ public class PanelMenuMedico extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 18)); // NOI18N
         jLabel16.setText("Proximas Citas");
 
-        tabla_citas.setModel(new javax.swing.table.DefaultTableModel(
+        jTableProximasCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -137,7 +146,10 @@ public class PanelMenuMedico extends javax.swing.JPanel {
                 "Paciente", "Hora", "Motivo", "Estado"
             }
         ));
-        jScrollPane1.setViewportView(tabla_citas);
+        jScrollPane1.setViewportView(jTableProximasCitas);
+
+        jButton1.setText("Atender paciente");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,6 +160,8 @@ public class PanelMenuMedico extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel16)
@@ -180,9 +194,15 @@ public class PanelMenuMedico extends javax.swing.JPanel {
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(32, 32, 32)
                 .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(70, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(78, 78, 78))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -201,8 +221,36 @@ public class PanelMenuMedico extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+int filaSeleccionada = jTableProximasCitas.getSelectedRow(); // Reemplaza por el nombre real de tu tabla
+
+        if (filaSeleccionada == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecciona un paciente de la tabla para atender.");
+            return;
+        }
+
+        // Obtenemos la cédula de la columna correspondiente (por ejemplo, la columna 0 o la que tenga la cédula oculta/visible)
+        String cedulaPaciente = jTableProximasCitas.getValueAt(filaSeleccionada, 0).toString();
+
+        // Creamos el panel de atención pasándole la cédula por el constructor
+        PanelAtenderPaciente panelAtender = new PanelAtenderPaciente(cedulaPaciente);
+
+        // Reemplazamos el panel actual del menú por el panel de atención
+        panelAtender.setSize(this.getSize());
+        panelAtender.setLocation(0, 0);
+        this.removeAll();
+        this.add(panelAtender);
+        this.revalidate();
+        this.repaint();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+private void cargarCitasPendientes() {
+        System.out.println("CARGANDO TABLA PARA EL DOCTOR CON CÉDULA: " + cedulaDoctorLogueado);
+        javax.swing.table.DefaultTableModel modelo = serviciosMedico.listarProximasCitas(cedulaDoctorLogueado);
+        jTableProximasCitas.setModel(modelo); 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -214,6 +262,6 @@ public class PanelMenuMedico extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabla_citas;
+    private javax.swing.JTable jTableProximasCitas;
     // End of variables declaration//GEN-END:variables
 }

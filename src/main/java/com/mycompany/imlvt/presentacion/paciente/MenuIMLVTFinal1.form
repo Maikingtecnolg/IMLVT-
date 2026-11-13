@@ -99,11 +99,14 @@
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnResulatadosLabpac" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnRecetapac" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnCitaMpac" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnPerfilUpac" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnMenupac" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButton1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnResulatadosLabpac" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnRecetapac" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnCitaMpac" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnPerfilUpac" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMenupac" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
@@ -137,7 +140,9 @@
                       <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                       <Component id="btnResulatadosLabpac" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="65" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -231,6 +236,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResulatadosLabpacActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

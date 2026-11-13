@@ -120,7 +120,10 @@
                               <Component id="jTextField1" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextField4" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
-                              <Component id="jTextField6" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Component id="jTextField6" min="-2" pref="211" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -354,6 +357,9 @@
         <Component class="javax.swing.JTextField" name="jTextField10">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField11">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField11ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -429,7 +435,7 @@
                   <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txt_duracion" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
