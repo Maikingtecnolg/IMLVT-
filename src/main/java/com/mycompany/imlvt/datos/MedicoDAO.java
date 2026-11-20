@@ -187,6 +187,7 @@ public DefaultTableModel listarProximasCitas(String cedulaDoctor) {
         
         return datosPaciente;
     }
+   
 }
     
     
