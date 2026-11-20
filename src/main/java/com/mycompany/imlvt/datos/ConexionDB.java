@@ -9,7 +9,7 @@ public class ConexionDB {
     // Apuntamos a una ÚNICA base de datos donde están todas tus tablas
     private static final String URL = "jdbc:mysql://localhost:3306/imlvt_bd?useSSL=false&serverTimezone=UTC";
     private static final String USUARIO = "root";
-    private static final String PASSWORD = ""; 
+    private static final String PASSWORD = "1234"; 
 
     // Método original
     public static Connection obtenerConexion() {
@@ -26,5 +26,9 @@ public class ConexionDB {
     public static Connection obtenerConexionDoctor() {
         // Redirigimos esta conexión para que use los mismos datos de arriba
         return obtenerConexion();
+    }
+
+    public static Connection getConnection() {
+        return obtenerConexion(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

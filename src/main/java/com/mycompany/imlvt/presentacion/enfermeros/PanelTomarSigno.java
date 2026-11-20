@@ -1,97 +1,28 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.imlvt.presentacion.enfermeros;
 
+import com.mycompany.imlvt.presentacion.medico.PanelReceta;
+import com.mycompany.imlvt.presentacion.medico.PanelAgendadosNuevos;
+import com.mycompany.imlvt.presentacion.medico.MenuMedicos;
+import com.mycompany.imlvt.presentacion.enfermeros.PanelReportesTurno;
+//import com.mycompany.imlvt.presentacion.enfermeros.PanelKardex;
+// (o la ruta exacta en la que guardaste tu archivo PanelReportesTurno.java)
 /**
  *
- * @author User
+ * @author DELL
  */
-
-  
-    
-public class MenuEnfermera extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuEnfermera.class.getName());
+public class PanelTomarSigno extends javax.swing.JPanel {
 
     /**
-     * Creates new form MenuEnfermera
+     * Creates new form MenudeEnfermera
      */
-    public String cedulaLogueada;
-    public String nombreLogueado;
-    public MenuEnfermera(String cedula, String nombre) {
+    public PanelTomarSigno() {
         initComponents();
-        jLabel2.setText(nombre);           // Nombre de la enfermera
-    configurarSeleccionPaciente();
-        cargarTablaPacientes();
-        
-        
-         this.cedulaLogueada = cedula;
-        this.nombreLogueado = nombre;
-    }
-    
-    private void configurarSeleccionPaciente() {
-    tblPacientes.getSelectionModel().addListSelectionListener(e -> {
-        if (!e.getValueIsAdjusting()) {
-            int fila = tblPacientes.getSelectedRow();
-            if (fila != -1) {
-                // Convertimos la fila visual a la fila del modelo (por si hay filtro)
-                int filaModelo = tblPacientes.convertRowIndexToModel(fila);
-                
-                String nombrePaciente = tblPacientes.getModel().getValueAt(filaModelo, 1).toString();
-                
-                // Actualizamos los labels del panel derecho
-                jLabel12.setText(nombrePaciente);   // nombre del paciente
-                jLabel13.setText("");               // edad (por ahora vacío)
-                jLabel15.setText("—");              // motivo (por ahora vacío)
-            }
-        }
-    });
-}
-    private void cargarTablaPacientes() {
-        // 1. Preparamos el diseño de las columnas
-        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
-        modelo.addColumn("Cédula Oculta"); // La usaremos internamente para saber a quién le guardamos los signos
-        modelo.addColumn("Paciente");
-        modelo.addColumn("Ingreso");
-        
-        // Le pasamos este diseño a tu tabla visual
-        tblPacientes.setModel(modelo);
-        
-        // 2. Nos conectamos a MySQL
-        java.sql.Connection conexion = com.mycompany.imlvt.datos.ConexionDB.obtenerConexion();
-        
-        if (conexion != null) {
-            try {
-                // 3. Buscamos a todos los usuarios que tengan el rol de "Paciente"
-                String sql = "SELECT cedula, nombres FROM usuarios WHERE rol = 'Paciente'AND cedula NOT IN (SELECT cedula_paciente FROM signos_vitales)";
-                java.sql.PreparedStatement ps = conexion.prepareStatement(sql);
-                java.sql.ResultSet rs = ps.executeQuery();
-                
-                // Generamos una hora simulada para la columna "Ingreso"
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm");
-                String horaSimulada = sdf.format(new java.util.Date());
-                
-                // 4. Llenamos la tabla fila por fila con los datos de la base
-                while (rs.next()) {
-                    String cedula = rs.getString("cedula");
-                    String nombre = rs.getString("nombres");
-                    
-                    // Agregamos la fila (Cédula, Nombre, Hora)
-                    modelo.addRow(new Object[]{cedula, nombre, horaSimulada});
-                }
-                
-                // 5. TRUCO DE DISEÑO: Ocultamos la columna de la cédula para que no dañe tu diseño visual,
-                // pero la mantenemos ahí escondida para usarla cuando le demos a "Guardar".
-                tblPacientes.getColumnModel().getColumn(0).setMinWidth(0);
-                tblPacientes.getColumnModel().getColumn(0).setMaxWidth(0);
-                tblPacientes.getColumnModel().getColumn(0).setWidth(0);
-                
-            } catch (java.sql.SQLException e) {
-                System.out.println("Error al cargar la tabla: " + e.getMessage());
-            }
-        }
+        cargarTablaPacientes();        // Carga los pacientes al iniciar el panel
+        configurarSeleccionPaciente();
     }
 
     /**
@@ -103,24 +34,26 @@ public class MenuEnfermera extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        BtnCancelarborrar = new javax.swing.JButton();
+        txtBuscarPaciente = new javax.swing.JTextField();
+        btnGuardaryEnviarM = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPacientes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnActualizar = new javax.swing.JButton();
+        btnActualizar1 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txtBuscarPaciente = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblPacientes = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -138,12 +71,73 @@ public class MenuEnfermera extends javax.swing.JFrame {
         txtPeso = new javax.swing.JTextField();
         txtFrecuencia = new javax.swing.JTextField();
         txtEstatura = new javax.swing.JTextField();
-        BtnCancelarborrar = new javax.swing.JButton();
-        btnGuardaryEnviarM = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
-        setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/heart.png"))); // NOI18N
+
+        jLabel28.setText("08 de 10");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel28)
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel28)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Pacientes en espera");
+
+        BtnCancelarborrar.setText("Cancelar");
+        BtnCancelarborrar.addActionListener(this::BtnCancelarborrarActionPerformed);
+
+        txtBuscarPaciente.setText("Buscar Paciente");
+        txtBuscarPaciente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarPacienteKeyReleased(evt);
+            }
+        });
+
+        btnGuardaryEnviarM.setBackground(new java.awt.Color(0, 204, 0));
+        btnGuardaryEnviarM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGuardaryEnviarM.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardaryEnviarM.setText("Guardar y enviar al medico");
+        btnGuardaryEnviarM.addActionListener(this::btnGuardaryEnviarMActionPerformed);
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/check.png"))); // NOI18N
+        jLabel8.setText("jLabel8");
+
+        tblPacientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        tblPacientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Paciente", "Ingreso"
+            }
+        ));
+        tblPacientes.setRowHeight(60);
+        jScrollPane1.setViewportView(tblPacientes);
 
         jLabel1.setFont(new java.awt.Font("Garamond", 1, 24)); // NOI18N
         jLabel1.setText("Buenos Dias,");
@@ -153,8 +147,8 @@ public class MenuEnfermera extends javax.swing.JFrame {
 
         jLabel3.setText("Gestiona la atencion y la valoracion inicial de tus pacientes");
 
-        btnActualizar.setText("Filtrar Lista");
-        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
+        btnActualizar1.setText("Filtrar Lista");
+        btnActualizar1.addActionListener(this::btnActualizar1ActionPerformed);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -176,7 +170,7 @@ public class MenuEnfermera extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
@@ -212,64 +206,6 @@ public class MenuEnfermera extends javax.swing.JFrame {
                     .addComponent(jLabel27))
                 .addContainerGap())
         );
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/heart.png"))); // NOI18N
-
-        jLabel28.setText("08 de 10");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel28)
-                .addContainerGap(143, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel28)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("Pacientes en espera");
-
-        txtBuscarPaciente.setText("Buscar Paciente");
-        txtBuscarPaciente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarPacienteKeyReleased(evt);
-            }
-        });
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/check.png"))); // NOI18N
-        jLabel8.setText("jLabel8");
-
-        tblPacientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        tblPacientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Paciente", "Ingreso"
-            }
-        ));
-        tblPacientes.setRowHeight(60);
-        jScrollPane1.setViewportView(tblPacientes);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -387,78 +323,68 @@ public class MenuEnfermera extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        BtnCancelarborrar.setText("Cancelar");
-        BtnCancelarborrar.addActionListener(this::BtnCancelarborrarActionPerformed);
-
-        btnGuardaryEnviarM.setBackground(new java.awt.Color(0, 204, 0));
-        btnGuardaryEnviarM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnGuardaryEnviarM.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardaryEnviarM.setText("Guardar y enviar al medico");
-        btnGuardaryEnviarM.addActionListener(this::btnGuardaryEnviarMActionPerformed);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizar)
-                        .addGap(82, 82, 82))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel2))
-                                    .addComponent(jLabel7)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(31, 31, 31)
-                                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(BtnCancelarborrar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnGuardaryEnviarM, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(15, 15, 15)))))
-                        .addGap(0, 8, Short.MAX_VALUE))))
+                        .addComponent(btnActualizar1)
+                        .addGap(41, 41, 41))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(27, 27, 27)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel2))
+                                .addComponent(jLabel7)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(11, 11, 11)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(BtnCancelarborrar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnGuardaryEnviarM, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(15, 15, 15))))))
+                .addGap(1555, 1555, 1555))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(btnActualizar))
+                    .addComponent(btnActualizar1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -474,111 +400,131 @@ public class MenuEnfermera extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnCancelarborrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGuardaryEnviarM, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnCancelarborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarborrarActionPerformed
+        txtPresion.setText("");
+        txtTemperatura.setText("");
+        txtPeso.setText("");
+        txtEstatura.setText("");
+        txtFrecuencia.setText("");
+        txtBuscarPaciente.setText("");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCancelarborrarActionPerformed
+
+    private void txtBuscarPacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPacienteKeyReleased
+        // TODO add your handling code here:
+        // 1. Obtenemos el texto que la enfermera está escribiendo
+        String textoBusqueda = txtBuscarPaciente.getText();
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblPacientes.getModel();
+        javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> filtro = new javax.swing.table.TableRowSorter<>(modelo);
+        tblPacientes.setRowSorter(filtro);
+
+        if (textoBusqueda.trim().length() == 0 || textoBusqueda.equals("Buscar Paciente")) {
+            filtro.setRowFilter(null);
+        } else {
+            filtro.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + textoBusqueda));
+        }
+    }//GEN-LAST:event_txtBuscarPacienteKeyReleased
+
+    private void btnGuardaryEnviarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryEnviarMActionPerformed
+        int fila = tblPacientes.getSelectedRow();
+        if (fila == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un paciente.");
+            return;
+        }
+
+        int filaModelo = tblPacientes.convertRowIndexToModel(fila);
+        String cedula = tblPacientes.getModel().getValueAt(filaModelo, 0).toString();
+        
+        String presion = txtPresion.getText();
+        String temp = txtTemperatura.getText();
+        String peso = txtPeso.getText();
+        String estatura = txtEstatura.getText();
+        String frecuencia = txtFrecuencia.getText();
+
+        com.mycompany.imlvt.servicios.ServiciosEnfermeria servicio = new com.mycompany.imlvt.servicios.ServiciosEnfermeria();
+        String respuesta = servicio.procesarYGuardarSignos(cedula, presion, temp, peso, estatura, frecuencia);
+
+        if (respuesta.equals("OK")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Signos guardados correctamente!");
+            cargarTablaPacientes();
+            BtnCancelarborrarActionPerformed(null);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, respuesta);
+        }
+    }//GEN-LAST:event_btnGuardaryEnviarMActionPerformed
+
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        cargarTablaPacientes();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
 
     private void txtTemperaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemperaturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTemperaturaActionPerformed
 
-    private void btnGuardaryEnviarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryEnviarMActionPerformed
-int fila = tblPacientes.getSelectedRow();
-if (fila == -1) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un paciente.");
-    return;
-}
-
-String cedula = tblPacientes.getValueAt(fila, 0).toString();
-String presion = txtPresion.getText();
-String temp = txtTemperatura.getText();
-String peso = txtPeso.getText();
-String estatura = txtEstatura.getText();
-String frecuencia = txtFrecuencia.getText();
-
-// Llamamos SOLO a la capa de Servicios
-com.mycompany.imlvt.servicios.ServiciosEnfermeria servicio = new com.mycompany.imlvt.servicios.ServiciosEnfermeria();
-
-// El servicio nos devuelve un mensaje de respuesta
-String respuesta = servicio.procesarYGuardarSignos(cedula, presion, temp, peso, estatura, frecuencia);
-
-if (respuesta.equals("OK")) {
-    javax.swing.JOptionPane.showMessageDialog(this, "¡Signos guardados correctamente!");
-    // Limpiar cajas y actualizar tabla
-    cargarTablaPacientes();
-} else {
-    // Si hubo un error de validación o base de datos, mostramos el mensaje del servicio
-    javax.swing.JOptionPane.showMessageDialog(this, respuesta);
-}
-
-    }//GEN-LAST:event_btnGuardaryEnviarMActionPerformed
-
-    private void txtBuscarPacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPacienteKeyReleased
-        // TODO add your handling code here:
-        // 1. Obtenemos el texto que la enfermera está escribiendo
-String textoBusqueda = txtBuscarPaciente.getText();
-
-// 2. Extraemos el modelo (el cerebro) de tu tabla actual
-javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblPacientes.getModel();
-
-// 3. Creamos el "Filtro mágico" (Sorter)
-javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> filtro = new javax.swing.table.TableRowSorter<>(modelo);
-tblPacientes.setRowSorter(filtro);
-
-// 4. Aplicamos el filtro a la tabla
-if (textoBusqueda.trim().length() == 0) {
-    // Si la caja está vacía, mostramos a todos los pacientes
-    filtro.setRowFilter(null);
-} else {
-    // Si escribió algo, filtramos. El "(?i)" es para que no le importen las mayúsculas o minúsculas
-    filtro.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + textoBusqueda));
-}
-    }//GEN-LAST:event_txtBuscarPacienteKeyReleased
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-cargarTablaPacientes();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void BtnCancelarborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarborrarActionPerformed
-txtPresion.setText(""); 
-txtTemperatura.setText(""); 
-txtPeso.setText(""); 
-txtEstatura.setText(""); 
-txtFrecuencia.setText(""); 
-txtBuscarPaciente.setText(""); 
-// TODO add your handling code here:
-    }//GEN-LAST:event_BtnCancelarborrarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void configurarSeleccionPaciente() {
+        tblPacientes.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila = tblPacientes.getSelectedRow();
+                if (fila != -1) {
+                    int filaModelo = tblPacientes.convertRowIndexToModel(fila);
+                    String nombrePaciente = tblPacientes.getModel().getValueAt(filaModelo, 1).toString();
+                    
+                    jLabel12.setText(nombrePaciente);   
+                    jLabel13.setText("");               
+                    jLabel15.setText("Consulta general");              
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuEnfermera("", "").setVisible(true));
+        });
     }
+    
+    private void cargarTablaPacientes() {
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
+        modelo.addColumn("Cédula Oculta");
+        modelo.addColumn("Paciente");
+        modelo.addColumn("Ingreso");
+        
+        tblPacientes.setModel(modelo);
+        
+        java.sql.Connection conexion = com.mycompany.imlvt.datos.ConexionDB.obtenerConexion();
+        
+        if (conexion != null) {
+            try {
+                String sql = "SELECT cedula, nombres FROM usuarios WHERE rol = 'Paciente' AND cedula NOT IN (SELECT cedula_paciente FROM signos_vitales)";
+                java.sql.PreparedStatement ps = conexion.prepareStatement(sql);
+                java.sql.ResultSet rs = ps.executeQuery();
+                
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm");
+                String horaSimulada = sdf.format(new java.util.Date());
+                
+                while (rs.next()) {
+                    String cedula = rs.getString("cedula");
+                    String nombre = rs.getString("nombres");
+                    modelo.addRow(new Object[]{cedula, nombre, horaSimulada});
+                }
+                
+                // Ocultar columna de cédula
+                tblPacientes.getColumnModel().getColumn(0).setMinWidth(0);
+                tblPacientes.getColumnModel().getColumn(0).setMaxWidth(0);
+                tblPacientes.getColumnModel().getColumn(0).setWidth(0);
+                
+                rs.close();
+                ps.close();
+                conexion.close();
+                
+            } catch (java.sql.SQLException e) {
+                System.out.println("Error al cargar la tabla de pacientes: " + e.getMessage());
+            }
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelarborrar;
-    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnGuardaryEnviarM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -615,4 +561,23 @@ txtBuscarPaciente.setText("");
     private javax.swing.JTextField txtPresion;
     private javax.swing.JTextField txtTemperatura;
     // End of variables declaration//GEN-END:variables
+
+    private static class PanelHistorial {
+
+        public PanelHistorial() {
+        }
+        
+    }
+
+    private static class PanelAgendadosNuevos {
+
+        public PanelAgendadosNuevos() {
+        }
+    }
+
+    private static class PanelMenuMedico {
+
+        public PanelMenuMedico() {
+        }
+    }
 }

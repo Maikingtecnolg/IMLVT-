@@ -185,8 +185,8 @@ public class LoginIMLVT1 extends javax.swing.JPanel {
 
                 case "Enfermera":
 
-                com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermera menuEnf =
-                new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermera(cedula, nombre);
+                com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero menuEnf;
+                menuEnf = new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermeros(cedula, nombre);
                 menuEnf.setVisible(true);
                javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
                 break;
