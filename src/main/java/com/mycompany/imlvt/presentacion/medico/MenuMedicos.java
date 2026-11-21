@@ -310,9 +310,15 @@ login.setLocationRelativeTo(null);      // TODO add your handling code here:    
 
         /* Create and display the form */
       java.awt.EventQueue.invokeLater(() -> {
-            MenuMedicos menu = new MenuMedicos("1234567890", "Medicina General");
-            menu.setVisible(true);
-        });
+          
+        MenuMedicos menu = new MenuMedicos(
+            "0801234567",
+            "Mayte Carolina Perea Castillo"
+        );
+
+        menu.setLocationRelativeTo(null);
+        menu.setVisible(true);
+    });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMedico;
@@ -332,13 +338,4 @@ login.setLocationRelativeTo(null);      // TODO add your handling code here:    
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 
-    private static class jTableCitas {
-
-        private static void setModel(DefaultTableModel listarProximasCitas) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        public jTableCitas() {
-        }
-    }
 }

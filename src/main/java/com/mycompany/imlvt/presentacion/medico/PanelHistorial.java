@@ -132,7 +132,10 @@ private MedicoDAO medicoDAO = new MedicoDAO();
 
     private void btnh_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnh_actualizarActionPerformed
         // TODO add your handling code here:
-          int fila = jTable1.getSelectedRow();
+          if (jTable1.isEditing()) {
+        jTable1.getCellEditor().stopCellEditing();
+    }
+        int fila = jTable1.getSelectedRow();
 
     if (fila == -1) {
         JOptionPane.showMessageDialog(this,
@@ -140,9 +143,7 @@ private MedicoDAO medicoDAO = new MedicoDAO();
         return;
     }
 
-    int id = Integer.parseInt(
-            jTable1.getValueAt(fila, 0).toString());
-
+    int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
     String nombre = jTable1.getValueAt(fila, 1).toString().trim();
     String cedula = jTable1.getValueAt(fila, 2).toString().trim();
     String especialidad = jTable1.getValueAt(fila, 3).toString().trim();
@@ -168,11 +169,9 @@ private MedicoDAO medicoDAO = new MedicoDAO();
                     "Paciente actualizado correctamente.");
 
             jTable1.setModel(medicoDAO.buscarPacientes(""));
-            txt_buscar.setText("");
-
         } else {
             JOptionPane.showMessageDialog(this,
-                    "No se pudo actualizar el paciente. Revise la consola.");
+                    "No se pudo actualizar el paciente.");
         }
     }
     }//GEN-LAST:event_btnh_actualizarActionPerformed
