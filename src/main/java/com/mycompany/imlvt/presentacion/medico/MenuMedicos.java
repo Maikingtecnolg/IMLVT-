@@ -6,8 +6,9 @@ package com.mycompany.imlvt.presentacion.medico;
 import javax.swing.JOptionPane;
 import com.mycompany.imlvt.presentacion.paciente.PanelInicioPaciente1;
 import static java.awt.SystemColor.menu;
-
+import com.mycompany.imlvt.datos.MedicoDAO;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +19,10 @@ public class MenuMedicos extends javax.swing.JFrame {
     // Variables globales para guardar la sesión
     public String cedulaLogueada;
     public String nombreLogueado;
+    public String especialidadLogueada;
+    private MedicoDAO medicoDAO = new MedicoDAO();
+    private String cedulaDoctor;
+    
 
     // Constructor que recibe los datos desde el Login
    public MenuMedicos(String cedula, String nombre) {
@@ -41,8 +46,10 @@ public class MenuMedicos extends javax.swing.JFrame {
      */
     public MenuMedicos() {
         initComponents();
+        
+    
     }
-
+    
 
   
 
@@ -60,12 +67,10 @@ public class MenuMedicos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btn_reporte = new javax.swing.JButton();
         btn_pacientes = new javax.swing.JButton();
-        btn_agenda = new javax.swing.JButton();
         btn_inicio = new javax.swing.JButton();
         btn_mensajeria = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -100,8 +105,6 @@ public class MenuMedicos extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/PersonasFBlanco.png"))); // NOI18N
         jLabel6.setText("jLabel6");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Agenda.png"))); // NOI18N
-
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/folder.png"))); // NOI18N
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/mail.png"))); // NOI18N
@@ -115,11 +118,6 @@ public class MenuMedicos extends javax.swing.JFrame {
         btn_pacientes.setForeground(new java.awt.Color(255, 255, 255));
         btn_pacientes.setText("Pacientes");
         btn_pacientes.addActionListener(this::btn_pacientesActionPerformed);
-
-        btn_agenda.setBackground(new java.awt.Color(153, 153, 255));
-        btn_agenda.setForeground(new java.awt.Color(255, 255, 255));
-        btn_agenda.setText("Agenda");
-        btn_agenda.addActionListener(this::btn_agendaActionPerformed);
 
         btn_inicio.setBackground(new java.awt.Color(153, 153, 255));
         btn_inicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,7 +136,6 @@ public class MenuMedicos extends javax.swing.JFrame {
         jLabel2.setText("Dr. Israel Caicedo");
 
         jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Cerrar Sesion");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
@@ -149,38 +146,37 @@ public class MenuMedicos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(26, 26, 26)
-                                    .addComponent(btn_inicio))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel2))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(26, 26, 26)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_pacientes)
-                                        .addComponent(btn_agenda))))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(26, 26, 26)
+                                .addComponent(btn_inicio))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_reporte)
+                                    .addComponent(btn_pacientes))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
                                 .addComponent(btn_mensajeria)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)
-                                .addComponent(btn_reporte)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10))
-                    .addComponent(jLabel9))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(41, 41, 41))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,28 +192,21 @@ public class MenuMedicos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_inicio, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pacientes))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btn_agenda)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_pacientes)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(btn_reporte))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(btn_mensajeria))
-                .addGap(17, 17, 17)
+                    .addComponent(btn_mensajeria)
+                    .addComponent(jLabel10))
+                .addGap(41, 41, 41)
                 .addComponent(jButton1)
-                .addGap(42, 42, 42))
+                .addGap(44, 44, 44))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -284,19 +273,6 @@ public class MenuMedicos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_reporteActionPerformed
 
-    private void btn_agendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agendaActionPerformed
-        // TODO add your handling code here:
-        PanelAgendadosNuevos panelAgendadosNuevos = new PanelAgendadosNuevos();
-    PanelMedico.removeAll();
-// Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
-    PanelMedico.setLayout(new java.awt.BorderLayout()); 
-    PanelMedico.add(panelAgendadosNuevos, java.awt.BorderLayout.CENTER);
-    PanelMedico.revalidate();
-    PanelMedico.repaint();
-        
-        
-    }//GEN-LAST:event_btn_agendaActionPerformed
-
     private void btn_mensajeriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mensajeriaActionPerformed
         // TODO add your handling code here:
     JOptionPane.showMessageDialog(null, "¡No hay mensajes por ahora!");
@@ -340,7 +316,6 @@ login.setLocationRelativeTo(null);      // TODO add your handling code here:    
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMedico;
-    private javax.swing.JButton btn_agenda;
     private javax.swing.JButton btn_inicio;
     private javax.swing.JButton btn_mensajeria;
     private javax.swing.JButton btn_pacientes;
@@ -352,9 +327,18 @@ login.setLocationRelativeTo(null);      // TODO add your handling code here:    
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
+
+    private static class jTableCitas {
+
+        private static void setModel(DefaultTableModel listarProximasCitas) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        public jTableCitas() {
+        }
+    }
 }

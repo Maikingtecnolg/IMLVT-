@@ -4,8 +4,7 @@
  */
 package com.mycompany.imlvt.presentacion.enfermeros;
 
-import com.mycompany.imlvt.presentacion.medico.PanelReceta;
-import com.mycompany.imlvt.presentacion.medico.PanelAgendadosNuevos;
+
 import com.mycompany.imlvt.presentacion.medico.MenuMedicos;
 import com.mycompany.imlvt.presentacion.enfermeros.PanelReportesTurno;
 //import com.mycompany.imlvt.presentacion.enfermeros.PanelKardex;

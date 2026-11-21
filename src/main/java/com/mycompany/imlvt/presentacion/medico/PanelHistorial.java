@@ -3,18 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.imlvt.presentacion.medico;
-
+import com.mycompany.imlvt.datos.MedicoDAO;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Lenovo
  */
 public class PanelHistorial extends javax.swing.JPanel {
-
+private MedicoDAO medicoDAO = new MedicoDAO();
     /**
      * Creates new form PanelHistorial
      */
     public PanelHistorial() {
         initComponents();
+        
     }
 
     /**
@@ -28,7 +30,7 @@ public class PanelHistorial extends javax.swing.JPanel {
 
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_buscar = new javax.swing.JTextField();
         btnh_buscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -46,16 +48,17 @@ public class PanelHistorial extends javax.swing.JPanel {
         btnh_buscar.setFont(new java.awt.Font("MV Boli", 2, 14)); // NOI18N
         btnh_buscar.setForeground(new java.awt.Color(255, 255, 255));
         btnh_buscar.setText("Buscar");
+        btnh_buscar.addActionListener(this::btnh_buscarActionPerformed);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Ultima visita"
+                "ID", "Nombre", "Cedula", "Especialidad"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -67,6 +70,7 @@ public class PanelHistorial extends javax.swing.JPanel {
         btnh_actualizar.setFont(new java.awt.Font("MV Boli", 2, 14)); // NOI18N
         btnh_actualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnh_actualizar.setText("Actualizar");
+        btnh_actualizar.addActionListener(this::btnh_actualizarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,7 +83,7 @@ public class PanelHistorial extends javax.swing.JPanel {
                     .addComponent(jLabel17)
                     .addComponent(jLabel16)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
                         .addComponent(btnh_buscar))
                     .addGroup(layout.createSequentialGroup()
@@ -97,7 +101,7 @@ public class PanelHistorial extends javax.swing.JPanel {
                 .addComponent(jLabel16)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnh_buscar))
                 .addGap(46, 46, 46)
                 .addComponent(jLabel17)
@@ -113,6 +117,66 @@ public class PanelHistorial extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnh_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnh_buscarActionPerformed
+        // TODO add your handling code here:
+         String busqueda = txt_buscar.getText().trim();
+
+    if (busqueda.isEmpty()) { JOptionPane.showMessageDialog(this,
+                "Ingrese el nombre o la cédula del paciente.");
+        return;
+    }
+
+    jTable1.setModel(medicoDAO.buscarPacientes(busqueda));
+    txt_buscar.setText("");
+    }//GEN-LAST:event_btnh_buscarActionPerformed
+
+    private void btnh_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnh_actualizarActionPerformed
+        // TODO add your handling code here:
+          int fila = jTable1.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this,
+                "Seleccione un paciente de la tabla.");
+        return;
+    }
+
+    int id = Integer.parseInt(
+            jTable1.getValueAt(fila, 0).toString());
+
+    String nombre = jTable1.getValueAt(fila, 1).toString().trim();
+    String cedula = jTable1.getValueAt(fila, 2).toString().trim();
+    String especialidad = jTable1.getValueAt(fila, 3).toString().trim();
+
+    if (nombre.isEmpty() || cedula.isEmpty() || especialidad.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Complete todos los campos.");
+        return;
+    }
+
+    int confirmar = JOptionPane.showConfirmDialog(this,
+            "¿Desea guardar los cambios del paciente?",
+            "Confirmar actualización",
+            JOptionPane.YES_NO_OPTION);
+
+    if (confirmar == JOptionPane.YES_OPTION) {
+
+        boolean actualizado = medicoDAO.actualizarPaciente(
+                id, nombre, cedula, especialidad);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(this,
+                    "Paciente actualizado correctamente.");
+
+            jTable1.setModel(medicoDAO.buscarPacientes(""));
+            txt_buscar.setText("");
+
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo actualizar el paciente. Revise la consola.");
+        }
+    }
+    }//GEN-LAST:event_btnh_actualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnh_actualizar;
@@ -122,6 +186,6 @@ public class PanelHistorial extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txt_buscar;
     // End of variables declaration//GEN-END:variables
 }

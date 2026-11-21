@@ -126,6 +126,7 @@ public class PanelAtenderPaciente extends javax.swing.JPanel {
         jLabel7.setText("Peso");
 
         cmbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Femenino", "Masculino" }));
+        cmbSexo.addActionListener(this::cmbSexoActionPerformed);
 
         txtPeso.addActionListener(this::txtPesoActionPerformed);
 
@@ -483,7 +484,37 @@ public class PanelAtenderPaciente extends javax.swing.JPanel {
 
     private void btn_eliminarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarRActionPerformed
         // TODO add your handling code here:
-        
+         int fila = Table_Medicamentos.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this,
+                "Seleccione un medicamento para eliminar.");
+        return;
+    }
+
+    int id = Integer.parseInt(
+            Table_Medicamentos.getValueAt(fila, 0).toString()
+    );
+
+    int confirmar = JOptionPane.showConfirmDialog(this,
+            "¿Está seguro de eliminar este medicamento?",
+            "Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION);
+
+    if (confirmar == JOptionPane.YES_OPTION) {
+
+        if (medicamentoDAO.eliminarMedicamento(id)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Medicamento eliminado correctamente.");
+
+            cargarMedicamentos();
+
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo eliminar el medicamento.");
+        }
+    }
         
     }//GEN-LAST:event_btn_eliminarRActionPerformed
 
@@ -548,6 +579,10 @@ public class PanelAtenderPaciente extends javax.swing.JPanel {
         "Consulta finalizada correctamente.");
         javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_btn_finalizarActionPerformed
+
+    private void cmbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSexoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSexoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
