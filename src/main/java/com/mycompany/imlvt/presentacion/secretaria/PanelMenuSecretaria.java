@@ -103,6 +103,7 @@ private void mostrarPanel(javax.swing.JPanel panel) {
         jButton4.setBackground(new java.awt.Color(0, 153, 153));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Usuarios");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -156,12 +157,16 @@ mostrarPanel(new MenuSecre(this.nombreSecretaria));        // TODO add your hand
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    // TODO add your handling code here:
+mostrarPanel(new PanelRegistroUsuario());       // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnProgramarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarCitaActionPerformed
 mostrarPanel(new PanelProgramarCita());         // TODO add your handling code here:
     }//GEN-LAST:event_btnProgramarCitaActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+   mostrarPanel(new Usuarios());      // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

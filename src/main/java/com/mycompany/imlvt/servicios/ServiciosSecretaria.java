@@ -117,4 +117,129 @@ public class ServiciosSecretaria {
             return "Error al procesar la nueva fecha.";
         }
     }
+    public String crearUsuarioDesdeSecretaria(String cedula, String nombres, String correo, String password, String rol, String especialidad) {
+    if (cedula == null || cedula.trim().isEmpty()
+            || nombres == null || nombres.trim().isEmpty()
+            || correo == null || correo.trim().isEmpty()
+            || password == null || password.trim().isEmpty()
+            || rol == null || rol.trim().isEmpty()) {
+        return "Por favor, complete todos los campos obligatorios.";
+    }
+
+    String rolLimpio = rol.trim();
+    boolean esMedico = rolLimpio.equalsIgnoreCase("Medico")
+            || rolLimpio.equalsIgnoreCase("Médico")
+            || rolLimpio.equalsIgnoreCase("Doctor");
+
+    String especialidadFinal = null;
+    if (esMedico) {
+        if (especialidad == null || especialidad.trim().isEmpty() || especialidad.contains("Seleccione")) {
+            return "Seleccione una especialidad para el rol de Médico.";
+        }
+        especialidadFinal = especialidad.trim();
+    }
+
+    boolean guardado = datos.registrarNuevoUsuario(
+            cedula.trim(),
+            nombres.trim(),
+            correo.trim(),
+            password.trim(),
+            rolLimpio,
+            especialidadFinal
+    );
+
+    return guardado ? "OK" : "No se pudo registrar el usuario (verifique si la cédula o correo ya existen).";
+}
+    public java.util.List<Object[]> consultarUsuarios(String filtroCombo, String busqueda) {
+    String rolBD = normalizarFiltroRol(filtroCombo);
+    return datos.listarUsuariosFiltrados(rolBD, busqueda);
+}
+
+private String normalizarFiltroRol(String filtro) {
+    if (filtro == null || filtro.isBlank() || filtro.equalsIgnoreCase("Todos")) {
+        return "Todos";
+    }
+    switch (filtro.trim().toLowerCase()) {
+        case "medicos":
+        case "médicos":
+        case "medico":
+        case "médico":
+        case "doctor":
+            return "Medico";
+        case "enfermeros":
+        case "enfermeras":
+        case "enfermero":
+        case "enfermera":
+            return "Enfermera";
+        case "secretarias":
+        case "secretarios":
+        case "secretaria":
+        case "secretario":
+            return "Secretaria";
+        case "pacientes":
+        case "paciente":
+            return "Paciente";
+        default:
+            return filtro.trim();
+    }
+}
+
+public String editarUsuario(String idTexto, String cedula, String nombres, String correo, String rol, String especialidad) {
+    if (idTexto == null || idTexto.trim().isEmpty()) {
+        return "Seleccione un usuario de la tabla para actualizar.";
+    }
+    if (cedula == null || cedula.trim().isEmpty()
+            || nombres == null || nombres.trim().isEmpty()
+            || correo == null || correo.trim().isEmpty()
+            || rol == null || rol.trim().isEmpty()) {
+        return "Complete cédula, nombres, correo y rol.";
+    }
+
+    int idUsuario;
+    try {
+        idUsuario = Integer.parseInt(idTexto.trim());
+    } catch (NumberFormatException e) {
+        return "El ID del usuario no es válido.";
+    }
+
+    String rolLimpio = rol.trim();
+    boolean esMedico = rolLimpio.equalsIgnoreCase("Medico")
+            || rolLimpio.equalsIgnoreCase("Médico")
+            || rolLimpio.equalsIgnoreCase("Doctor");
+
+    String especialidadFinal = null;
+    if (esMedico) {
+        if (especialidad == null || especialidad.trim().isEmpty() || especialidad.contains("Seleccione")) {
+            return "Seleccione una especialidad para el rol de Medico.";
+        }
+        especialidadFinal = especialidad.trim();
+    }
+
+    boolean actualizado = datos.actualizarUsuario(
+            idUsuario,
+            cedula.trim(),
+            nombres.trim(),
+            especialidadFinal,
+            correo.trim(),
+            rolLimpio
+    );
+
+    return actualizado ? "OK" : "No se pudieron actualizar los datos del usuario.";
+}
+
+public String eliminarUsuario(String idTexto) {
+    if (idTexto == null || idTexto.trim().isEmpty()) {
+        return "Seleccione un usuario de la tabla para eliminar.";
+    }
+
+    int idUsuario;
+    try {
+        idUsuario = Integer.parseInt(idTexto.trim());
+    } catch (NumberFormatException e) {
+        return "El ID del usuario no es válido.";
+    }
+
+    boolean eliminado = datos.eliminarUsuarioPorId(idUsuario);
+    return eliminado ? "OK" : "No se pudo eliminar el usuario (puede tener registros asociados).";
+}
 }

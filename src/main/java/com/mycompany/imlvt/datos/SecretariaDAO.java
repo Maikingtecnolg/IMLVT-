@@ -311,4 +311,106 @@ public class SecretariaDAO {
             return false;
         }
     }
+    public boolean registrarNuevoUsuario(String cedula, String nombres, String correo, String password, String rol, String especialidad) {
+    String sql = "INSERT INTO usuarios (cedula, nombres, especialidad, correo, password, rol) VALUES (?, ?, ?, ?, ?, ?)";
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, cedula);
+        ps.setString(2, nombres);
+        ps.setString(3, especialidad); // puede ser null si no es Médico
+        ps.setString(4, correo);
+        ps.setString(5, password);
+        ps.setString(6, rol);
+
+        ps.executeUpdate();
+        return true;
+    } catch (Exception e) {
+        System.out.println("Error al registrar usuario: " + e.getMessage());
+        return false;
+    }
+}
+    public java.util.List<Object[]> listarUsuariosFiltrados(String rolFiltro, String textoBusqueda) {
+    java.util.List<Object[]> lista = new java.util.ArrayList<>();
+
+    StringBuilder sql = new StringBuilder(
+            "SELECT id_usuario, cedula, nombres, especialidad, correo, rol FROM usuarios WHERE 1=1"
+    );
+    java.util.List<Object> params = new java.util.ArrayList<>();
+
+    if (rolFiltro != null && !rolFiltro.isBlank() && !rolFiltro.equalsIgnoreCase("Todos")) {
+        sql.append(" AND LOWER(rol) = LOWER(?)");
+        params.add(rolFiltro.trim());
+    }
+
+    if (textoBusqueda != null && !textoBusqueda.isBlank()) {
+        sql.append(" AND (LOWER(cedula) LIKE LOWER(?) OR LOWER(nombres) LIKE LOWER(?) OR LOWER(correo) LIKE LOWER(?))");
+        String patron = "%" + textoBusqueda.trim() + "%";
+        params.add(patron);
+        params.add(patron);
+        params.add(patron);
+    }
+
+    sql.append(" ORDER BY id_usuario ASC");
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+        for (int i = 0; i < params.size(); i++) {
+            ps.setObject(i + 1, params.get(i));
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(new Object[]{
+                    rs.getInt("id_usuario"),
+                    rs.getString("cedula"),
+                    rs.getString("nombres"),
+                    rs.getString("especialidad"),
+                    rs.getString("correo"),
+                    rs.getString("rol")
+                });
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("Error al listar usuarios: " + e.getMessage());
+    }
+
+    return lista;
+}
+
+public boolean actualizarUsuario(int idUsuario, String cedula, String nombres, String especialidad, String correo, String rol) {
+    String sql = "UPDATE usuarios SET cedula = ?, nombres = ?, especialidad = ?, correo = ?, rol = ? WHERE id_usuario = ?";
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, cedula);
+        ps.setString(2, nombres);
+        ps.setString(3, especialidad);
+        ps.setString(4, correo);
+        ps.setString(5, rol);
+        ps.setInt(6, idUsuario);
+
+        return ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        System.out.println("Error al actualizar usuario: " + e.getMessage());
+        return false;
+    }
+}
+
+public boolean eliminarUsuarioPorId(int idUsuario) {
+    String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, idUsuario);
+        return ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        System.out.println("Error al eliminar usuario: " + e.getMessage());
+        return false;
+    }
+}
 }
