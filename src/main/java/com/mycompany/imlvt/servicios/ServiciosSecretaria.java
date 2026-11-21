@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.imlvt.servicios;
 
 import com.mycompany.imlvt.datos.SecretariaDAO;
+import java.util.Collections;
 import java.util.List;
 
-/**
- *
- * @author User
- */
 public class ServiciosSecretaria {
-    private SecretariaDAO datos = new SecretariaDAO();
-    
+
+    private final SecretariaDAO datos = new SecretariaDAO();
+
     public List<String> listarDoctores() {
         try {
             return datos.obtenerDoctores();
@@ -21,6 +15,24 @@ public class ServiciosSecretaria {
             System.out.println("Error en base de datos: " + e.getMessage());
             return null;
         }
+    }
+
+    public List<String> listarEspecialidades() {
+        return datos.obtenerEspecialidades();
+    }
+
+    public List<String> listarDoctoresPorEspecialidad(String especialidad) {
+        if (especialidad == null || especialidad.trim().isEmpty() || especialidad.contains("Seleccione")) {
+            return Collections.emptyList();
+        }
+        return datos.obtenerDoctoresPorEspecialidad(especialidad);
+    }
+
+    public List<String> obtenerSugerenciasPacientes(String texto) {
+        if (texto == null || texto.trim().length() < 2) {
+            return Collections.emptyList();
+        }
+        return datos.buscarSugerenciasPacientes(texto);
     }
 
     public String buscarNombrePaciente(String cedula) {
@@ -35,32 +47,50 @@ public class ServiciosSecretaria {
         }
     }
 
-    public String registrarCita(String cedPaciente, String docSeleccionado, String especialidad, java.util.Date fecha, String hora) {
-        if (cedPaciente.isEmpty() || docSeleccionado.contains("Seleccione") || fecha == null) {
-            return "Por favor, complete todos los datos.";
-        }
-
-        try {
-            String[] partes = docSeleccionado.split(" - ");
-            String cedDoctor = partes[1];
-
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            String fechaMySQL = sdf.format(fecha);
-
-            boolean exito = datos.agendarCita(cedPaciente, cedDoctor, especialidad, fechaMySQL, hora);
-            
-            if (exito) {
-                return "OK";
-            } else {
-                return "Error al guardar en la base de datos.";
-            }
-        } catch (Exception e) {
-            return "Error al procesar la cita. Verifique los datos.";
-        }
+    public String registrarCita(String cedPaciente, String docSeleccionado, String especialidad, java.util.Date fecha, String hora, String sintomas) {
+    if (cedPaciente == null || cedPaciente.isEmpty() || docSeleccionado == null || docSeleccionado.contains("Seleccione") || fecha == null) {
+        return "Por favor, complete todos los datos.";
     }
 
-    public java.util.List<Object[]> listarCitas() {
+    try {
+        String[] partes = docSeleccionado.split(" - ");
+        String cedDoctor = partes[1].trim();
+
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String fechaMySQL = sdf.format(fecha);
+
+        String sintomasLimpios = (sintomas != null) ? sintomas.trim() : "";
+
+        boolean exito = datos.agendarCita(cedPaciente.trim(), cedDoctor, especialidad, fechaMySQL, hora, sintomasLimpios);
+
+        if (exito) {
+            return "OK";
+        } else {
+            return "Error al guardar en la base de datos.";
+        }
+    } catch (Exception e) {
+        return "Error al procesar la cita. Verifique los datos.";
+    }
+}
+
+    public List<Object[]> listarCitas() {
         return datos.obtenerCitasProgramadas();
+    }
+
+    public int obtenerTotalCitasHoy() {
+        return datos.contarCitasHoy();
+    }
+
+    public int obtenerTotalPendientesHoy() {
+        return datos.contarPendientesHoy();
+    }
+
+    public int obtenerTotalMedicosDisponibles() {
+        return datos.contarMedicosDisponibles();
+    }
+
+    public List<Object[]> buscarCitasMenuSecre(String filtroTiempo, String filtroEstado, String busqueda) {
+        return datos.filtrarCitasMenuSecre(filtroTiempo, filtroEstado, busqueda);
     }
 
     public String anularCita(int idCita) {
@@ -71,14 +101,14 @@ public class ServiciosSecretaria {
     }
 
     public String reprogramarCita(int idCita, java.util.Date nuevaFecha, String nuevaHora) {
-        if (nuevaFecha == null || nuevaHora.isEmpty()) {
-            return "Por favor, seleccione la nueva fecha y hora en el formulario izquierdo.";
+        if (nuevaFecha == null || nuevaHora == null || nuevaHora.isEmpty()) {
+            return "Por favor, seleccione la nueva fecha y hora.";
         }
-        
+
         try {
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
             String fechaMySQL = sdf.format(nuevaFecha);
-            
+
             if (datos.actualizarFechaHoraCita(idCita, fechaMySQL, nuevaHora)) {
                 return "OK";
             }

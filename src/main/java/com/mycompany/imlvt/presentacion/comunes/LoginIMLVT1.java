@@ -177,8 +177,8 @@ public class LoginIMLVT1 extends javax.swing.JPanel {
                 break;
 
                 case "Secretaria":
-                com.mycompany.imlvt.presentacion.secretaria.MenuSecretaria menuSec =
-                new com.mycompany.imlvt.presentacion.secretaria.MenuSecretaria(cedula, nombre);
+                com.mycompany.imlvt.presentacion.secretaria.PanelMenuSecretaria menuSec =
+                new com.mycompany.imlvt.presentacion.secretaria.PanelMenuSecretaria(cedula, nombre);
                 menuSec.setVisible(true);
                 javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida Secretaria: " + nombre);
                 break;
