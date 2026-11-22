@@ -21,14 +21,11 @@ public class PanelMenuSecretaria extends javax.swing.JFrame {
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 mostrarPanel(new MenuSecre(this.nombreSecretaria));
 
-// Si no tienes nombre aún o usas constructor vacío:
-// mostrarPanel(new MenuSecre());
+
     }
     public PanelMenuSecretaria(String cedula, String nombre) {
     this();
-    // Si tienes variables como cedulaSecretaria o nombreSecretaria, guárdalas aquí:
-    // this.cedulaSecretaria = cedula;
-    // this.nombreSecretaria = nombre;
+   
 }
     private String nombreSecretaria;
 private void mostrarPanel(javax.swing.JPanel panel) {

@@ -34,7 +34,6 @@ private String miCedula;
           cargarPanelInicio();
     }
     private void cargarPanelInicio() {
-        // Le pasamos tus datos al panel
         PanelInicioPaciente1 panelInicio = new PanelInicioPaciente1(miCedula, miNombre);
         panelContenedor.removeAll();
         panelContenedor.setLayout(new java.awt.BorderLayout()); 
@@ -212,7 +211,6 @@ private String miCedula;
     private void btnPerfilUpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilUpacActionPerformed
 PaneldeUsuario panelPerfil = new PaneldeUsuario();
 panelContenedor.removeAll();
-// Forzamos el layout para que ocupe todo el espacio
 panelContenedor.setLayout(new java.awt.BorderLayout()); 
 panelContenedor.add(panelPerfil, java.awt.BorderLayout.CENTER);
 panelContenedor.revalidate();

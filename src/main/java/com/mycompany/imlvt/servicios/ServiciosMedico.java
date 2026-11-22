@@ -26,6 +26,12 @@ public class ServiciosMedico {
     public DefaultTableModel listarProximasCitas(String cedulaDoctor) {
         return medicoDAO.listarProximasCitas(cedulaDoctor);
     }
+    public java.util.List<String[]> listarPacientesConCita(String filtro) {
+    return medicoDAO.listarPacientesConCita(filtro);
+}
+    public boolean finalizarAtencionPaciente(String cedulaPaciente) {
+    return medicoDAO.marcarCitaComoAtendida(cedulaPaciente);
+}
 }
 
     

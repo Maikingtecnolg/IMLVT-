@@ -254,7 +254,7 @@
               <StringArray count="4">
                 <StringItem index="0" value="Secretaria"/>
                 <StringItem index="1" value="Enfermera"/>
-                <StringItem index="2" value="Doctor"/>
+                <StringItem index="2" value="Medico"/>
                 <StringItem index="3" value="Paciente"/>
               </StringArray>
             </Property>

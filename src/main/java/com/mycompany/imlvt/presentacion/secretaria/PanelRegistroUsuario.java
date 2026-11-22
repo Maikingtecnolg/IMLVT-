@@ -109,7 +109,7 @@ private void limpiarCamposUsuario() {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Especialidad");
 
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Enfermera", "Doctor", "Paciente" }));
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretaria", "Enfermera", "Medico", "Paciente" }));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Nombres y Apellidos");

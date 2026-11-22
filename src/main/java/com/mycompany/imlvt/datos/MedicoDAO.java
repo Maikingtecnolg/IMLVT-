@@ -182,37 +182,56 @@ public DefaultTableModel listarProximasCitas(String cedulaDoctor) {
     // Método para obtener los datos del paciente y su consulta actual
    
     public java.util.Map<String, String> obtenerDatosParaAtencion(String cedulaPaciente) {
-        java.util.Map<String, String> datosPaciente = new java.util.HashMap<>();
-        
-        String sql = "SELECT u.nombres, u.edad, u.sexo, u.peso, c.sintomas, c.motivo " 
-                   + "FROM usuarios u "
-                   + "LEFT JOIN citas_medicas c ON u.cedula = c.cedula_paciente "
-                   + "WHERE u.cedula = ? AND c.estado = 'Pendiente' LIMIT 1";
-                   
-        try (Connection con = ConexionDB.obtenerConexion(); // O usa obtenerConexionDoctor() según tu configuración general
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            
-            if (con == null) {
-                return datosPaciente;
-            }
-            
-            ps.setString(1, cedulaPaciente);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    datosPaciente.put("nombres", rs.getString("nombres") != null ? rs.getString("nombres") : "");
-                    datosPaciente.put("edad", rs.getString("edad") != null ? rs.getString("edad") : "");
-                    datosPaciente.put("sexo", rs.getString("sexo") != null ? rs.getString("sexo") : "");
-                    datosPaciente.put("peso", rs.getString("peso") != null ? rs.getString("peso") : "");
-                    datosPaciente.put("motivo", rs.getString("motivo") != null ? rs.getString("motivo") : "");
-                    datosPaciente.put("sintomas", rs.getString("sintomas") != null ? rs.getString("sintomas") : "");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error en DAO al obtener datos de atención: " + e.getMessage());
+    java.util.Map<String, String> datosPaciente = new java.util.HashMap<>();
+
+    String sql = "SELECT u.nombres, "
+               + "sv.edad, sv.genero, sv.peso, sv.estatura, "
+               + "sv.presion_arterial, sv.frecuencia_cardiaca, sv.temperatura, sv.alergia, "
+               + "c.sintomas "
+               + "FROM usuarios u "
+               + "LEFT JOIN signos_vitales sv ON u.cedula = sv.cedula_paciente "
+               + "LEFT JOIN citas_medicas c ON u.cedula = c.cedula_paciente "
+               + "WHERE u.cedula = ? "
+               + "ORDER BY sv.id_triaje DESC, c.id_cita DESC LIMIT 1";
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        if (con == null) {
+            return datosPaciente;
         }
-        
-        return datosPaciente;
+
+        ps.setString(1, cedulaPaciente);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                datosPaciente.put("nombres", leerColumnaSegura(rs, "nombres"));
+                datosPaciente.put("edad", leerColumnaSegura(rs, "edad"));
+                datosPaciente.put("genero", leerColumnaSegura(rs, "genero"));
+                datosPaciente.put("peso", leerColumnaSegura(rs, "peso"));
+                datosPaciente.put("estatura", leerColumnaSegura(rs, "estatura"));
+                datosPaciente.put("presion_arterial", leerColumnaSegura(rs, "presion_arterial"));
+                datosPaciente.put("frecuencia_cardiaca", leerColumnaSegura(rs, "frecuencia_cardiaca"));
+                datosPaciente.put("temperatura", leerColumnaSegura(rs, "temperatura"));
+                datosPaciente.put("alergia", leerColumnaSegura(rs, "alergia"));
+                datosPaciente.put("sintomas", leerColumnaSegura(rs, "sintomas"));
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error en DAO al obtener datos de atención: " + e.getMessage());
     }
+
+    return datosPaciente;
+}
+
+private String leerColumnaSegura(ResultSet rs, String columna) {
+    try {
+        Object val = rs.getObject(columna);
+        return val != null ? val.toString() : "";
+    } catch (SQLException e) {
+        return "";
+    }
+}
     
     
 public DefaultTableModel buscarPacientes(String busqueda) {
@@ -323,6 +342,83 @@ public boolean actualizarPaciente(
         e.printStackTrace();
         return false;
     }
+    
+}
+public boolean marcarCitaComoAtendida(String cedulaPaciente) {
+    if (cedulaPaciente == null || cedulaPaciente.trim().isEmpty()) {
+        return false;
+    }
+
+    String sqlPendiente = "UPDATE citas_medicas SET estado = 'Atendido' "
+                        + "WHERE cedula_paciente = ? AND estado = 'Pendiente'";
+
+    String sqlUltimaCita = "UPDATE citas_medicas SET estado = 'Atendido' "
+                         + "WHERE cedula_paciente = ? ORDER BY id_cita DESC LIMIT 1";
+
+    try (Connection con = ConexionDB.obtenerConexion()) {
+        if (con == null) {
+            System.out.println("No hay conexión con la base de datos.");
+            return false;
+        }
+
+        try (PreparedStatement ps = con.prepareStatement(sqlPendiente)) {
+            ps.setString(1, cedulaPaciente.trim());
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                return true;
+            }
+        }
+
+        // Si no estaba exactamente en 'Pendiente', actualiza la última cita del paciente
+        try (PreparedStatement ps2 = con.prepareStatement(sqlUltimaCita)) {
+            ps2.setString(1, cedulaPaciente.trim());
+            return ps2.executeUpdate() > 0;
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error al actualizar estado de cita a Atendido: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}
+public java.util.List<String[]> listarPacientesConCita(String filtro) {
+    java.util.List<String[]> lista = new java.util.ArrayList<>();
+
+    String sql = "SELECT DISTINCT u.cedula, u.nombres, "
+               + "CONCAT(c.fecha, ' ', c.hora, ' - ', c.especialidad) AS info_cita "
+               + "FROM citas_medicas c "
+               + "INNER JOIN usuarios u ON c.cedula_paciente = u.cedula "
+               + "WHERE (? = '' OR LOWER(u.nombres) LIKE LOWER(?) OR LOWER(u.cedula) LIKE LOWER(?)) "
+               + "ORDER BY c.fecha DESC, c.hora DESC LIMIT 15";
+
+    try (Connection con = ConexionDB.obtenerConexion()) {
+        if (con == null) {
+            return lista;
+        }
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            String texto = (filtro == null) ? "" : filtro.trim();
+            String patron = "%" + texto + "%";
+            ps.setString(1, texto);
+            ps.setString(2, patron);
+            ps.setString(3, patron);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new String[]{
+                        rs.getString("cedula"),
+                        rs.getString("nombres"),
+                        rs.getString("info_cita")
+                    });
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al listar pacientes con cita: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return lista;
 }
 
 }
