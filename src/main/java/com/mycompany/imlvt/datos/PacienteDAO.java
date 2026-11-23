@@ -15,8 +15,6 @@ import javax.swing.table.DefaultTableModel;
 public class PacienteDAO {
    public List<Object[]> obtenerMisCitas(String miCedula) {
         List<Object[]> misCitas = new ArrayList<>();
-        
-        // 1. EL LIMPIADOR AUTOMÁTICO: Cambia a 'Cancelada' si la fecha ya pasó y nadie lo atendió
         String sqlUpdate = "UPDATE citas_medicas SET estado = 'Cancelada' " +
                            "WHERE cedula_paciente = ? AND estado = 'Pendiente' AND fecha < CURDATE()";
         try (Connection con = ConexionDB.obtenerConexion();
@@ -26,8 +24,6 @@ public class PacienteDAO {
         } catch (Exception e) {
             System.out.println("Error al cancelar citas caducadas: " + e.getMessage());
         }
-
-        // 2. LA CONSULTA NORMAL: Trae los datos frescos para la tabla (igual a como lo tenías)
         String sql = "SELECT c.especialidad, d.nombres AS doctor, c.fecha, c.hora, 'Consultorio Principal' AS lugar, c.estado " +
                      "FROM citas_medicas c " +
                      "INNER JOIN usuarios d ON c.cedula_doctor = d.cedula " +
@@ -47,7 +43,7 @@ public class PacienteDAO {
                     fila[2] = rs.getDate("fecha");
                     fila[3] = rs.getTime("hora");
                     fila[4] = rs.getString("lugar");
-                    fila[5] = rs.getString("estado"); // Aquí ya saldrá 'Cancelada' para la vieja
+                    fila[5] = rs.getString("estado");
                     
                     misCitas.add(fila);
                 }
@@ -77,10 +73,9 @@ public class PacienteDAO {
         return listaMedicos;
     }
     
-    // Método para obtener las especialidades disponibles
+   
     public java.util.List<String> obtenerEspecialidades() {
         java.util.List<String> especialidades = new java.util.ArrayList<>();
-        // Busca las especialidades sin repetirlas (DISTINCT) solo de los médicos
         String sql = "SELECT DISTINCT especialidad FROM usuarios WHERE rol = 'Medico' AND especialidad IS NOT NULL";
         
         try (java.sql.Connection con = ConexionDB.obtenerConexion();
@@ -96,7 +91,6 @@ public class PacienteDAO {
         return especialidades;
     }
 
-    // NUEVO: Método para guardar la cita en la base de datos
     public boolean agendarCita(String cedulaPaciente, String especialidad, String nombreMedico, java.util.Date fecha, String hora, String sintomas) {
         String sql = "INSERT INTO citas_medicas (cedula_paciente, cedula_doctor, especialidad, fecha, hora, sintomas, estado) " +
                      "VALUES (?, (SELECT cedula FROM usuarios WHERE nombres = ? LIMIT 1), ?, ?, ?, ?, 'Pendiente')";
@@ -161,7 +155,7 @@ public class PacienteDAO {
         }
         return resultado;
     }
-  // Método para llenar el PanelRecetas o Historial del Paciente
+
     public DefaultTableModel listarMiHistorialYRecetas(String miCedula) {
         DefaultTableModel modelo = new DefaultTableModel(
             new String[]{"Fecha", "Especialidad", "Doctor", "Síntomas / Detalles"}, 0

@@ -63,8 +63,6 @@ private String miCedula;
         btnCitaMpac = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         btnRecetapac = new javax.swing.JButton();
-        jLabel23 = new javax.swing.JLabel();
-        btnResulatadosLabpac = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         panelContenedor = new javax.swing.JPanel();
 
@@ -120,12 +118,6 @@ private String miCedula;
         btnRecetapac.setText("Recetas y Ordenes");
         btnRecetapac.addActionListener(this::btnRecetapacActionPerformed);
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/chart-histogram.png"))); // NOI18N
-
-        btnResulatadosLabpac.setBackground(new java.awt.Color(36, 166, 181));
-        btnResulatadosLabpac.setText("Resultados Laboratorio");
-        btnResulatadosLabpac.addActionListener(this::btnResulatadosLabpacActionPerformed);
-
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Cerrar Sesion");
         jButton1.addActionListener(this::jButton1ActionPerformed);
@@ -136,21 +128,20 @@ private String miCedula;
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel20)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(9, 9, 9)))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(35, 35, 35)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnResulatadosLabpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRecetapac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRecetapac, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                         .addComponent(btnCitaMpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPerfilUpac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnMenupac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -175,13 +166,9 @@ private String miCedula;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
                     .addComponent(btnRecetapac, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel23)
-                    .addComponent(btnResulatadosLabpac, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(47, 47, 47)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.LINE_START);
@@ -217,15 +204,6 @@ panelContenedor.add(panelPerfil, java.awt.BorderLayout.CENTER);
 panelContenedor.revalidate();
 panelContenedor.repaint();     // TODO add your handling code here:
     }//GEN-LAST:event_btnPerfilUpacActionPerformed
-
-    private void btnResulatadosLabpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResulatadosLabpacActionPerformed
-PanelResultadosLaboratorio panelLab = new PanelResultadosLaboratorio();
-panelContenedor.removeAll();
-panelContenedor.setLayout(new java.awt.BorderLayout());
-panelContenedor.add(panelLab, java.awt.BorderLayout.CENTER);
-panelContenedor.revalidate();
-panelContenedor.repaint();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResulatadosLabpacActionPerformed
 
     private void btnRecetapacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecetapacActionPerformed
 PanelRecetas panelRecetas = new PanelRecetas(this.miCedula);
@@ -288,13 +266,11 @@ login.setLocationRelativeTo(null);       // TODO add your handling code here:
     private javax.swing.JButton btnMenupac;
     private javax.swing.JButton btnPerfilUpac;
     private javax.swing.JButton btnRecetapac;
-    private javax.swing.JButton btnResulatadosLabpac;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

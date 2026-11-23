@@ -16,18 +16,16 @@ public class IMLVT {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        // 1. Activar el diseño moderno ANTES de abrir cualquier ventana
         try {
-            // Usamos el tema claro estilo Mac que es muy limpio para sistemas médicos
             UIManager.setLookAndFeel(new FlatMacLightLaf());
         } catch (Exception ex) {
             System.err.println("No se pudo inicializar FlatLaf");
         }
 
-        // 2. Aquí ya llamas a tu ventana inicial (Ejemplo: Login o Menú)
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginIMLVT1().setVisible(true); // Cambia "MenuPrincipal" por el nombre de tu JFrame
+                new LoginIMLVT1().setVisible(true); 
             }
         });
     }

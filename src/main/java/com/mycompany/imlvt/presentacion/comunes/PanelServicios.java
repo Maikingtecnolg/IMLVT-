@@ -86,7 +86,6 @@ public class PanelServicios extends javax.swing.JPanel {
         jLabel1.setText("SERVICIOS");
 
         lblVisor.setBackground(new java.awt.Color(255, 255, 255));
-        lblVisor.setText("imagenes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

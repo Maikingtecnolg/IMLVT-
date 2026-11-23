@@ -16,22 +16,17 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class MenuMedicos extends javax.swing.JFrame {
-    // Variables globales para guardar la sesión
     public String cedulaLogueada;
     public String nombreLogueado;
     public String especialidadLogueada;
     private MedicoDAO medicoDAO = new MedicoDAO();
     private String cedulaDoctor;
     
-
-    // Constructor que recibe los datos desde el Login
    public MenuMedicos(String cedula, String nombre) {
         initComponents();
         this.cedulaLogueada = cedula;
         this.nombreLogueado = nombre;
-        jLabel2.setText("Dr. " + nombre); // Muestra el nombre real del doctor logueado
-
-        // Carga el panel de inicio con las citas apenas abre la ventana
+        jLabel2.setText("Dr. " + nombre); 
         PanelMenuMedico panelMenu = new PanelMenuMedico(this.cedulaLogueada);
         PanelMedico.removeAll();
         PanelMedico.setLayout(new java.awt.BorderLayout());
@@ -239,12 +234,11 @@ public class MenuMedicos extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_inicioActionPerformed
 
     private void btn_pacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pacientesActionPerformed
-    // 1. Prueba para ver si el clic realmente llega aquí
-    
+ 
        System.out.println("¡El botón de pacientes sí funciona!");
 
         try {
-            // 2. Intentamos cargar la pantalla
+         
             PanelAtenderPaciente PanelAtenderPaciente = new PanelAtenderPaciente();
             PanelAtenderPaciente.setSize(PanelMedico.getWidth(), PanelMedico.getHeight());
 
@@ -255,7 +249,7 @@ public class MenuMedicos extends javax.swing.JFrame {
             PanelMedico.repaint();
 
         } catch (Exception e) {
-            // 3. Si explota por la base de datos o por otra cosa, lo imprimimos
+          
             System.out.println("El panel explotó al intentar crearse: " + e.getMessage());
             e.printStackTrace();
         }
@@ -265,7 +259,6 @@ public class MenuMedicos extends javax.swing.JFrame {
         // TODO add your handling code here:
     PanelHistorial panelHistorial = new PanelHistorial();
     PanelMedico.removeAll();
-// Esta es la línea mágica que asegura que el panel ocupe el 100% del espacio
     PanelMedico.setLayout(new java.awt.BorderLayout()); 
     PanelMedico.add(panelHistorial, java.awt.BorderLayout.CENTER);
     PanelMedico.revalidate();

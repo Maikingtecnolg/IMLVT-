@@ -29,7 +29,6 @@ public class ServiciosPaciente {
         }
          return datos.obtenerMedicosPorEspecialidad(especialidad);
     }
-    // Método para pedirle las especialidades al DAO
     public java.util.List<String> listarEspecialidades() {
         return datos.obtenerEspecialidades();
     }

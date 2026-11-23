@@ -21,9 +21,8 @@ public class ConexionDB {
         return conexion;
     }
 
-    // Método del doctor que ahora apunta a la misma base unificada
+  
     public static Connection obtenerConexionDoctor() {
-        // Redirigimos esta conexión para que use los mismos datos de arriba
         return obtenerConexion();
     }
 

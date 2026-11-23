@@ -18,19 +18,16 @@ public class PanelMenuMedico extends javax.swing.JPanel {
     private ServiciosMedico serviciosMedico = new ServiciosMedico();
     private String cedulaDoctorLogueado;
 
-    // Constructor que recibe la cédula del médico
+
     public PanelMenuMedico(String cedulaDoctor) {
         initComponents();
          this.cedulaDoctorLogueado = cedulaDoctor;
-        // Cargar automáticamente las citas al abrir la interfaz
         cargarCitasPendientes();   
     }
- // Constructor sin parámetros
     public PanelMenuMedico() {
         this(null);
     }
 
-    // Método para cargar las citas pendientes del médico
     private void cargarCitasPendientes() {
 
     System.out.println("===== PRUEBA DE CITAS =====");
@@ -261,15 +258,12 @@ int filaSeleccionada = jTableCitas.getSelectedRow();
         return;
     }
 
-    // Obtener cédula del paciente (columna 0)
     String cedulaPaciente = jTableCitas
             .getValueAt(filaSeleccionada, 0).toString();
 
-    // Crear panel de atención del paciente
     PanelAtenderPaciente panelAtender =
             new PanelAtenderPaciente(cedulaPaciente);
 
-    // Mostrar panel de atención
     panelAtender.setSize(this.getSize());
     panelAtender.setLocation(0, 0);
 

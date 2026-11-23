@@ -20,13 +20,11 @@ public class PanelAtenderPaciente extends javax.swing.JPanel {
     
      private MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
 
-    // 1. Constructor vacío (quita el error rojo en MenuMedicos.java)
     public PanelAtenderPaciente() {
         initComponents();
         configurarBusquedaPacientes();
     }
 
-    // 2. Constructor que recibe la cédula enviada desde la tabla
     public PanelAtenderPaciente(String cedulaPaciente) {
      initComponents();
     this.cedulaActual = cedulaPaciente;
@@ -79,7 +77,6 @@ private String valorMapa(Map<String, String> datos, String clave) {
 
     Table_Medicamentos.setModel(modelo);
 
-    // Guardar los ID sin mostrarlos en la tabla
     idsMedicamentos = medicamentoDAO.obtenerIdsMedicamentos();
 }
     /**
@@ -584,7 +581,6 @@ private String valorMapa(Map<String, String> datos, String clave) {
         return;
     }
 
-    // Comprobar si es un medicamento que ya está en MySQL
     if (fila >= idsMedicamentos.size()) {
 
         int confirmarNuevo = JOptionPane.showConfirmDialog(this,
@@ -642,7 +638,6 @@ private String valorMapa(Map<String, String> datos, String clave) {
         String sintomas = modelo.getValueAt(i, 3).toString().trim();
         String diagnostico = modelo.getValueAt(i, 4).toString().trim();
 
-        // Evitar guardar filas vacías
         if (medicamento.isEmpty() || dosis.isEmpty()
                 || duracion.isEmpty() || sintomas.isEmpty()
                 || diagnostico.isEmpty()) {
@@ -661,7 +656,6 @@ private String valorMapa(Map<String, String> datos, String clave) {
         }
     }
 
-    // Cargar nuevamente los datos desde MySQL
     cargarMedicamentos();
 
     JOptionPane.showMessageDialog(this,
