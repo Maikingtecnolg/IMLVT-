@@ -42,7 +42,7 @@ public class PanelInicio extends javax.swing.JPanel {
         jTextArea2 = new javax.swing.JTextArea();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnAgendarWhatsapp = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -148,9 +148,9 @@ public class PanelInicio extends javax.swing.JPanel {
 
         jLabel14.setText("michael.ortiz.mera@utelvt.edu.ec");
 
-        jButton4.setBackground(new java.awt.Color(102, 255, 102));
-        jButton4.setText("Agendar Cita");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
+        btnAgendarWhatsapp.setBackground(new java.awt.Color(102, 255, 102));
+        btnAgendarWhatsapp.setText("Agendar Cita");
+        btnAgendarWhatsapp.addActionListener(this::btnAgendarWhatsappActionPerformed);
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/mail.png"))); // NOI18N
 
@@ -176,7 +176,7 @@ public class PanelInicio extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgendarWhatsapp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(150, 150, 150))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -191,9 +191,9 @@ public class PanelInicio extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel18))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel12))
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
@@ -205,7 +205,7 @@ public class PanelInicio extends javax.swing.JPanel {
                     .addComponent(jLabel15)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgendarWhatsapp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -243,12 +243,12 @@ public class PanelInicio extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnAgendarWhatsappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarWhatsappActionPerformed
         try {
 
             String numeroTelefono = "593984517090";
 
-            String mensaje = "Hola clínica IMLVT, soy " + " y necesito agendar una cita médica.";
+            String mensaje = "Hola clínica IMLVT, soy(su nombre) " + " y necesito agendar una cita médica.";
 
             mensaje = mensaje.replace(" ", "%20");
 
@@ -262,12 +262,12 @@ public class PanelInicio extends javax.swing.JPanel {
 
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "No se pudo abrir WhatsApp: " + e.getMessage());
-        } // TODO add your handling code here:        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgendarWhatsappActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAgendarWhatsapp;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

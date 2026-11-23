@@ -142,23 +142,19 @@ public class LoginIMLVT1 extends javax.swing.JPanel {
         String correo = txt_correoelectronico.getText().trim();
         String contrasena = new String(txt_contraseña.getPassword());
 
-        // 1. Validamos que no estén vacíos
         if (correo.isEmpty() || contrasena.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.");
             return;
         }
 
-        // 2. Llamamos a nuestra capa de datos
         com.mycompany.imlvt.datos.UsuarioDAO dao = new com.mycompany.imlvt.datos.UsuarioDAO();
         String[] datosUsuario = dao.validarLogin(correo, contrasena);
 
-        // 3. Evaluamos si el usuario existe
         if (datosUsuario != null) {
             String cedula = datosUsuario[0];
             String nombre = datosUsuario[1];
             String rol = datosUsuario[2];
 
-            // 4. Redirigimos según el rol
             String rolNormalizado = rol == null ? "" : rol.trim().toLowerCase();
 
             switch (rolNormalizado) {

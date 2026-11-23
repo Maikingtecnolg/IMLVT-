@@ -7,8 +7,7 @@ package com.mycompany.imlvt.presentacion.enfermeros;
 
 import com.mycompany.imlvt.presentacion.medico.MenuMedicos;
 import com.mycompany.imlvt.presentacion.enfermeros.PanelReportesTurno;
-//import com.mycompany.imlvt.presentacion.enfermeros.PanelKardex;
-// (o la ruta exacta en la que guardaste tu archivo PanelReportesTurno.java)
+
 /**
  *
  * @author DELL
@@ -20,7 +19,7 @@ public class PanelTomarSigno extends javax.swing.JPanel {
      */
     public PanelTomarSigno() {
         initComponents();
-        cargarTablaPacientes();        // Carga los pacientes al iniciar el panel
+        cargarTablaPacientes();       
         configurarSeleccionPaciente();
     }
 
@@ -438,7 +437,7 @@ public class PanelTomarSigno extends javax.swing.JPanel {
 
     private void txtBuscarPacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPacienteKeyReleased
         // TODO add your handling code here:
-        // 1. Obtenemos el texto que la enfermera está escribiendo
+       
         String textoBusqueda = txtBuscarPaciente.getText();
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblPacientes.getModel();
         javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> filtro = new javax.swing.table.TableRowSorter<>(modelo);
@@ -509,43 +508,31 @@ public class PanelTomarSigno extends javax.swing.JPanel {
     }
     
     private void cargarTablaPacientes() {
-        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
-        modelo.addColumn("Cédula Oculta");
-        modelo.addColumn("Paciente");
-        modelo.addColumn("Ingreso");
-        
-        tblPacientes.setModel(modelo);
-        
-        java.sql.Connection conexion = com.mycompany.imlvt.datos.ConexionDB.obtenerConexion();
-        
-        if (conexion != null) {
-            try {
-                String sql = "SELECT cedula, nombres FROM usuarios WHERE rol = 'Paciente' AND cedula NOT IN (SELECT cedula_paciente FROM signos_vitales)";
-                java.sql.PreparedStatement ps = conexion.prepareStatement(sql);
-                java.sql.ResultSet rs = ps.executeQuery();
-                
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm");
-                String horaSimulada = sdf.format(new java.util.Date());
-                
-                while (rs.next()) {
-                    String cedula = rs.getString("cedula");
-                    String nombre = rs.getString("nombres");
-                    modelo.addRow(new Object[]{cedula, nombre, horaSimulada});
-                }
-                
-                // Ocultar columna de cédula
-                tblPacientes.getColumnModel().getColumn(0).setMinWidth(0);
-                tblPacientes.getColumnModel().getColumn(0).setMaxWidth(0);
-                tblPacientes.getColumnModel().getColumn(0).setWidth(0);
-                
-                rs.close();
-                ps.close();
-                conexion.close();
-                
-            } catch (java.sql.SQLException e) {
-                System.out.println("Error al cargar la tabla de pacientes: " + e.getMessage());
-            }
+       javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+            new Object[][]{},
+            new String[]{"Cédula Oculta", "Paciente", "Ingreso"}
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
         }
+    };
+
+    tblPacientes.setModel(modelo);
+    tblPacientes.setRowSorter(null);
+
+    com.mycompany.imlvt.datos.EnfermeriaDAO dao = new com.mycompany.imlvt.datos.EnfermeriaDAO();
+    java.util.List<String[]> pacientes = dao.listarPacientesCitaPendiente();
+
+    for (String[] fila : pacientes) {
+        modelo.addRow(new Object[]{fila[0], fila[1], fila[2]});
+    }
+
+    if (tblPacientes.getColumnModel().getColumnCount() > 0) {
+        tblPacientes.getColumnModel().getColumn(0).setMinWidth(0);
+        tblPacientes.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblPacientes.getColumnModel().getColumn(0).setPreferredWidth(0);
+    }
     }
     
     private void cargarDatosEnConsulta(String cedulaPaciente) {

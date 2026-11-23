@@ -127,32 +127,27 @@ public class RegistroIMLVT1 extends javax.swing.JPanel {
         String correo = txtCorreo.getText();
         String password = txtPassword.getText();
 
-        // Validamos que no deje campos vacíos
         if (cedula.isEmpty() || nombres.isEmpty() || correo.isEmpty() || password.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.");
             return;
         }
 
-        // 2. Definimos el rol por defecto
         String rolAsignado = "Paciente";
 
-        // 3. Nos conectamos a la base de datos para hacer la magia
         java.sql.Connection conexion = com.mycompany.imlvt.datos.ConexionDB.obtenerConexion();
 
         if (conexion != null) {
             try {
-                // PASO A: Buscar si la cédula está en la "lista blanca" del personal
+   
                 String consultaRol = "SELECT rol_asignado FROM empleados_autorizados WHERE cedula = ?";
                 java.sql.PreparedStatement psRol = conexion.prepareStatement(consultaRol);
                 psRol.setString(1, cedula);
                 java.sql.ResultSet rsRol = psRol.executeQuery();
 
                 if (rsRol.next()) {
-                    // Si la base de datos encontró la cédula, extraemos el rol (Medico, Secretaria, etc.)
                     rolAsignado = rsRol.getString("rol_asignado");
                 }
 
-                // PASO B: Guardar al usuario nuevo en la tabla principal con el rol que le tocó
                 String consultaInsertar = "INSERT INTO usuarios (cedula, nombres, correo, password, rol) VALUES (?, ?, ?, ?, ?)";
                 java.sql.PreparedStatement psInsertar = conexion.prepareStatement(consultaInsertar);
                 psInsertar.setString(1, cedula);
@@ -161,16 +156,13 @@ public class RegistroIMLVT1 extends javax.swing.JPanel {
                 psInsertar.setString(4, password);
                 psInsertar.setString(5, rolAsignado);
 
-                psInsertar.executeUpdate(); // Ejecutamos la inserción
+                psInsertar.executeUpdate(); 
 
-                // Le avisamos al usuario que todo salió bien
                 javax.swing.JOptionPane.showMessageDialog(this, "¡Registro exitoso! Tipo de cuenta: " + rolAsignado);
 
-                // Aquí puedes cerrar esta ventana y regresar al Login
                  javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
 
             } catch (java.sql.SQLException e) {
-                // Si el correo o la cédula ya existen, MySQL dará un error. Lo atrapamos aquí.
                 javax.swing.JOptionPane.showMessageDialog(this, "Error al registrar: Puede que la cédula o el correo ya estén en uso.");
                 System.out.println(e.getMessage());
             }

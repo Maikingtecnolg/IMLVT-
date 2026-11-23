@@ -17,7 +17,7 @@ public class PanelAtenderPaciente extends javax.swing.JPanel {
     private ServiciosMedico medicoService = new ServiciosMedico();
     private java.util.ArrayList<Integer> idsMedicamentos =new java.util.ArrayList<>();
     private String cedulaActual;
-    
+    private int idCitaActual = -1;
      private MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
 
     public PanelAtenderPaciente() {
@@ -539,8 +539,6 @@ private String valorMapa(Map<String, String> datos, String clave) {
 
     DefaultTableModel modelo =
             (DefaultTableModel) Table_Medicamentos.getModel();
-
-    // Quitar filas vacías
     for (int i = modelo.getRowCount() - 1; i >= 0; i--) {
 
         boolean vacia = true;
@@ -623,20 +621,33 @@ private String valorMapa(Map<String, String> datos, String clave) {
     }//GEN-LAST:event_btn_eliminarRActionPerformed
 
     private void btn_GuardarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarRActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel modelo =
-            (DefaultTableModel) Table_Medicamentos.getModel();
+     
+    String cedulaPaciente = (this.cedulaActual != null) ? this.cedulaActual.trim() : "";
+    if (cedulaPaciente.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Seleccione un paciente antes de guardar la receta.",
+                "Aviso",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    DefaultTableModel modelo = (DefaultTableModel) Table_Medicamentos.getModel();
 
     int guardados = 0;
     int errores = 0;
 
     for (int i = 0; i < modelo.getRowCount(); i++) {
+        Object oMed = modelo.getValueAt(i, 0);
+        Object oDos = modelo.getValueAt(i, 1);
+        Object oDur = modelo.getValueAt(i, 2);
+        Object oSin = modelo.getValueAt(i, 3);
+        Object oDia = modelo.getValueAt(i, 4);
 
-        String medicamento = modelo.getValueAt(i, 0).toString().trim();
-        String dosis = modelo.getValueAt(i, 1).toString().trim();
-        String duracion = modelo.getValueAt(i, 2).toString().trim();
-        String sintomas = modelo.getValueAt(i, 3).toString().trim();
-        String diagnostico = modelo.getValueAt(i, 4).toString().trim();
+        String medicamento = oMed != null ? oMed.toString().trim() : "";
+        String dosis = oDos != null ? oDos.toString().trim() : "";
+        String duracion = oDur != null ? oDur.toString().trim() : "";
+        String sintomas = oSin != null ? oSin.toString().trim() : "";
+        String diagnostico = oDia != null ? oDia.toString().trim() : "";
 
         if (medicamento.isEmpty() || dosis.isEmpty()
                 || duracion.isEmpty() || sintomas.isEmpty()
@@ -645,8 +656,8 @@ private String valorMapa(Map<String, String> datos, String clave) {
             continue;
         }
 
-        boolean resultado = medicamentoDAO.guardarMedicamento(
-                medicamento, dosis, duracion, sintomas, diagnostico
+        boolean resultado = medicamentoDAO.guardarMedicamentoConPaciente(
+                cedulaPaciente, medicamento, dosis, duracion, sintomas, diagnostico
         );
 
         if (resultado) {
@@ -661,17 +672,24 @@ private String valorMapa(Map<String, String> datos, String clave) {
     JOptionPane.showMessageDialog(this,
             "Medicamentos guardados: " + guardados
             + "\nErrores: " + errores);
+
     }//GEN-LAST:event_btn_GuardarRActionPerformed
 private final javax.swing.JPopupMenu popupPacientes = new javax.swing.JPopupMenu();
 private final javax.swing.DefaultListModel<ItemPacienteCita> modeloPacientes = new javax.swing.DefaultListModel<>();
 private final javax.swing.JList<ItemPacienteCita> listaPacientes = new javax.swing.JList<>(modeloPacientes);
 
 private static class ItemPacienteCita {
+   final int idCita;
     final String cedula;
     final String nombre;
     final String infoCita;
 
     ItemPacienteCita(String cedula, String nombre, String infoCita) {
+        this(-1, cedula, nombre, infoCita);
+    }
+
+    ItemPacienteCita(int idCita, String cedula, String nombre, String infoCita) {
+        this.idCita = idCita;
         this.cedula = cedula;
         this.nombre = nombre;
         this.infoCita = infoCita;
@@ -771,13 +789,14 @@ private void actualizarListitaPacientes() {
 }
 
 private void elegirPacienteDeLista() {
-    ItemPacienteCita elegido = listaPacientes.getSelectedValue();
+   ItemPacienteCita elegido = listaPacientes.getSelectedValue();
     if (elegido == null) return;
-
     popupPacientes.setVisible(false);
+    this.idCitaActual = elegido.idCita;
     this.cedulaActual = elegido.cedula;
     txtNombrePaciente.setText(elegido.nombre);
     llenarCamposConDatos(elegido.cedula);
+    cargarMedicamentos();
 }
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
         // TODO add your handling code here:

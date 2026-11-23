@@ -31,7 +31,6 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         });
     }
     private void registrarCitaDesdeFormulario() {
-    // 1. Obtener y validar cédula del paciente registrado
     String cedulaPaciente = this.cedulaPacienteSeleccionada;
     if (cedulaPaciente == null || cedulaPaciente.trim().isEmpty()) {
         String textoCampo = jTextField1.getText().trim();
@@ -55,7 +54,6 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         return;
     }
 
-    // 2. Validar especialidad
     String especialidad = (cmbEspecialidad.getSelectedItem() != null)
             ? cmbEspecialidad.getSelectedItem().toString().trim()
             : "";
@@ -69,7 +67,6 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         return;
     }
 
-    // 3. Validar médico
     String medicoSeleccionado = (cmbMedico.getSelectedItem() != null)
             ? cmbMedico.getSelectedItem().toString().trim()
             : "";
@@ -86,7 +83,6 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         return;
     }
 
-    // 4. Validar fecha (y que no sea domingo)
     java.util.Date fecha = jDateChooser1.getDate();
     if (fecha == null) {
         javax.swing.JOptionPane.showMessageDialog(
@@ -111,8 +107,6 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         );
         return;
     }
-
-    // 5. Validar hora
     String hora = (cmbHorarios.getSelectedItem() != null)
             ? cmbHorarios.getSelectedItem().toString().trim()
             : "";
@@ -126,12 +120,10 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         return;
     }
 
-    // 6. Obtener síntomas del paciente
     String sintomas = (txtSintomasPaciente.getText() != null)
             ? txtSintomasPaciente.getText().trim()
             : "";
 
-    // 7. Registrar cita mediante ServiciosSecretaria
     String resultado = serviciosSecretaria.registrarCita(
             cedulaPaciente, medicoSeleccionado, especialidad, fecha, hora, sintomas
     );
@@ -260,7 +252,6 @@ private void actualizarHorariosDisponibles() {
 
     java.time.DayOfWeek diaSemana = fechaLocal.getDayOfWeek();
 
-    // 1. Domingo: no hay atención
     if (diaSemana == java.time.DayOfWeek.SUNDAY) {
         modeloHoras.addElement("---No hay atención los domingos---");
         cmbHorarios.setModel(modeloHoras);
@@ -482,9 +473,9 @@ private void actualizarDoctoresPorEspecialidad() {
                     .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)

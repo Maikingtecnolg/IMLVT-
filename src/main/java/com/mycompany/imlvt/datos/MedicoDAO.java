@@ -178,8 +178,6 @@ public DefaultTableModel listarProximasCitas(String cedulaDoctor) {
         return false;
     }
 }
-    //DESDE AQUI IMPLEMENTE LO NUEVO LILI
-    // Método para obtener los datos del paciente y su consulta actual
    
     public java.util.Map<String, String> obtenerDatosParaAtencion(String cedulaPaciente) {
     java.util.Map<String, String> datosPaciente = new java.util.HashMap<>();
@@ -294,7 +292,6 @@ public boolean actualizarPaciente(
         conexion.setAutoCommit(false);
 
         try {
-            // Obtener la cédula anterior del paciente
             String cedulaAnterior = "";
 
             String sqlBuscar = "SELECT cedula FROM usuarios WHERE id_usuario = ?";
@@ -312,7 +309,6 @@ public boolean actualizarPaciente(
                 }
             }
 
-            // Actualizar nombre y cédula
             try (PreparedStatement actualizar = conexion.prepareStatement(sqlUsuario)) {
                 actualizar.setString(1, nombre);
                 actualizar.setString(2, cedula);
@@ -320,7 +316,6 @@ public boolean actualizarPaciente(
                 actualizar.executeUpdate();
             }
 
-            // Actualizar especialidad de sus citas
             try (PreparedStatement actualizar = conexion.prepareStatement(sqlCita)) {
                 actualizar.setString(1, especialidad);
                 actualizar.setString(2, cedulaAnterior);
@@ -369,7 +364,6 @@ public boolean marcarCitaComoAtendida(String cedulaPaciente) {
             }
         }
 
-        // Si no estaba exactamente en 'Pendiente', actualiza la última cita del paciente
         try (PreparedStatement ps2 = con.prepareStatement(sqlUltimaCita)) {
             ps2.setString(1, cedulaPaciente.trim());
             return ps2.executeUpdate() > 0;
@@ -384,7 +378,7 @@ public boolean marcarCitaComoAtendida(String cedulaPaciente) {
 public java.util.List<String[]> listarPacientesConCita(String filtro) {
     java.util.List<String[]> lista = new java.util.ArrayList<>();
 
-    String sql = "SELECT DISTINCT u.cedula, u.nombres, "
+    String sql = "SELECT c.id_cita, u.cedula, u.nombres, "
                + "CONCAT(c.fecha, ' ', c.hora, ' - ', c.especialidad) AS info_cita "
                + "FROM citas_medicas c "
                + "INNER JOIN usuarios u ON c.cedula_paciente = u.cedula "
@@ -408,7 +402,8 @@ public java.util.List<String[]> listarPacientesConCita(String filtro) {
                     lista.add(new String[]{
                         rs.getString("cedula"),
                         rs.getString("nombres"),
-                        rs.getString("info_cita")
+                        rs.getString("info_cita"),
+                        String.valueOf(rs.getInt("id_cita"))
                     });
                 }
             }
@@ -419,6 +414,19 @@ public java.util.List<String[]> listarPacientesConCita(String filtro) {
     }
 
     return lista;
+}
+public boolean finalizarCitaPorId(int idCita) {
+    String sql = "UPDATE citas_medicas SET estado = 'Atendido' WHERE id_cita = ?";
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, idCita);
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.out.println("Error al finalizar cita por ID: " + e.getMessage());
+        return false;
+    }
 }
 
 }

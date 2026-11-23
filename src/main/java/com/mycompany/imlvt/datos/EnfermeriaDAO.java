@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
  * @author User
  */
 public class EnfermeriaDAO {
-    // Este método SOLO inserta en la base de datos, no hace nada más.
     public boolean insertarSignos(String cedula, String presion, double temp, double peso, int estatura, int frec) {
         String sql = "INSERT INTO signos_vitales (cedula_paciente, presion_arterial, temperatura, peso, estatura, frecuencia_cardiaca) VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -32,4 +31,40 @@ public class EnfermeriaDAO {
             return false;
         }
     }
+    public java.util.List<String[]> listarPacientesCitaPendiente() {
+    java.util.List<String[]> lista = new java.util.ArrayList<>();
+
+    String sql = "SELECT u.cedula, u.nombres, TIME_FORMAT(c.hora, '%H:%i') AS hora_ingreso, c.especialidad "
+               + "FROM citas_medicas c "
+               + "INNER JOIN usuarios u ON u.cedula = c.cedula_paciente "
+               + "WHERE LOWER(TRIM(c.estado)) = 'pendiente' "
+               + "AND LOWER(TRIM(u.rol)) = 'paciente' "
+               + "ORDER BY c.fecha ASC, c.hora ASC";
+
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         java.sql.ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            String cedula = rs.getString("cedula");
+            String nombre = rs.getString("nombres");
+            String hora = rs.getString("hora_ingreso");
+            String esp = rs.getString("especialidad");
+
+            String ingreso = (hora != null && !hora.isBlank())
+                    ? (esp != null && !esp.isBlank() ? hora + " - " + esp : hora)
+                    : "Pendiente";
+
+            lista.add(new String[]{
+                cedula != null ? cedula : "",
+                nombre != null ? nombre : "",
+                ingreso
+            });
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al listar pacientes con cita pendiente: " + e.getMessage());
+    }
+
+    return lista;
+}
 }

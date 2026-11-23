@@ -44,6 +44,12 @@ public class ServiciosMedico {
         return medicamentoDAO.guardarMedicamentoConPaciente(
                 cedulaPaciente, medicamento, dosis, duracion, sintomas, diagnostico);
     }
+   public boolean finalizarCitaPorId(int idCita) {
+    if (idCita <= 0) {
+        return false;
+    }
+    return new com.mycompany.imlvt.datos.MedicoDAO().finalizarCitaPorId(idCita);
+}
 }
 
     

@@ -17,11 +17,9 @@ public class InicioIMLVT extends javax.swing.JFrame {
      */
     public InicioIMLVT() {
         initComponents();
-        // Cargar el panel de inicio por defecto al arrancar
     PanelInicio panelHome = new PanelInicio();
     panelHome.setSize(jPanel4.getWidth(), jPanel4.getHeight());
-    panelHome.setLocation(0, 0);
-    
+    panelHome.setLocation(0, 0);   
     jPanel4.removeAll();
     jPanel4.add(panelHome, java.awt.BorderLayout.CENTER);
     jPanel4.revalidate();
@@ -162,58 +160,34 @@ public class InicioIMLVT extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarsesionActionPerformed
-// 1. Instanciamos tu nuevo panel de login
+
     LoginIMLVT1 panelLogin = new LoginIMLVT1();
-    
-    // 2. Ajustamos su tamaño y posición para que ocupe todo el espacio de jPanel4
     panelLogin.setSize(jPanel4.getWidth(), jPanel4.getHeight());
     panelLogin.setLocation(0, 0);
-    
-    // 3. Vaciamos el contenido actual (las tarjetas de horarios y citas)
     jPanel4.removeAll();
-    
-    // 4. Agregamos el panel de login al contenedor
     jPanel4.add(panelLogin, java.awt.BorderLayout.CENTER);
-    
-    // 5. Actualizamos la interfaz gráfica para que los cambios se vean al instante
     jPanel4.revalidate();
     jPanel4.repaint();        // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarsesionActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-// 1. Instanciamos tu panel de servicios
-PanelServicios panelServ = new PanelServicios();
 
-// 2. Ajustamos su tamaño al contenedor principal (jPanel4)
+PanelServicios panelServ = new PanelServicios();
 panelServ.setSize(jPanel4.getWidth(), jPanel4.getHeight());
 panelServ.setLocation(0, 0);
-
-// 3. Vaciamos el contenido actual de la pantalla
 jPanel4.removeAll();
-
-// 4. Agregamos el panel de servicios al contenedor
 jPanel4.add(panelServ, java.awt.BorderLayout.CENTER);
-
-// 5. Actualizamos la interfaz gráfica para reflejar el cambio
 jPanel4.revalidate();
 jPanel4.repaint();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-// 1. Instanciamos tu nuevo panel de login
+
     RegistroIMLVT1 panelLogin = new RegistroIMLVT1();
-    
-    // 2. Ajustamos su tamaño y posición para que ocupe todo el espacio de jPanel4
     panelLogin.setSize(jPanel4.getWidth(), jPanel4.getHeight());
     panelLogin.setLocation(0, 0);
-    
-    // 3. Vaciamos el contenido actual (las tarjetas de horarios y citas)
     jPanel4.removeAll();
-    
-    // 4. Agregamos el panel de login al contenedor
     jPanel4.add(panelLogin, java.awt.BorderLayout.CENTER);
-    
-    // 5. Actualizamos la interfaz gráfica para que los cambios se vean al instante
     jPanel4.revalidate();
     jPanel4.repaint();             // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -222,7 +196,6 @@ jPanel4.repaint();        // TODO add your handling code here:
 PanelInicio panelHome = new PanelInicio();
 panelHome.setSize(jPanel4.getWidth(), jPanel4.getHeight());
 panelHome.setLocation(0, 0);
-
 jPanel4.removeAll();
 jPanel4.add(panelHome, java.awt.BorderLayout.CENTER);
 jPanel4.revalidate();

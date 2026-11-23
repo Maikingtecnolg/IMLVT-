@@ -13,10 +13,7 @@ private final com.mycompany.imlvt.servicios.ServiciosSecretaria serviciosSecreta
         new com.mycompany.imlvt.servicios.ServiciosSecretaria();
 
 private void configurarModuloUsuarios() {
-    // 1. ID no editable
     id.setEditable(false);
-
-    // 2. Poblar combos de Rol y Especialidad
     cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
         "Secretaria", "Enfermera", "Medico", "Paciente"
     }));
@@ -34,8 +31,6 @@ private void configurarModuloUsuarios() {
         "Cardiología",
         "Pediatría"
     }));
-
-    // 3. Modelo de tabla no editable directamente en celdas
     tableDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object[][]{},
             new String[]{"ID", "Cedula", "Nombres", "Especialidad", "Correo", "Rol"}
@@ -46,7 +41,6 @@ private void configurarModuloUsuarios() {
         }
     });
 
-    // 4. Color e indicador lateral según el rol en la columna Rol (índice 5)
     tableDatos.getColumnModel().getColumn(5).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
         @Override
         public java.awt.Component getTableCellRendererComponent(
@@ -76,7 +70,6 @@ private void configurarModuloUsuarios() {
         }
     });
 
-    // 5. Listeners
     cmbRol.addActionListener(e -> actualizarEstadoEspecialidadEdicion());
     cmbFiltroUsuarios.addActionListener(e -> cargarTablaUsuarios());
     btnBuscar.addActionListener(e -> cargarTablaUsuarios());
@@ -91,7 +84,6 @@ private void configurarModuloUsuarios() {
         }
     });
 
-    // 6. Estado inicial
     actualizarEstadoEspecialidadEdicion();
     cargarTablaUsuarios();
 }
@@ -336,6 +328,8 @@ private void limpiarFormularioEdicion() {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("TABLA DE USUARIOS");
 
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 204));
+        btnBuscar.setForeground(new java.awt.Color(102, 102, 0));
         btnBuscar.setText("Buscar");
 
         cmbFiltroUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicos", "Enfermeros", "Secretarias", "Pacientes" }));
@@ -468,17 +462,17 @@ private void limpiarFormularioEdicion() {
                     .addComponent(jLabel7)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)

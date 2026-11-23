@@ -226,19 +226,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombreyApellido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCorreo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField3"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtContrase&#xf1;a">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField4"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -305,9 +296,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCedula">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField5"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLimpiar">
           <Properties>
