@@ -34,6 +34,7 @@ private String miCedula;
           cargarPanelInicio();
     }
     private void cargarPanelInicio() {
+        
         PanelInicioPaciente1 panelInicio = new PanelInicioPaciente1(miCedula, miNombre);
         panelContenedor.removeAll();
         panelContenedor.setLayout(new java.awt.BorderLayout()); 
@@ -227,7 +228,7 @@ panelContenedor.repaint();        // TODO add your handling code here:
     }//GEN-LAST:event_btnResulatadosLabpacActionPerformed
 
     private void btnRecetapacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecetapacActionPerformed
-PanelRecetas panelRecetas = new PanelRecetas();
+PanelRecetas panelRecetas = new PanelRecetas(this.miCedula);
 panelContenedor.removeAll();
 panelContenedor.setLayout(new java.awt.BorderLayout());
 panelContenedor.add(panelRecetas, java.awt.BorderLayout.CENTER);

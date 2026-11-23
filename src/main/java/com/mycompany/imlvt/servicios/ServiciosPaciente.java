@@ -43,6 +43,15 @@ public class ServiciosPaciente {
         boolean exito = datos.agendarCita(cedulaPaciente, especialidad, nombreMedico, fecha, hora, sintomas);
         return exito ? "OK" : "Error: No se pudo guardar la cita.";
     }
+    private final com.mycompany.imlvt.datos.PacienteDAO pacienteDAO = new com.mycompany.imlvt.datos.PacienteDAO();
+
+public javax.swing.table.DefaultTableModel listarHistorialPrescripciones(String cedulaPaciente) {
+    return pacienteDAO.listarHistorialPrescripcionesPaciente(cedulaPaciente);
+}
+
+public java.util.List<String[]> obtenerRecetas(String cedulaPaciente) {
+    return pacienteDAO.obtenerRecetasPaciente(cedulaPaciente);
+}
     }
    
 

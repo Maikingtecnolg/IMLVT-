@@ -2,21 +2,102 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
 package com.mycompany.imlvt.presentacion.paciente;
 
+import com.mycompany.imlvt.servicios.ServiciosPaciente;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author User
  */
-public class PanelRecetas extends javax.swing.JPanel {
 
+public class PanelRecetas extends javax.swing.JPanel {
+private String cedulaPaciente;
+    private final ServiciosPaciente serviciosPaciente = new ServiciosPaciente();
+    private List<String[]> recetasCargadas = new ArrayList<>();
+    private boolean listenerInicializado = false;
+    
     /**
      * Creates new form PanelRecetas
      */
     public PanelRecetas() {
         initComponents();
+        configurarSeleccionTabla();
     }
 
+    public PanelRecetas(String cedulaPaciente) {
+        initComponents();
+        configurarSeleccionTabla();
+        cargarDatosRecetas(cedulaPaciente);
+    }
+
+    public void setCedulaPaciente(String cedulaPaciente) {
+        cargarDatosRecetas(cedulaPaciente);
+    }
+
+    private void configurarSeleccionTabla() {
+        if (listenerInicializado) {
+            return;
+        }
+        listenerInicializado = true;
+
+        tablaHistorial.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila = tablaHistorial.getSelectedRow();
+                if (fila >= 0 && fila < recetasCargadas.size()) {
+                    mostrarDetalleReceta(recetasCargadas.get(fila));
+                }
+            }
+        });
+    }
+
+    private void cargarDatosRecetas(String cedula) {
+        this.cedulaPaciente = cedula;
+        if (cedula == null || cedula.trim().isEmpty()) {
+            return;
+        }
+
+        tablaHistorial.setModel(serviciosPaciente.listarHistorialPrescripciones(cedula.trim()));
+
+        recetasCargadas = serviciosPaciente.obtenerRecetas(cedula.trim());
+        if (!recetasCargadas.isEmpty()) {
+            mostrarDetalleReceta(recetasCargadas.get(0));
+            if (tablaHistorial.getRowCount() > 0) {
+                tablaHistorial.setRowSelectionInterval(0, 0);
+            }
+        } else {
+            limpiarDetalleReceta();
+        }
+    }
+
+    private void mostrarDetalleReceta(String[] receta) {
+        if (receta == null || receta.length < 6) {
+            return;
+        }
+
+        lblMedicamento.setText(receta[0] != null && !receta[0].isBlank() ? receta[0] : "Sin medicamento");
+        lblDosis.setText(receta[1] != null && !receta[1].isBlank() ? receta[1] : "-");
+        lblDuracion.setText(receta[2] != null && !receta[2].isBlank() ? receta[2] : "-");
+
+        String instrucciones = (receta[3] != null && !receta[3].isBlank())
+                ? "<html><body style='width:310px;'>" + receta[3] + "</body></html>"
+                : "Sin instrucciones adicionales.";
+        txtInstruccionesAdicionales.setText(instrucciones);
+
+        lblMedico.setText(receta[4] != null && !receta[4].isBlank() ? receta[4] : "Médico");
+        lblEspecialidad.setText(receta[5] != null && !receta[5].isBlank() ? receta[5] : "Medicina General");
+    }
+
+    private void limpiarDetalleReceta() {
+        lblMedicamento.setText("Sin recetas registradas");
+        lblDosis.setText("-");
+        lblDuracion.setText("-");
+        txtInstruccionesAdicionales.setText("No hay prescripciones asociadas a este paciente.");
+        lblMedico.setText("-");
+        lblEspecialidad.setText("-");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +112,7 @@ public class PanelRecetas extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaHistorial = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -40,7 +121,7 @@ public class PanelRecetas extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        lblNombreMedicamento = new javax.swing.JLabel();
+        lblMedicamento = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         lblDosis = new javax.swing.JLabel();
@@ -54,8 +135,8 @@ public class PanelRecetas extends javax.swing.JPanel {
         btnDescargarPDF = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        lblNombreMedico = new javax.swing.JLabel();
-        lblEspecialidadMedico = new javax.swing.JLabel();
+        lblMedico = new javax.swing.JLabel();
+        lblEspecialidad = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 255, 255));
 
@@ -69,9 +150,9 @@ public class PanelRecetas extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel15.setText("Historial de prescripciones");
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 255));
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaHistorial.setBackground(new java.awt.Color(204, 204, 255));
+        tablaHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -82,7 +163,7 @@ public class PanelRecetas extends javax.swing.JPanel {
                 "Fecha", "Profesional", "Motivo de Consulta", "Estado"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tablaHistorial);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -92,8 +173,8 @@ public class PanelRecetas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +204,8 @@ public class PanelRecetas extends javax.swing.JPanel {
 
         jLabel16.setText("Medicamento Preescrito");
 
-        lblNombreMedicamento.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblNombreMedicamento.setText("Amoxicilina 500 mg");
+        lblMedicamento.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblMedicamento.setText("Amoxicilina 500 mg");
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -242,10 +323,10 @@ public class PanelRecetas extends javax.swing.JPanel {
 
         jLabel32.setText("PREESCRITA POR");
 
-        lblNombreMedico.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lblNombreMedico.setText("DR.ALVARADO JOSE");
+        lblMedico.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblMedico.setText("DR.ALVARADO JOSE");
 
-        lblEspecialidadMedico.setText("Medicina General");
+        lblEspecialidad.setText("Medicina General");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -265,7 +346,7 @@ public class PanelRecetas extends javax.swing.JPanel {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNombreMedicamento)
+                                    .addComponent(lblMedicamento)
                                     .addComponent(jLabel16)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,13 +359,13 @@ public class PanelRecetas extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32)
-                            .addComponent(lblEspecialidadMedico)))
+                            .addComponent(lblEspecialidad)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,11 +383,11 @@ public class PanelRecetas extends javax.swing.JPanel {
                     .addComponent(jLabel13)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
-                        .addComponent(lblNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombreMedicamento)
-                    .addComponent(lblEspecialidadMedico))
+                    .addComponent(lblMedicamento)
+                    .addComponent(lblEspecialidad))
                 .addGap(88, 88, 88)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,17 +403,17 @@ public class PanelRecetas extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(33, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,9 +424,9 @@ public class PanelRecetas extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -354,15 +435,13 @@ public class PanelRecetas extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -391,12 +470,12 @@ public class PanelRecetas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDosis;
     private javax.swing.JLabel lblDuracion;
-    private javax.swing.JLabel lblEspecialidadMedico;
-    private javax.swing.JLabel lblNombreMedicamento;
-    private javax.swing.JLabel lblNombreMedico;
+    private javax.swing.JLabel lblEspecialidad;
+    private javax.swing.JLabel lblMedicamento;
+    private javax.swing.JLabel lblMedico;
+    private javax.swing.JTable tablaHistorial;
     private javax.swing.JLabel txtInstruccionesAdicionales;
     // End of variables declaration//GEN-END:variables
 }

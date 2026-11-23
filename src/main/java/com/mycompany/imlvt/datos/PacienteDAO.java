@@ -193,4 +193,94 @@ public class PacienteDAO {
         
         return modelo;
     } 
+    public DefaultTableModel listarHistorialPrescripcionesPaciente(String cedulaPaciente) {
+    DefaultTableModel modelo = new DefaultTableModel(
+            new Object[]{"Fecha", "Profesional", "Motivo de Consulta", "Estado"}, 0
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    String sql = "SELECT COALESCE(CAST(c.fecha AS CHAR), '') AS fecha, "
+               + "COALESCE(u.nombres, c.cedula_doctor, 'Médico') AS profesional, "
+               + "COALESCE(c.sintomas, c.especialidad, '') AS motivo, "
+               + "COALESCE(c.estado, 'Pendiente') AS estado "
+               + "FROM citas_medicas c "
+               + "LEFT JOIN usuarios u ON c.cedula_doctor = u.cedula "
+               + "WHERE c.cedula_paciente = ? "
+               + "ORDER BY c.id_cita DESC";
+
+    try (java.sql.Connection con = ConexionDB.obtenerConexion();
+         java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+
+        if (con == null) {
+            return modelo;
+        }
+
+        ps.setString(1, cedulaPaciente);
+
+        try (java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getString("fecha"),
+                    rs.getString("profesional"),
+                    rs.getString("motivo"),
+                    rs.getString("estado")
+                });
+            }
+        }
+    } catch (java.sql.SQLException e) {
+        System.out.println("Error al listar historial de prescripciones: " + e.getMessage());
+    }
+
+    return modelo;
+}
+
+public java.util.List<String[]> obtenerRecetasPaciente(String cedulaPaciente) {
+    java.util.List<String[]> lista = new java.util.ArrayList<>();
+
+    String sql = "SELECT m.medicamento, m.dosis, m.duracion, m.sintomas, m.diagnostico, "
+               + "COALESCE(u.nombres, c.cedula_doctor, 'Médico') AS doctor, "
+               + "COALESCE(u.especialidad, c.especialidad, 'Medicina General') AS especialidad "
+               + "FROM medicamentos_recetados m "
+               + "LEFT JOIN citas_medicas c ON c.cedula_paciente = m.cedula_paciente "
+               + "LEFT JOIN usuarios u ON c.cedula_doctor = u.cedula "
+               + "WHERE m.cedula_paciente = ? "
+               + "ORDER BY m.id_medicamento DESC LIMIT 20";
+
+    try (java.sql.Connection con = ConexionDB.obtenerConexion();
+         java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+
+        if (con == null) {
+            return lista;
+        }
+
+        ps.setString(1, cedulaPaciente);
+
+        try (java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String diag = rs.getString("diagnostico") != null ? rs.getString("diagnostico").trim() : "";
+                String sint = rs.getString("sintomas") != null ? rs.getString("sintomas").trim() : "";
+                String instrucciones = !diag.isEmpty() && !sint.isEmpty()
+                        ? "Diagnóstico: " + diag + " | Síntomas: " + sint
+                        : (!diag.isEmpty() ? "Diagnóstico: " + diag : sint);
+
+                lista.add(new String[]{
+                    rs.getString("medicamento") != null ? rs.getString("medicamento") : "",
+                    rs.getString("dosis") != null ? rs.getString("dosis") : "",
+                    rs.getString("duracion") != null ? rs.getString("duracion") : "",
+                    instrucciones,
+                    rs.getString("doctor") != null ? rs.getString("doctor") : "",
+                    rs.getString("especialidad") != null ? rs.getString("especialidad") : ""
+                });
+            }
+        }
+    } catch (java.sql.SQLException e) {
+        System.out.println("Error al obtener recetas del paciente: " + e.getMessage());
+    }
+
+    return lista;
+}
 }

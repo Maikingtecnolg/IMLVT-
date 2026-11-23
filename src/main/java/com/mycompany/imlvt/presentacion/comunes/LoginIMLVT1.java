@@ -184,14 +184,15 @@ public class LoginIMLVT1 extends javax.swing.JPanel {
                     javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida Secretaria: " + nombre);
                     break;
 
-                case "enfermera":
-                case "enfermero":
-                    com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero menuEnf =
-                        new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero(nombre);
-                    menuEnf.setLocationRelativeTo(null);
-                    menuEnf.setVisible(true);
-                    javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
-                    break;
+            
+               case "enfermero":
+case "enfermera":
+    com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero menuEnf =
+        new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero(nombre);
+    menuEnf.setLocationRelativeTo(null);
+    menuEnf.setVisible(true);
+    javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+    break;
 
                 default:
                     javax.swing.JOptionPane.showMessageDialog(this, "Rol no reconocido en el sistema: " + rol);

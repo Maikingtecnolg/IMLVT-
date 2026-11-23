@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import com.mycompany.imlvt.datos.MedicoDAO;
 import javax.swing.table.DefaultTableModel;
+import com.mycompany.imlvt.datos.MedicamentoDAO;
 /**
  *
  * @author Lenovo
@@ -32,6 +33,17 @@ public class ServiciosMedico {
     public boolean finalizarAtencionPaciente(String cedulaPaciente) {
     return medicoDAO.marcarCitaComoAtendida(cedulaPaciente);
 }
+    private final MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
+    public boolean guardarMedicamentoConPaciente(
+            String cedulaPaciente,
+            String medicamento,
+            String dosis,
+            String duracion,
+            String sintomas,
+            String diagnostico) {
+        return medicamentoDAO.guardarMedicamentoConPaciente(
+                cedulaPaciente, medicamento, dosis, duracion, sintomas, diagnostico);
+    }
 }
 
     

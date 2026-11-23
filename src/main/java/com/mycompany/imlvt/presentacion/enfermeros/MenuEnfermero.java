@@ -15,13 +15,15 @@ public class MenuEnfermero extends javax.swing.JFrame {
     /**
      * Creates new form MenuEnfermero
      */
-    public MenuEnfermero() {
+   public MenuEnfermero() {
         initComponents();
-        
     }
 
     public MenuEnfermero(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        initComponents();
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            jLabel2.setText(nombre); 
+        }
     }
 
     /**
@@ -367,16 +369,10 @@ public class MenuEnfermero extends javax.swing.JFrame {
 
     private void bnt_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_SalirActionPerformed
         // TODO add your handling code here:
-        int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
-            this,
-            "¿Estás seguro de que deseas salir del sistema?",
-            "Confirmar salida",
-            javax.swing.JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
+          this.dispose();
+        com.mycompany.imlvt.presentacion.comunes.InicioIMLVT login = new com.mycompany.imlvt.presentacion.comunes.InicioIMLVT();
+        login.setVisible(true);
+        login.setLocationRelativeTo(null); 
     }//GEN-LAST:event_bnt_SalirActionPerformed
 
     /**

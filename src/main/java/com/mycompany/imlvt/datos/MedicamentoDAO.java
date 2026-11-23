@@ -8,6 +8,36 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class MedicamentoDAO {
+    public boolean guardarMedicamentoConPaciente(
+        String cedulaPaciente,
+        String medicamento,
+        String dosis,
+        String duracion,
+        String sintomas,
+        String diagnostico) {
+
+    String sql = "INSERT INTO medicamentos_recetados "
+               + "(cedula_paciente, medicamento, dosis, duracion, sintomas, diagnostico) "
+               + "VALUES (?, ?, ?, ?, ?, ?)";
+
+    try (java.sql.Connection conexion = ConexionDB.obtenerConexionDoctor();
+         java.sql.PreparedStatement consulta = conexion.prepareStatement(sql)) {
+
+        consulta.setString(1, cedulaPaciente);
+        consulta.setString(2, medicamento);
+        consulta.setString(3, dosis);
+        consulta.setString(4, duracion);
+        consulta.setString(5, sintomas);
+        consulta.setString(6, diagnostico);
+
+        consulta.executeUpdate();
+        return true;
+
+    } catch (java.sql.SQLException | NullPointerException e) {
+        System.out.println("Error al guardar medicamento con paciente: " + e.getMessage());
+        return false;
+    }
+}
 
     public boolean guardarMedicamento(String medicamento, String dosis, String duracion, String sintomas, String diagnostico) {
         String sql = "INSERT INTO medicamentos_recetados (medicamento, dosis, duracion, sintomas, diagnostico) VALUES (?, ?, ?, ?, ?)";
