@@ -20,6 +20,10 @@ public class MenuEnfermero extends javax.swing.JFrame {
         
     }
 
+    public MenuEnfermero(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,14 +33,6 @@ public class MenuEnfermero extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelMedico = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtBuscarPaciente = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblPacientes = new javax.swing.JTable();
-        bnt_buscarPacientes = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
@@ -47,92 +43,18 @@ public class MenuEnfermero extends javax.swing.JFrame {
         btn_inicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btn_Salir = new javax.swing.JButton();
-        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        bnt_Salir = new javax.swing.JButton();
+        PanelMedico = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPacientes = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtBuscarPaciente = new javax.swing.JTextField();
+        bnt_buscar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        PanelMedico.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Mis Pacientes ");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel4.setText("Dashboard");
-
-        txtBuscarPaciente.setText("Buscar Paciente");
-        txtBuscarPaciente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarPacienteKeyReleased(evt);
-            }
-        });
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/check.png"))); // NOI18N
-        jLabel8.setText("jLabel8");
-
-        tblPacientes.setBackground(new java.awt.Color(204, 204, 204));
-        tblPacientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        tblPacientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Hora de cita", "Paciente", "Cédula ", "Estado"
-            }
-        ));
-        tblPacientes.setGridColor(new java.awt.Color(255, 255, 255));
-        tblPacientes.setRowHeight(60);
-        jScrollPane1.setViewportView(tblPacientes);
-
-        bnt_buscarPacientes.setBackground(new java.awt.Color(0, 153, 51));
-        bnt_buscarPacientes.setText("Buscar");
-        bnt_buscarPacientes.addActionListener(this::bnt_buscarPacientesActionPerformed);
-
-        javax.swing.GroupLayout PanelMedicoLayout = new javax.swing.GroupLayout(PanelMedico);
-        PanelMedico.setLayout(PanelMedicoLayout);
-        PanelMedicoLayout.setHorizontalGroup(
-            PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelMedicoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelMedicoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 399, Short.MAX_VALUE))
-                    .addGroup(PanelMedicoLayout.createSequentialGroup()
-                        .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(PanelMedicoLayout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PanelMedicoLayout.createSequentialGroup()
-                                        .addComponent(txtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(54, 54, 54)
-                                        .addComponent(bnt_buscarPacientes))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        PanelMedicoLayout.setVerticalGroup(
-            PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelMedicoLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel4)
-                .addGap(53, 53, 53)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnt_buscarPacientes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(214, Short.MAX_VALUE))
-        );
-
-        jPanel5.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel5.setBackground(new java.awt.Color(0, 51, 204));
         jPanel5.setPreferredSize(new java.awt.Dimension(200, 416));
 
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/LogoIMLVT BLANCO.png"))); // NOI18N
@@ -142,7 +64,7 @@ public class MenuEnfermero extends javax.swing.JFrame {
         jLabel48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/chequeo - copia.png"))); // NOI18N
         jLabel48.setText("jLabel6");
 
-        jLabel50.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cerrar-sesion.png"))); // NOI18N
+        jLabel50.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/folder.png"))); // NOI18N
 
         btn_reporte9.setBackground(new java.awt.Color(153, 153, 255));
         btn_reporte9.setForeground(new java.awt.Color(255, 255, 255));
@@ -165,12 +87,12 @@ public class MenuEnfermero extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Dr. Bagui Alex");
 
-        btn_Salir.setBackground(new java.awt.Color(153, 153, 255));
-        btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Salir.setText("Salir ");
-        btn_Salir.addActionListener(this::btn_SalirActionPerformed);
+        jLabel52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/cerrar-sesion.png"))); // NOI18N
 
-        jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/folder.png"))); // NOI18N
+        bnt_Salir.setBackground(new java.awt.Color(153, 153, 255));
+        bnt_Salir.setForeground(new java.awt.Color(255, 255, 255));
+        bnt_Salir.setText("Salir");
+        bnt_Salir.addActionListener(this::bnt_SalirActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -179,33 +101,33 @@ public class MenuEnfermero extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_pacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btn_inicio)
+                                .addGap(38, 38, 38))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel47)
-                                    .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addComponent(btn_inicio))
+                                    .addComponent(jLabel50)
+                                    .addComponent(jLabel52))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btn_reporte9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bnt_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(btn_pacientes))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel51)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_reporte9)))
-                        .addContainerGap(8, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel50)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_Salir)
-                .addGap(45, 45, 45))
+                                .addComponent(jLabel2)))
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,49 +147,113 @@ public class MenuEnfermero extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_pacientes))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel51)
-                    .addComponent(btn_reporte9))
-                .addGap(13, 13, 13)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_reporte9)
+                    .addComponent(jLabel50))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(btn_Salir))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel52))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel50)))
-                .addGap(147, 147, 147))
+                        .addGap(47, 47, 47)
+                        .addComponent(bnt_Salir)))
+                .addGap(145, 145, 145))
+        );
+
+        PanelMedico.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblPacientes.setBackground(new java.awt.Color(204, 204, 204));
+        tblPacientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Paciente", "Hora de Cita", "Estado", "Cédula"
+            }
+        ));
+        jScrollPane1.setViewportView(tblPacientes);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Mis Pacientes ");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel4.setText("Dashboard");
+
+        txtBuscarPaciente.addActionListener(this::txtBuscarPacienteActionPerformed);
+
+        bnt_buscar.setBackground(new java.awt.Color(0, 204, 0));
+        bnt_buscar.setText("Buscar");
+        bnt_buscar.addActionListener(this::bnt_buscarActionPerformed);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/check.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
+
+        javax.swing.GroupLayout PanelMedicoLayout = new javax.swing.GroupLayout(PanelMedico);
+        PanelMedico.setLayout(PanelMedicoLayout);
+        PanelMedicoLayout.setHorizontalGroup(
+            PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMedicoLayout.createSequentialGroup()
+                .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelMedicoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)))
+                    .addGroup(PanelMedicoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(bnt_buscar)))
+                .addContainerGap(454, Short.MAX_VALUE))
+        );
+        PanelMedicoLayout.setVerticalGroup(
+            PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMedicoLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel4)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bnt_buscar)
+                    .addGroup(PanelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1274, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
-                            .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(164, 164, 164))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(PanelMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarPacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPacienteKeyReleased
@@ -278,6 +264,53 @@ public class MenuEnfermero extends javax.swing.JFrame {
     private void bnt_buscarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_buscarPacientesActionPerformed
         // TODO add your handling code here:
         // 1. Obtener el texto ingresado en la caja de cédula
+    }//GEN-LAST:event_bnt_buscarPacientesActionPerformed
+
+    private void btn_reporte9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporte9ActionPerformed
+        // TODO add your handling code here:
+       PanelReportesTurno panelReportes = new PanelReportesTurno();
+        PanelMedico.removeAll();
+        PanelMedico.setLayout(new java.awt.BorderLayout());
+        PanelMedico.add(panelReportes, java.awt.BorderLayout.CENTER);
+        PanelMedico.revalidate();
+        PanelMedico.repaint();
+    }//GEN-LAST:event_btn_reporte9ActionPerformed
+
+    private void btn_pacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pacientesActionPerformed
+        // 1. Prueba para ver si el clic realmente llega aquí
+        
+        try {
+            PanelTomarSigno panelSignos = new PanelTomarSigno();
+            PanelMedico.removeAll();
+            PanelMedico.setLayout(new java.awt.BorderLayout());
+            PanelMedico.add(panelSignos, java.awt.BorderLayout.CENTER);
+            PanelMedico.revalidate();
+            PanelMedico.repaint();
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar la interfaz: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_pacientesActionPerformed
+
+    private void btn_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inicioActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_inicioActionPerformed
+
+    private void btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporte10ActionPerformed
+    // int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+      //    "¿Estás seguro de que deseas salir del sistema?",
+        //    "Confirmar salida",
+          //  javax.swing.JOptionPane.YES_NO_OPTION
+        //);
+
+        //if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+          //  System.exit(0);
+        //}
+    }//GEN-LAST:event_btn_reporte10ActionPerformed
+
+    private void bnt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_buscarActionPerformed
+        // TODO add your handling code here:
         String cedulaBuscada = txtBuscarPaciente.getText().trim();
 
         if (cedulaBuscada.isEmpty() || cedulaBuscada.equals("Buscar Paciente")) {
@@ -325,40 +358,14 @@ public class MenuEnfermero extends javax.swing.JFrame {
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al consultar la base de datos: " + e.getMessage());
         }
-    }//GEN-LAST:event_bnt_buscarPacientesActionPerformed
-
-    private void btn_reporte9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporte9ActionPerformed
-        // TODO add your handling code here:
-       PanelReportesTurno panelReportes = new PanelReportesTurno();
-        PanelMedico.removeAll();
-        PanelMedico.setLayout(new java.awt.BorderLayout());
-        PanelMedico.add(panelReportes, java.awt.BorderLayout.CENTER);
-        PanelMedico.revalidate();
-        PanelMedico.repaint();
-    }//GEN-LAST:event_btn_reporte9ActionPerformed
-
-    private void btn_pacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pacientesActionPerformed
-        // 1. Prueba para ver si el clic realmente llega aquí
         
-        try {
-            PanelTomarSigno panelSignos = new PanelTomarSigno();
-            PanelMedico.removeAll();
-            PanelMedico.setLayout(new java.awt.BorderLayout());
-            PanelMedico.add(panelSignos, java.awt.BorderLayout.CENTER);
-            PanelMedico.revalidate();
-            PanelMedico.repaint();
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar la interfaz: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btn_pacientesActionPerformed
+    }//GEN-LAST:event_bnt_buscarActionPerformed
 
-    private void btn_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inicioActionPerformed
+    private void txtBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarPacienteActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btn_inicioActionPerformed
+    }//GEN-LAST:event_txtBuscarPacienteActionPerformed
 
-    private void btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalirActionPerformed
+    private void bnt_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_SalirActionPerformed
         // TODO add your handling code here:
         int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
             this,
@@ -370,7 +377,7 @@ public class MenuEnfermero extends javax.swing.JFrame {
         if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }//GEN-LAST:event_btn_SalirActionPerformed
+    }//GEN-LAST:event_bnt_SalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,8 +399,8 @@ public class MenuEnfermero extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMedico;
-    private javax.swing.JButton bnt_buscarPacientes;
-    private javax.swing.JButton btn_Salir;
+    private javax.swing.JButton bnt_Salir;
+    private javax.swing.JButton bnt_buscar;
     private javax.swing.JButton btn_inicio;
     private javax.swing.JButton btn_pacientes;
     private javax.swing.JButton btn_reporte9;
@@ -404,9 +411,9 @@ public class MenuEnfermero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPacientes;

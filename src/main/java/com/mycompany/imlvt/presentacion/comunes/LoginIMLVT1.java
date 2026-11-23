@@ -139,7 +139,7 @@ public class LoginIMLVT1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String correo = txt_correoelectronico.getText();
+        String correo = txt_correoelectronico.getText().trim();
         String contrasena = new String(txt_contraseña.getPassword());
 
         // 1. Validamos que no estén vacíos
@@ -159,47 +159,49 @@ public class LoginIMLVT1 extends javax.swing.JPanel {
             String rol = datosUsuario[2];
 
             // 4. Redirigimos según el rol
-            switch (rol) {
-                case "Paciente":
-                com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal1 menuPac =
-                new com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal1(cedula, nombre);
-                menuPac.setVisible(true);
-                javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
-                break;
-                case "Medico":
+            String rolNormalizado = rol == null ? "" : rol.trim().toLowerCase();
 
-                com.mycompany.imlvt.presentacion.medico.MenuMedicos menuMed =
-                new com.mycompany.imlvt.presentacion.medico.MenuMedicos(cedula, nombre);
-                menuMed.setVisible(true);
-                javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+            switch (rolNormalizado) {
+                case "paciente":
+                    com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal1 menuPac =
+                        new com.mycompany.imlvt.presentacion.paciente.MenuIMLVTFinal1(cedula, nombre);
+                    menuPac.setVisible(true);
+                    javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+                    break;
 
-                javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido Doctor: " + nombre);
-                break;
+                case "medico":
+                    com.mycompany.imlvt.presentacion.medico.MenuMedicos menuMed =
+                        new com.mycompany.imlvt.presentacion.medico.MenuMedicos(cedula, nombre);
+                    menuMed.setVisible(true);
+                    javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido Doctor: " + nombre);
+                    break;
 
-                case "Secretaria":
-                com.mycompany.imlvt.presentacion.secretaria.PanelMenuSecretaria menuSec =
-                new com.mycompany.imlvt.presentacion.secretaria.PanelMenuSecretaria(cedula, nombre);
-                menuSec.setVisible(true);
-                javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida Secretaria: " + nombre);
-                break;
+                case "secretaria":
+                    com.mycompany.imlvt.presentacion.secretaria.PanelMenuSecretaria menuSec =
+                        new com.mycompany.imlvt.presentacion.secretaria.PanelMenuSecretaria(cedula, nombre);
+                    menuSec.setVisible(true);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bienvenida Secretaria: " + nombre);
+                    break;
 
-                case "Enfermera":
-
-                com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero menuEnf;
-                menuEnf = new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermeros(cedula, nombre);
-                menuEnf.setVisible(true);
-               javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
-                break;
+                case "enfermera":
+                case "enfermero":
+                    com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero menuEnf =
+                        new com.mycompany.imlvt.presentacion.enfermeros.MenuEnfermero(nombre);
+                    menuEnf.setLocationRelativeTo(null);
+                    menuEnf.setVisible(true);
+                    javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+                    break;
 
                 default:
-                javax.swing.JOptionPane.showMessageDialog(this, "Rol no reconocido en el sistema.");
-                break;
+                    javax.swing.JOptionPane.showMessageDialog(this, "Rol no reconocido en el sistema: " + rol);
+                    break;
             }
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

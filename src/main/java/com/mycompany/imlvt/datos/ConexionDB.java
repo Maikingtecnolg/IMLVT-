@@ -9,7 +9,7 @@ public class ConexionDB {
  
     private static final String URL = "jdbc:mysql://localhost:3306/imlvt_bd?useSSL=false&serverTimezone=UTC";
     private static final String USUARIO = "root";
-    private static final String PASSWORD = ""; 
+    private static final String PASSWORD = "1234"; 
 
     public static Connection obtenerConexion() {
         Connection conexion = null;
